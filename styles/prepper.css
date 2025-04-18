@@ -1,0 +1,284 @@
+/* PF2e Spell Lists Module Styles */
+
+.pf2e-prepper {
+  font-family: var(--font-primary);
+  display: flex;
+  height: 100%;
+}
+
+
+
+/* Tabs Navigation */
+.pf2e-prepper .prepper-tabs {
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid #782e22;
+  width: 200px;
+  height: 100%;
+  overflow-y: auto;
+  background: rgba(0, 0, 0, 0.05);
+  flex-shrink: 0;
+}
+
+.pf2e-prepper .prepper-tabs .item {
+  padding: 8px 16px;
+  margin: 4px 8px;
+  border-radius: 4px;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: background-color 0.2s;
+  cursor: pointer;
+  flex: 0 0 auto; /* Prevent flex stretching */
+}
+
+.pf2e-prepper .prepper-tabs .item:hover {
+  background-color: rgba(120, 46, 34, 0.1);
+}
+
+.pf2e-prepper .prepper-tabs .item.active {
+  background-color: #782e22;
+  color: white;
+  font-weight: bold;
+}
+
+/* Tab Content */
+.pf2e-prepper .prepper-tab-content {
+  flex-grow: 1;
+  padding: 16px;
+  height: 100%;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.pf2e-prepper .prepper-tab {
+  display: none;
+  height: 100%;
+  flex-direction: column;
+}
+
+.pf2e-prepper .prepper-tab.active {
+  display: flex;
+}
+
+/* List Info Section */
+.pf2e-prepper .prepper-list-info {
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pf2e-prepper .prepper-list-info h3 {
+  margin: 0;
+  color: #782e22;
+  font-size: 1.2em;
+}
+
+.pf2e-prepper .prepper-description {
+  color: #666;
+  font-style: italic;
+  margin-bottom: 8px;
+}
+
+.pf2e-prepper .prepper-list-metadata {
+  font-size: 0.9em;
+  color: #777;
+}
+
+/* Spell List Container */
+.pf2e-prepper .prepper-spell-list-container {
+  flex-grow: 1;
+  overflow-y: auto;
+  margin-bottom: 16px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.pf2e-prepper .prepper-spellcasting-entry {
+  margin-bottom: 16px;
+}
+
+.pf2e-prepper .prepper-spellcasting-entry h4 {
+  margin: 0 0 8px 0;
+  color: #5e0000; /* Match PF2e spellcasting tab color */
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 4px;
+  font-family: var(--serif);
+  font-weight: 700;
+}
+
+.pf2e-prepper .prepper-spell-level {
+  margin-bottom: 12px;
+}
+
+.pf2e-prepper .prepper-spell-level h5 {
+  margin: 0 0 4px 0;
+  color: #5e0000; /* Match PF2e spellcasting tab color */
+  font-size: 0.9em;
+  font-weight: 600;
+  font-family: var(--serif);
+}
+
+.pf2e-prepper .prepper-spell-list {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 16px;
+}
+
+.pf2e-prepper .prepper-spell-item {
+  padding: 4px 0;
+}
+
+.pf2e-prepper .prepper-spell-item.expended {
+  color: #999;
+  text-decoration: line-through;
+}
+
+.pf2e-prepper .prepper-expended-marker {
+  font-style: italic;
+  color: #999;
+  font-size: 0.9em;
+}
+
+.pf2e-prepper .prepper-no-spells-message {
+  text-align: center;
+  padding: 32px;
+  color: #666;
+}
+
+/* Action Buttons */
+.prepper-list-actions {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 10px; /* Optional: Adds space between the buttons */
+}
+
+.prepper-list-actions button {
+  width: 100%; /* Ensures buttons take full width of their grid cell */
+}
+
+/* Targeting specific buttons to place them in the correct grid cells */
+.prepper-list-actions .prepper-load-list-btn {
+  grid-column: span 5;
+}
+
+.prepper-list-actions .prepper-update-list-btn {
+  grid-column: span 5;
+}
+
+.prepper-list-actions .prepper-duplicate-list-btn {
+  grid-column: span 4;
+}
+
+.prepper-list-actions .prepper-rename-list-btn {
+  grid-column: span 4;
+}
+
+.prepper-list-actions .prepper-delete-list-btn {
+  grid-column: span 2;
+}
+
+
+.pf2e-prepper button {
+  background: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 6px 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: background-color 0.2s;
+  white-space: nowrap;
+}
+
+.pf2e-prepper button:hover {
+  background: #e0e0e0;
+}
+
+.pf2e-prepper button i {
+  margin-right: 6px;
+}
+
+.pf2e-prepper .prepper-reload-current-btn {
+  background: #f0f0f0;
+  margin-left: 8px;
+}
+
+.pf2e-prepper .prepper-load-list-btn,
+.pf2e-prepper .prepper-update-list-btn {
+  background: #782e22;
+  color: white;
+}
+
+.pf2e-prepper .prepper-load-list-btn:hover,
+.pf2e-prepper .prepper-update-list-btn:hover {
+  background: #632419;
+}
+
+.pf2e-prepper .prepper-delete-list-btn {
+  background: #f8d7da;
+  color: #721c24;
+  border-color: #f5c6cb;
+}
+
+.pf2e-prepper .prepper-delete-list-btn:hover {
+  background: #f1b0b7;
+}
+
+/* No Lists Message */
+.pf2e-prepper .prepper-no-lists-message {
+  text-align: center;
+  padding: 32px;
+  color: #666;
+}
+
+/* Character Sheet Button */
+.spell-lists-manager {
+  margin-left: 8px;
+  background: #782e22;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 4px 8px;
+  cursor: pointer;
+  font-size: 0.9em;
+}
+
+.spell-lists-manager:hover {
+  background: #632419;
+}
+
+.spell-lists-manager i {
+  margin-right: 4px;
+}
+
+/* Dialog Styles */
+.dialog .pf2e-prepper-dialog .form-group {
+  margin-bottom: 12px;
+}
+
+.dialog .pf2e-prepper-dialog label {
+  display: block;
+  margin-bottom: 4px;
+  font-weight: bold;
+}
+
+.dialog .pf2e-prepper-dialog input,
+.dialog .pf2e-prepper-dialog textarea {
+  width: 100%;
+  padding: 6px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.dialog .pf2e-prepper-dialog textarea {
+  min-height: 80px;
+}
+

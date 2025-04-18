@@ -1,0 +1,2363 @@
+{
+    "name": "Flexipierre",
+    "type": "character",
+    "ownership": {
+        "default": 1,
+        "JO2te57bCRbZS9jS": 3
+    },
+    "effects": [],
+    "id": "S0uNv3tvbV1cfVWf",
+    "img": "systems/pf2e/icons/default-icons/character.svg",
+    "items": [
+        {
+            "id": "MVDHMoKUysXAJZKj",
+            "img": "systems/pf2e/icons/classes/druid.webp",
+            "name": "Druid",
+            "system": {
+                "description": {
+                    "gm": "",
+                    "value": "<p><em>The power of nature is impossible to resist. It can bring ruin to the stoutest fortress in minutes, reducing even the mightiest works to rubble, burning them to ash, burying them beneath an avalanche of snow, or drowning them beneath the waves. It can provide endless bounty and breathtaking splendor to those who respect it—and an agonizing death to those who take it too lightly. You are one of those who hear nature's call. You stand in awe of the majesty of its power and give yourself over to its service.</em></p>\n<p>@UUID[Compendium.pf2e.journals.JournalEntry.kzxu2dI7tFxv6Ix6.JournalEntryPage.8ElntNAGahQka70r]{Druid}</p>"
+                },
+                "rules": [],
+                "slug": "druid",
+                "_migration": {
+                    "version": 0.935,
+                    "lastMigration": null,
+                    "previous": null
+                },
+                "traits": {
+                    "otherTags": [],
+                    "value": [],
+                    "rarity": "common"
+                },
+                "publication": {
+                    "title": "Pathfinder Player Core",
+                    "authors": "",
+                    "license": "ORC",
+                    "remaster": true
+                },
+                "keyAbility": {
+                    "value": [
+                        "wis"
+                    ]
+                },
+                "items": {
+                    "5zf6s": {
+                        "img": "icons/consumables/plants/leaf-hastate-glowing-green.webp",
+                        "level": 1,
+                        "name": "Anathema (Druid)",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.nfBn8QB6HVdzpTFV"
+                    },
+                    "6cq7c": {
+                        "img": "icons/equipment/chest/breastplate-quilted-brown.webp",
+                        "level": 13,
+                        "name": "Medium Armor Expertise",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.FCEp9jjxxgRJDJV3"
+                    },
+                    "LCR42": {
+                        "img": "icons/magic/symbols/symbol-lightning-bolt.webp",
+                        "level": 5,
+                        "name": "Reflex Expertise",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.TUOeATt52P43r5W0"
+                    },
+                    "ObylJ": {
+                        "img": "icons/magic/symbols/elements-air-earth-fire-water.webp",
+                        "level": 1,
+                        "name": "Druid Spellcasting",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.b8pnRxGuNzG0buuh"
+                    },
+                    "QkvgC": {
+                        "img": "icons/creatures/mammals/bull-horns-eyes-glowin-orange.webp",
+                        "level": 11,
+                        "name": "Wild Willpower",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.yqaRnXFjRnFWsWvY"
+                    },
+                    "XOa0H": {
+                        "img": "icons/creatures/eyes/human-single-blue.webp",
+                        "level": 3,
+                        "name": "Perception Expertise",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.JCqACxgrm5ixX0Jy"
+                    },
+                    "ZdbqS": {
+                        "img": "icons/magic/life/cross-explosion-burst-green.webp",
+                        "level": 3,
+                        "name": "Fortitude Expertise",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.F57Na5VxfBp56kke"
+                    },
+                    "bic0m": {
+                        "img": "icons/skills/trades/academics-book-study-purple.webp",
+                        "level": 15,
+                        "name": "Master Spellcaster",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.l1InYvhnQSz6Ucxc"
+                    },
+                    "g63pa": {
+                        "img": "icons/magic/symbols/question-stone-yellow.webp",
+                        "level": 1,
+                        "name": "Druidic Order",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.8STJEFVJISujgpMR"
+                    },
+                    "gPFcb": {
+                        "img": "icons/magic/symbols/runes-carved-stone-green.webp",
+                        "level": 1,
+                        "name": "Wildsong",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.RiAGlnnp4S21BAG3"
+                    },
+                    "ifwyc": {
+                        "img": "icons/sundries/books/book-open-purple.webp",
+                        "level": 19,
+                        "name": "Legendary Spellcaster",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Hfaa7TuLn3nE8lr3"
+                    },
+                    "ixkp9": {
+                        "img": "icons/equipment/shield/round-wooden-boss-gold-brown.webp",
+                        "level": 1,
+                        "name": "Shield Block",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.eZNCckLzbH3GyncH"
+                    },
+                    "jfaqa": {
+                        "img": "systems/pf2e/icons/features/classes/weapon-specialization.webp",
+                        "level": 13,
+                        "name": "Weapon Specialization",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.9EqIasqfI8YIM3Pt"
+                    },
+                    "mjeZi": {
+                        "img": "icons/creatures/amphibians/treefrog-leaf-green.webp",
+                        "level": 1,
+                        "name": "Voice of Nature",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.d5BFFHXFJYKs5LXr"
+                    },
+                    "ycbpi": {
+                        "img": "icons/sundries/books/book-backed-silver-gold.webp",
+                        "level": 7,
+                        "name": "Expert Spellcaster",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.cD3nSupdCvONuHiE"
+                    },
+                    "zird8": {
+                        "img": "icons/weapons/wands/wand-crook-yellow.webp",
+                        "level": 19,
+                        "name": "Primal Hierophant",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.nzgb43mQmLgaqDoQ"
+                    },
+                    "zsmsu": {
+                        "img": "icons/skills/melee/hand-grip-sword-red.webp",
+                        "level": 11,
+                        "name": "Weapon Expertise",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.9XLUh9iMepZesdmc"
+                    }
+                },
+                "hp": 8,
+                "trainedSkills": {
+                    "value": [
+                        "nature"
+                    ],
+                    "additional": 2
+                },
+                "perception": 1,
+                "savingThrows": {
+                    "fortitude": 1,
+                    "reflex": 1,
+                    "will": 2
+                },
+                "attacks": {
+                    "simple": 1,
+                    "martial": 0,
+                    "advanced": 0,
+                    "unarmed": 1,
+                    "other": {
+                        "name": "",
+                        "rank": 0
+                    }
+                },
+                "defenses": {
+                    "unarmored": 1,
+                    "light": 1,
+                    "medium": 1,
+                    "heavy": 0
+                },
+                "spellcasting": 1,
+                "ancestryFeatLevels": {
+                    "value": [
+                        1,
+                        5,
+                        9,
+                        13,
+                        17
+                    ]
+                },
+                "classFeatLevels": {
+                    "value": [
+                        2,
+                        4,
+                        6,
+                        8,
+                        10,
+                        12,
+                        14,
+                        16,
+                        18,
+                        20
+                    ]
+                },
+                "generalFeatLevels": {
+                    "value": [
+                        3,
+                        7,
+                        11,
+                        15,
+                        19
+                    ]
+                },
+                "skillFeatLevels": {
+                    "value": [
+                        2,
+                        4,
+                        6,
+                        8,
+                        10,
+                        12,
+                        14,
+                        16,
+                        18,
+                        20
+                    ]
+                },
+                "skillIncreaseLevels": {
+                    "value": [
+                        3,
+                        5,
+                        7,
+                        9,
+                        11,
+                        13,
+                        15,
+                        17,
+                        19
+                    ]
+                }
+            },
+            "type": "class",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classes.Item.7s57JDCaiYYCAdFx",
+                "duplicateSource": null,
+                "coreVersion": "12.331",
+                "systemId": "pf2e",
+                "systemVersion": "6.11.1",
+                "createdTime": 1744978193121,
+                "modifiedTime": 1744978193121,
+                "lastModifiedBy": "JO2te57bCRbZS9jS"
+            },
+            "effects": [],
+            "folder": null,
+            "sort": 0,
+            "ownership": {
+                "default": 0,
+                "JO2te57bCRbZS9jS": 3
+            },
+            "flags": {}
+        },
+        {
+            "img": "icons/magic/symbols/question-stone-yellow.webp",
+            "name": "Druidic Order",
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>Upon becoming a druid, you align yourself with a druidic order, which grants you a class feat, an order spell (see below), and an additional trained skill tied to your order While you'll always be a member of your initial order, it's not unheard of for a druid to request to study with other orders in search of greater understanding of the natural world, and PC druids are among the most likely to blend the powers of different orders.</p>\n<p>Order spells are a type of focus spell. It costs 1 Focus Point to cast a focus spell, and you start with a focus pool of 1 Focus Point. You refill your focus pool during your daily preparations, and you can regain 1 Focus Point by spending 10 minutes using the Refocus activity to commune with local nature spirits or otherwise tend to the wilderness in a way befitting your order.</p>\n<p>Focus spells are automatically heightened to half your level rounded up, much like cantrips. Focus spells don't require spell slots, and you can't cast them using spell slots. Certain feats give you more focus spells. The maximum Focus Points your focus pool can hold is equal to the number of focus spells you have, but can never be more than 3 points.</p>\n<p><strong>Order Skill</strong> You become trained in the listed skill. If you're already trained in that skill, you become trained in a different skill of your choice.</p>\n<p><strong>Druid Feat</strong> You gain this 1st-level druid feat.</p>\n<p><strong>Order Spell</strong> You automatically gain the listed order spell at 1st level.</p>\n<p><strong>Anathema</strong> Add this anathema to those for all druids.</p><hr /><p>@UUID[Compendium.pf2e.classfeatures.Item.POBvoXifa9HaejAg]{Animal Order}</p>\n<p>@UUID[Compendium.pf2e.classfeatures.Item.NdeFvIXdHwKYLiUj]{Flame Order}</p>\n<p>@UUID[Compendium.pf2e.classfeatures.Item.u4nlOzPj2WHkIj9l]{Leaf Order}</p>\n<p>@UUID[Compendium.pf2e.classfeatures.Item.fKTewWlYgFuhl4KA]{Stone Order}</p>\n<p>@UUID[Compendium.pf2e.classfeatures.Item.acqqlYmti8D9QJi0]{Storm Order}</p>\n<p>@UUID[Compendium.pf2e.classfeatures.Item.v0EjtiwdeMj8ykI0]{Untamed Order}</p>\n<p>@UUID[Compendium.pf2e.classfeatures.Item.FuUXyv2yBs7zRgqT]{Wave Order}</p>",
+                    "gm": ""
+                },
+                "level": {
+                    "value": 1
+                },
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core",
+                    "authors": ""
+                },
+                "rules": [
+                    {
+                        "adjustName": false,
+                        "choices": {
+                            "filter": [
+                                "item:tag:druid-order",
+                                {
+                                    "or": [
+                                        {
+                                            "and": [
+                                                "class:druid",
+                                                "item:tag:druid-order"
+                                            ]
+                                        },
+                                        {
+                                            "and": [
+                                                "item:tag:druid-order",
+                                                {
+                                                    "not": "item:tag:class-archetype"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        "flag": "druidicOrder",
+                        "key": "ChoiceSet",
+                        "prompt": "PF2E.SpecificRule.Druid.DruidicOrder.Prompt",
+                        "selection": "Compendium.pf2e.classfeatures.Item.Upf1LXtWNJ6eB5sm"
+                    },
+                    {
+                        "key": "GrantItem",
+                        "uuid": "{item|flags.pf2e.rulesSelections.druidicOrder}",
+                        "flag": "flexibleSpellPreparation"
+                    }
+                ],
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "druid"
+                    ],
+                    "otherTags": []
+                },
+                "slug": "druidic-order",
+                "_migration": {
+                    "version": 0.935,
+                    "previous": null
+                },
+                "onlyLevel1": false,
+                "maxTakable": 1,
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "location": "MVDHMoKUysXAJZKj"
+            },
+            "type": "feat",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classfeatures.Item.8STJEFVJISujgpMR",
+                "duplicateSource": null,
+                "coreVersion": "12.331",
+                "systemId": "pf2e",
+                "systemVersion": "6.11.1",
+                "createdTime": 1744978193121,
+                "modifiedTime": 1744978193121,
+                "lastModifiedBy": "JO2te57bCRbZS9jS"
+            },
+            "effects": [],
+            "folder": null,
+            "sort": 200,
+            "ownership": {
+                "default": 0,
+                "JO2te57bCRbZS9jS": 3
+            },
+            "flags": {
+                "pf2e": {
+                    "itemGrants": {
+                        "flexibleSpellPreparation": {
+                            "id": "ODAsWvYLkWxrfRsR",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "id": "HUMdMoPiwCAgPMJX"
+        },
+        {
+            "img": "icons/equipment/shield/round-wooden-boss-gold-brown.webp",
+            "name": "Shield Block",
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>You gain the @UUID[Compendium.pf2e.feats-srd.Item.jM72TjJ965jocBV8]{Shield Block} general feat, a reaction that lets you reduce damage with your shield.</p>",
+                    "gm": ""
+                },
+                "level": {
+                    "value": 1
+                },
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core",
+                    "authors": ""
+                },
+                "rules": [
+                    {
+                        "key": "GrantItem",
+                        "uuid": "Compendium.pf2e.feats-srd.Item.jM72TjJ965jocBV8",
+                        "flag": "shieldBlock"
+                    }
+                ],
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "champion",
+                        "druid",
+                        "exemplar",
+                        "fighter",
+                        "inventor"
+                    ],
+                    "otherTags": []
+                },
+                "slug": "shield-block",
+                "_migration": {
+                    "version": 0.935,
+                    "previous": null
+                },
+                "onlyLevel1": false,
+                "maxTakable": 1,
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "location": "MVDHMoKUysXAJZKj"
+            },
+            "type": "feat",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classfeatures.Item.eZNCckLzbH3GyncH",
+                "duplicateSource": null,
+                "coreVersion": "12.331",
+                "systemId": "pf2e",
+                "systemVersion": "6.11.1",
+                "createdTime": 1744978193121,
+                "modifiedTime": 1744978193121,
+                "lastModifiedBy": "JO2te57bCRbZS9jS"
+            },
+            "effects": [],
+            "folder": null,
+            "sort": 400,
+            "ownership": {
+                "default": 0,
+                "JO2te57bCRbZS9jS": 3
+            },
+            "flags": {
+                "pf2e": {
+                    "itemGrants": {
+                        "shieldBlock": {
+                            "id": "zHkmaasbBLKWAp7p",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "id": "hYWqnaP5Pbl7AYgU"
+        },
+        {
+            "img": "icons/creatures/amphibians/treefrog-leaf-green.webp",
+            "name": "Voice of Nature",
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>You gain your choice of the @UUID[Compendium.pf2e.feats-srd.Item.cg816q76S5otM7yD]{Animal Empathy} or @UUID[Compendium.pf2e.feats-srd.Item.ahyQpMVDIqhvXkQ4]{Plant Empathy} druid feat.</p>",
+                    "gm": ""
+                },
+                "level": {
+                    "value": 1
+                },
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core",
+                    "authors": ""
+                },
+                "rules": [
+                    {
+                        "adjustName": false,
+                        "choices": [
+                            {
+                                "value": "Compendium.pf2e.feats-srd.Item.cg816q76S5otM7yD"
+                            },
+                            {
+                                "value": "Compendium.pf2e.feats-srd.Item.ahyQpMVDIqhvXkQ4"
+                            }
+                        ],
+                        "flag": "feat",
+                        "key": "ChoiceSet",
+                        "prompt": "PF2E.SpecificRule.Prompt.LevelOneClassFeat",
+                        "selection": "Compendium.pf2e.feats-srd.Item.cg816q76S5otM7yD"
+                    },
+                    {
+                        "key": "GrantItem",
+                        "uuid": "{item|flags.pf2e.rulesSelections.feat}",
+                        "flag": "animalEmpathy"
+                    }
+                ],
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "druid"
+                    ],
+                    "otherTags": []
+                },
+                "slug": "voice-of-nature",
+                "_migration": {
+                    "version": 0.935,
+                    "previous": null
+                },
+                "onlyLevel1": false,
+                "maxTakable": 1,
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "location": "MVDHMoKUysXAJZKj"
+            },
+            "type": "feat",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classfeatures.Item.d5BFFHXFJYKs5LXr",
+                "duplicateSource": null,
+                "coreVersion": "12.331",
+                "systemId": "pf2e",
+                "systemVersion": "6.11.1",
+                "createdTime": 1744978193121,
+                "modifiedTime": 1744978193121,
+                "lastModifiedBy": "JO2te57bCRbZS9jS"
+            },
+            "effects": [],
+            "folder": null,
+            "sort": 500,
+            "ownership": {
+                "default": 0,
+                "JO2te57bCRbZS9jS": 3
+            },
+            "flags": {
+                "pf2e": {
+                    "itemGrants": {
+                        "animalEmpathy": {
+                            "id": "1rWrbkEXNjSPn1rD",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "id": "kahg6Ke39FkKnGGN"
+        },
+        {
+            "img": "icons/magic/unholy/hand-marked-pink.webp",
+            "name": "Flexible Spell Preparation",
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>This class feature alters your spellcasting class feature (such as Arcane Spellcasting for the wizard or Divine Spellcasting for the cleric). If you choose this class archetype, you must select @UUID[Compendium.pf2e.feats-srd.Item.CrS0iDwHmjKqvKti]{Flexible Spellcaster Dedication} as your 2nd-level class feat.</p><ul><li>You can cast fewer spells each day. Your number of spell slots per day don't advance from 2 to 3 spells at even levels.</li><li>Reduce the number of cantrips you gain from your class by 2. This archetype doesn't change the way you prepare cantrips.</li><li>During your daily preparations, you prepare a spell collection rather than preparing spells into each spell slot individually. The number of spells in your spell collection each day equals the total number of spell slots you get each day from your class spells. Select these spells from the same source as normal, such as from a spellbook for a wizard.</li><li>You can cast any of the spells in your collection by using a spell slot of an appropriate level. For instance, if you were level 1 and had @UUID[Compendium.pf2e.spells-srd.Item.TTwOKGqmZeKSyNMH]{Gentle Landing} and @UUID[Compendium.pf2e.spells-srd.Item.gKKqvLohtrSJj3BM]{Force Barrage} in your spell collection, you could cast <em>gentle landing</em> twice that day, <em>force barrage</em> twice, or each spell once.</li><li>Extra spell slots you gain that have additional restrictions, like the wizard's specialist school spells or the cleric's divine font spells, don't change due to this archetype, nor do such spells count toward the number of spells you place in your spell collection.</li></ul>",
+                    "gm": ""
+                },
+                "level": {
+                    "value": 1
+                },
+                "prerequisites": {
+                    "value": [
+                        {
+                            "value": "You must have a class, such as clerics, druids, witches, and wizards, that prepares spells in spell slots using the same number of prepared spells per day."
+                        }
+                    ]
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Secrets of Magic",
+                    "authors": ""
+                },
+                "rules": [
+                    {
+                        "adjustName": false,
+                        "choices": {
+                            "filter": [
+                                "item:tag:cleric-doctrine",
+                                {
+                                    "not": "item:tag:class-archetype"
+                                }
+                            ]
+                        },
+                        "flag": "doctrine",
+                        "key": "ChoiceSet",
+                        "predicate": [
+                            "class:cleric"
+                        ],
+                        "prompt": "PF2E.SpecificRule.Cleric.Doctrine.Prompt"
+                    },
+                    {
+                        "key": "GrantItem",
+                        "predicate": [
+                            "class:cleric"
+                        ],
+                        "uuid": "{item|flags.pf2e.rulesSelections.doctrine}"
+                    },
+                    {
+                        "adjustName": false,
+                        "choices": {
+                            "filter": [
+                                "item:tag:druid-order",
+                                {
+                                    "not": "item:tag:class-archetype"
+                                }
+                            ]
+                        },
+                        "flag": "druidicOrder",
+                        "key": "ChoiceSet",
+                        "predicate": [
+                            "class:druid"
+                        ],
+                        "prompt": "PF2E.SpecificRule.Druid.DruidicOrder.Prompt",
+                        "selection": "Compendium.pf2e.classfeatures.Item.acqqlYmti8D9QJi0"
+                    },
+                    {
+                        "key": "GrantItem",
+                        "predicate": [
+                            "class:druid"
+                        ],
+                        "uuid": "{item|flags.pf2e.rulesSelections.druidicOrder}",
+                        "flag": "stormOrder"
+                    },
+                    {
+                        "adjustName": false,
+                        "choices": {
+                            "filter": [
+                                "item:tag:witch-patron",
+                                {
+                                    "not": "item:tag:class-archetype"
+                                }
+                            ]
+                        },
+                        "flag": "patron",
+                        "key": "ChoiceSet",
+                        "predicate": [
+                            "class:witch"
+                        ],
+                        "prompt": "PF2E.SpecificRule.Witch.Patron.Prompt"
+                    },
+                    {
+                        "key": "GrantItem",
+                        "predicate": [
+                            "class:witch"
+                        ],
+                        "uuid": "{item|flags.pf2e.rulesSelections.patron}"
+                    },
+                    {
+                        "adjustName": false,
+                        "choices": {
+                            "filter": [
+                                "item:tag:wizard-arcane-school",
+                                {
+                                    "not": "item:tag:class-archetype"
+                                }
+                            ]
+                        },
+                        "flag": "arcaneSchool",
+                        "key": "ChoiceSet",
+                        "predicate": [
+                            "class:wizard"
+                        ],
+                        "prompt": "PF2E.SpecificRule.Wizard.ArcaneSchool.Prompt"
+                    },
+                    {
+                        "key": "GrantItem",
+                        "predicate": [
+                            "class:wizard"
+                        ],
+                        "uuid": "{item|flags.pf2e.rulesSelections.arcaneSchool}"
+                    },
+                    {
+                        "flag": "flexibleSpellcasterDedication",
+                        "key": "GrantItem",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "self:level",
+                                    2
+                                ]
+                            }
+                        ],
+                        "reevaluateOnUpdate": true,
+                        "uuid": "Compendium.pf2e.feats-srd.Item.CrS0iDwHmjKqvKti"
+                    }
+                ],
+                "traits": {
+                    "otherTags": [
+                        "class-archetype",
+                        "cleric-doctrine",
+                        "druid-order",
+                        "witch-patron",
+                        "wizard-arcane-school"
+                    ],
+                    "rarity": "common",
+                    "value": []
+                },
+                "slug": "flexible-spell-preparation",
+                "_migration": {
+                    "version": 0.935,
+                    "previous": null
+                },
+                "onlyLevel1": false,
+                "maxTakable": 1,
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "location": null
+            },
+            "type": "feat",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classfeatures.Item.Upf1LXtWNJ6eB5sm",
+                "duplicateSource": null,
+                "coreVersion": "12.331",
+                "systemId": "pf2e",
+                "systemVersion": "6.11.1",
+                "createdTime": 1744978193121,
+                "modifiedTime": 1744978193121,
+                "lastModifiedBy": "JO2te57bCRbZS9jS"
+            },
+            "effects": [],
+            "folder": null,
+            "sort": 0,
+            "ownership": {
+                "default": 0,
+                "JO2te57bCRbZS9jS": 3
+            },
+            "flags": {
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "HUMdMoPiwCAgPMJX",
+                        "onDelete": "cascade"
+                    },
+                    "itemGrants": {
+                        "stormOrder": {
+                            "id": "UURev0o23Zs2KsWY",
+                            "onDelete": "detach"
+                        },
+                        "flexibleSpellcasterDedication": {
+                            "id": "IGoEKDguylr4UVXC",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "id": "ODAsWvYLkWxrfRsR"
+        },
+        {
+            "img": "icons/magic/lightning/bolt-strike-clouds-blue.webp",
+            "name": "Storm Order",
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>Whether you were born under a tempest or survived a bolt of lightning from a clear blue sky, you now carry the fury of the storm in your heart, channeling thunder to terrifying destructive effect and riding the winds through the air.</p>\n<p><strong>Order Skill</strong> Acrobatics</p>\n<p><strong>Druid Feat</strong> @UUID[Compendium.pf2e.feats-srd.Item.UpEjRfQkCJCruAfb]{Storm Born}</p>\n<p><strong>Order Spell</strong> @UUID[Compendium.pf2e.spells-srd.Item.ho1jSoYKrHUNnM90]{Tempest Surge}</p>\n<p><strong>Anathema</strong> Pollute the air, allow those who cause major air pollution or climate shifts to go unpunished. (This doesn't force you to take action against merely potential environmental harm or to sacrifice yourself against an obviously superior foe.)</p>",
+                    "gm": ""
+                },
+                "level": {
+                    "value": 1
+                },
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core",
+                    "authors": ""
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "system.skills.acrobatics.rank",
+                        "predicate": [
+                            {
+                                "not": "feat:order-explorer:storm-order"
+                            }
+                        ],
+                        "value": 1
+                    },
+                    {
+                        "allowDuplicate": false,
+                        "key": "GrantItem",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "class:druid",
+                                    "feat:order-explorer:storm-order"
+                                ]
+                            }
+                        ],
+                        "uuid": "Compendium.pf2e.feats-srd.Item.UpEjRfQkCJCruAfb",
+                        "flag": "stormBorn"
+                    }
+                ],
+                "traits": {
+                    "otherTags": [
+                        "druid-order"
+                    ],
+                    "rarity": "common",
+                    "value": [
+                        "druid"
+                    ]
+                },
+                "slug": "storm-order",
+                "_migration": {
+                    "version": 0.935,
+                    "previous": null
+                },
+                "onlyLevel1": false,
+                "maxTakable": 1,
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "location": null
+            },
+            "type": "feat",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classfeatures.Item.acqqlYmti8D9QJi0",
+                "duplicateSource": null,
+                "coreVersion": "12.331",
+                "systemId": "pf2e",
+                "systemVersion": "6.11.1",
+                "createdTime": 1744978193121,
+                "modifiedTime": 1744978193121,
+                "lastModifiedBy": "JO2te57bCRbZS9jS"
+            },
+            "effects": [],
+            "folder": null,
+            "sort": 0,
+            "ownership": {
+                "default": 0,
+                "JO2te57bCRbZS9jS": 3
+            },
+            "flags": {
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "ODAsWvYLkWxrfRsR",
+                        "onDelete": "cascade"
+                    },
+                    "itemGrants": {
+                        "stormBorn": {
+                            "id": "iIQAL75mEJCwRdqA",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "id": "UURev0o23Zs2KsWY"
+        },
+        {
+            "folder": "RwvVvLlRKIYAd2Ot",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Storm Born",
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "class",
+                "description": {
+                    "value": "<p>You are at home out in the elements, reveling in the power of nature unleashed. You do not take circumstance penalties to ranged spell attacks or Perception checks caused by weather, and your targeted spells don't require a flat check to succeed against a target @UUID[Compendium.pf2e.conditionitems.Item.DmAIPqOBomZ7H95W]{Concealed} by weather (such as fog).</p>",
+                    "gm": ""
+                },
+                "level": {
+                    "value": 1
+                },
+                "prerequisites": {
+                    "value": [
+                        {
+                            "value": "storm order"
+                        }
+                    ]
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core",
+                    "authors": ""
+                },
+                "rules": [],
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "druid"
+                    ],
+                    "otherTags": []
+                },
+                "slug": "storm-born",
+                "_migration": {
+                    "version": 0.935,
+                    "previous": null
+                },
+                "onlyLevel1": false,
+                "maxTakable": 1,
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "location": null
+            },
+            "type": "feat",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.feats-srd.Item.UpEjRfQkCJCruAfb",
+                "duplicateSource": null,
+                "coreVersion": "12.331",
+                "systemId": "pf2e",
+                "systemVersion": "6.11.1",
+                "createdTime": 1744978193121,
+                "modifiedTime": 1744978193121,
+                "lastModifiedBy": "JO2te57bCRbZS9jS"
+            },
+            "effects": [],
+            "sort": 0,
+            "ownership": {
+                "default": 0,
+                "JO2te57bCRbZS9jS": 3
+            },
+            "flags": {
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "UURev0o23Zs2KsWY",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "id": "iIQAL75mEJCwRdqA"
+        },
+        {
+            "folder": "pmxAEPKe8GuDDzzk",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Flexible Spellcaster Dedication",
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "class",
+                "description": {
+                    "value": "<p>You now have four cantrips per day instead of three. At 4th level, you have five cantrips per day instead of four.</p>",
+                    "gm": ""
+                },
+                "level": {
+                    "value": 2
+                },
+                "location": "class-2",
+                "prerequisites": {
+                    "value": [
+                        {
+                            "value": "flexible spell preparation"
+                        }
+                    ]
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Secrets of Magic",
+                    "authors": ""
+                },
+                "rules": [],
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "archetype",
+                        "class",
+                        "dedication"
+                    ],
+                    "otherTags": []
+                },
+                "slug": "flexible-spellcaster-dedication",
+                "_migration": {
+                    "version": 0.935,
+                    "previous": null
+                },
+                "onlyLevel1": false,
+                "maxTakable": 1,
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                }
+            },
+            "type": "feat",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.feats-srd.Item.CrS0iDwHmjKqvKti",
+                "duplicateSource": null,
+                "coreVersion": "12.331",
+                "systemId": "pf2e",
+                "systemVersion": "6.11.1",
+                "createdTime": 1744978193121,
+                "modifiedTime": 1744978193121,
+                "lastModifiedBy": "JO2te57bCRbZS9jS"
+            },
+            "effects": [],
+            "sort": 0,
+            "ownership": {
+                "default": 0,
+                "JO2te57bCRbZS9jS": 3
+            },
+            "flags": {
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "ODAsWvYLkWxrfRsR",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "id": "IGoEKDguylr4UVXC"
+        },
+        {
+            "folder": "waujsnHrfCsPk0zO",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Shield Block",
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "general",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> While you have your shield raised, you would take physical damage (bludgeoning, piercing, or slashing) from an attack.</p>\n<hr />\n<p>You snap your shield in place to ward off a blow. Your shield prevents you from taking an amount of damage up to the shield's Hardness. You and the shield each take any remaining damage, possibly breaking or destroying the shield.</p>",
+                    "gm": ""
+                },
+                "level": {
+                    "value": 1
+                },
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core",
+                    "authors": ""
+                },
+                "rules": [],
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "general"
+                    ],
+                    "otherTags": []
+                },
+                "slug": "shield-block",
+                "_migration": {
+                    "version": 0.935,
+                    "previous": null
+                },
+                "onlyLevel1": false,
+                "maxTakable": 1,
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "location": null
+            },
+            "type": "feat",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.feats-srd.Item.jM72TjJ965jocBV8",
+                "duplicateSource": null,
+                "coreVersion": "12.331",
+                "systemId": "pf2e",
+                "systemVersion": "6.11.1",
+                "createdTime": 1744978193121,
+                "modifiedTime": 1744978193121,
+                "lastModifiedBy": "JO2te57bCRbZS9jS"
+            },
+            "effects": [],
+            "sort": 0,
+            "ownership": {
+                "default": 0,
+                "JO2te57bCRbZS9jS": 3
+            },
+            "flags": {
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "hYWqnaP5Pbl7AYgU",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "id": "zHkmaasbBLKWAp7p"
+        },
+        {
+            "folder": "RwvVvLlRKIYAd2Ot",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Animal Empathy",
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "class",
+                "description": {
+                    "value": "<p>You have a connection to the creatures of the natural world that allows you to communicate with them on a rudimentary level. You can ask questions of, receive answers from, and use the Diplomacy skill with animals. In most cases, wild animals will give you time to make your case.</p>",
+                    "gm": ""
+                },
+                "level": {
+                    "value": 1
+                },
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core",
+                    "authors": ""
+                },
+                "rules": [],
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "druid"
+                    ],
+                    "otherTags": []
+                },
+                "slug": "animal-empathy",
+                "_migration": {
+                    "version": 0.935,
+                    "previous": null
+                },
+                "onlyLevel1": false,
+                "maxTakable": 1,
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "location": null
+            },
+            "type": "feat",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.feats-srd.Item.cg816q76S5otM7yD",
+                "duplicateSource": null,
+                "coreVersion": "12.331",
+                "systemId": "pf2e",
+                "systemVersion": "6.11.1",
+                "createdTime": 1744978193121,
+                "modifiedTime": 1744978193121,
+                "lastModifiedBy": "JO2te57bCRbZS9jS"
+            },
+            "effects": [],
+            "sort": 0,
+            "ownership": {
+                "default": 0,
+                "JO2te57bCRbZS9jS": 3
+            },
+            "flags": {
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "kahg6Ke39FkKnGGN",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "id": "1rWrbkEXNjSPn1rD"
+        },
+        {
+            "img": "icons/consumables/plants/leaf-hastate-glowing-green.webp",
+            "name": "Anathema (Druid)",
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>As stewards of the natural order, druids find affronts to nature anathema. If you repeatedly perform these acts, you lose your magical abilities from the druid class, including your druid spellcasting and the benefits of your order. These abilities can be regained only if you demonstrate your repentance with an @UUID[Compendium.pf2e.spells-srd.Item.7Fd4lxozd11MQ55N]{Atone} ritual. The following acts are anathema to all druids.</p>\n<p><strong>Anathema</strong> despoil natural places, consume more natural resources than you require to live comfortably, teach the Wildsong to non-druids.</p>\n<p>Your choice of druidic order adds further anathema, as detailed in the order's entry.</p>",
+                    "gm": ""
+                },
+                "level": {
+                    "value": 1
+                },
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core",
+                    "authors": ""
+                },
+                "rules": [],
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "druid"
+                    ],
+                    "otherTags": []
+                },
+                "slug": "anathema-druid",
+                "_migration": {
+                    "version": 0.935,
+                    "previous": null
+                },
+                "onlyLevel1": false,
+                "maxTakable": 1,
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "location": "MVDHMoKUysXAJZKj"
+            },
+            "type": "feat",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classfeatures.Item.nfBn8QB6HVdzpTFV",
+                "duplicateSource": null,
+                "coreVersion": "12.331",
+                "systemId": "pf2e",
+                "systemVersion": "6.11.1",
+                "createdTime": 1744978193121,
+                "modifiedTime": 1744978193121,
+                "lastModifiedBy": "JO2te57bCRbZS9jS"
+            },
+            "effects": [],
+            "folder": null,
+            "sort": 0,
+            "ownership": {
+                "default": 0,
+                "JO2te57bCRbZS9jS": 3
+            },
+            "flags": {},
+            "id": "hVhjqnlnhTaLKGYy"
+        },
+        {
+            "img": "icons/magic/symbols/elements-air-earth-fire-water.webp",
+            "name": "Druid Spellcasting",
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>The power of the wild world flows through you. You are a spellcaster and can cast spells of the primal tradition using the @UUID[Compendium.pf2e.actionspf2e.Item.aBQ8ajvEBByv45yz]{Cast a Spell} activity. As a druid, your spellcasting incantations might be pleas to the environment around you or the invocation of ancient vows; your hands might sway like willows or curl into clawlike shapes as your gestures direct your magic. At 1st level, you can prepare two 1st-rank spells and five cantrips each morning from the common spells on the primal spell list, or from other primal spells to which you gain access and learn via Learn a Spell. Prepared spells remain available to you until you cast them or until you prepare your spells again. The number of spells you can prepare each day is called your spell slots.</p>\n<p>As you increase in level as a druid, the number of spells you can prepare each day increases, as does the highest rank of spell you can cast, as shown in the Druid Spells per Day table.</p>\n<p>Some of your spells require you to attempt a spell attack to see how effective they are, or have your enemies roll against your spell DC (typically by attempting a saving throw). Since your key attribute is Wisdom, your spell attack modifier and spell DC use your Wisdom modifier.</p>\n<h2>Heightening Spells</h2>\n<p>When you get spell slots of 2nd rank and higher, you can fill those slots with stronger versions of lower-rank spells. This increases the spell's rank, heightening it to match the spell slot. Many spells have specific improvements when they are heightened to certain ranks.</p>\n<h2>Cantrips</h2>\n<p>Some of your spells are cantrips. A cantrip is a special type of spell that doesn't use spell slots. You can cast a cantrip at will, any number of times per day. A cantrip is always automatically heightened to half your level rounded up—this is usually equal to the highest rank of druid spell slot you have. For example, as a 1st-level druid, your cantrips are 1st-rank spells, and a 5th-level druid's are 3rd rank.</p>",
+                    "gm": ""
+                },
+                "level": {
+                    "value": 1
+                },
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core",
+                    "authors": ""
+                },
+                "rules": [],
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "druid"
+                    ],
+                    "otherTags": []
+                },
+                "slug": "druid-spellcasting",
+                "_migration": {
+                    "version": 0.935,
+                    "previous": null
+                },
+                "onlyLevel1": false,
+                "maxTakable": 1,
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "location": "MVDHMoKUysXAJZKj"
+            },
+            "type": "feat",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classfeatures.Item.b8pnRxGuNzG0buuh",
+                "duplicateSource": null,
+                "coreVersion": "12.331",
+                "systemId": "pf2e",
+                "systemVersion": "6.11.1",
+                "createdTime": 1744978193121,
+                "modifiedTime": 1744978193121,
+                "lastModifiedBy": "JO2te57bCRbZS9jS"
+            },
+            "effects": [],
+            "folder": null,
+            "sort": 100,
+            "ownership": {
+                "default": 0,
+                "JO2te57bCRbZS9jS": 3
+            },
+            "flags": {},
+            "id": "W1E3FDdWr74ltij1"
+        },
+        {
+            "img": "icons/magic/symbols/runes-carved-stone-green.webp",
+            "name": "Wildsong",
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>You know the Wildsong, a secret language known only within druid orders, in addition to any languages you know through your ancestry. The Wildsong is a melodic and tonal language sounding more like animal calls than a spoken tongue, and its alphabet involves fractals and spirals, like the arrangement of a seashell's chambers, a snowflake's crystals, or a fern's fronds. Teaching the Wildsong to non-druids is anathema.</p>",
+                    "gm": ""
+                },
+                "level": {
+                    "value": 1
+                },
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core",
+                    "authors": ""
+                },
+                "rules": [],
+                "subfeatures": {
+                    "languages": {
+                        "granted": [
+                            "wildsong"
+                        ],
+                        "slots": 0
+                    },
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "druid"
+                    ],
+                    "otherTags": []
+                },
+                "slug": "wildsong",
+                "_migration": {
+                    "version": 0.935,
+                    "previous": null
+                },
+                "onlyLevel1": false,
+                "maxTakable": 1,
+                "location": "MVDHMoKUysXAJZKj"
+            },
+            "type": "feat",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classfeatures.Item.RiAGlnnp4S21BAG3",
+                "duplicateSource": null,
+                "coreVersion": "12.331",
+                "systemId": "pf2e",
+                "systemVersion": "6.11.1",
+                "createdTime": 1744978193121,
+                "modifiedTime": 1744978193121,
+                "lastModifiedBy": "JO2te57bCRbZS9jS"
+            },
+            "effects": [],
+            "folder": null,
+            "sort": 300,
+            "ownership": {
+                "default": 0,
+                "JO2te57bCRbZS9jS": 3
+            },
+            "flags": {},
+            "id": "Y9Zf2egoeMlZMWr0"
+        },
+        {
+            "name": "Primal Prepared Spells",
+            "type": "spellcastingEntry",
+            "system": {
+                "description": {
+                    "gm": "",
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "_migration": {
+                    "version": 0.935,
+                    "lastMigration": null
+                },
+                "traits": {
+                    "otherTags": []
+                },
+                "publication": {
+                    "title": "",
+                    "authors": "",
+                    "license": "OGL",
+                    "remaster": false
+                },
+                "ability": {
+                    "value": "wis"
+                },
+                "spelldc": {
+                    "value": 0,
+                    "dc": 0
+                },
+                "tradition": {
+                    "value": "primal"
+                },
+                "prepared": {
+                    "value": "prepared",
+                    "flexible": true
+                },
+                "showSlotlessLevels": {
+                    "value": true
+                },
+                "proficiency": {
+                    "value": 1,
+                    "slug": ""
+                },
+                "slots": {
+                    "slot0": {
+                        "prepared": [],
+                        "value": 0,
+                        "max": 0
+                    },
+                    "slot1": {
+                        "prepared": [],
+                        "value": 2,
+                        "max": 2
+                    },
+                    "slot2": {
+                        "prepared": [],
+                        "value": 2,
+                        "max": 2
+                    },
+                    "slot3": {
+                        "prepared": [],
+                        "value": 1,
+                        "max": 1
+                    },
+                    "slot4": {
+                        "prepared": [],
+                        "value": 0,
+                        "max": 0
+                    },
+                    "slot5": {
+                        "prepared": [],
+                        "value": 0,
+                        "max": 0
+                    },
+                    "slot6": {
+                        "prepared": [],
+                        "value": 0,
+                        "max": 0
+                    },
+                    "slot7": {
+                        "prepared": [],
+                        "value": 0,
+                        "max": 0
+                    },
+                    "slot8": {
+                        "prepared": [],
+                        "value": 0,
+                        "max": 0
+                    },
+                    "slot9": {
+                        "prepared": [],
+                        "value": 0,
+                        "max": 0
+                    },
+                    "slot10": {
+                        "prepared": [],
+                        "value": 0,
+                        "max": 0
+                    },
+                    "slot11": {
+                        "prepared": [],
+                        "value": 0,
+                        "max": 0
+                    }
+                },
+                "autoHeightenLevel": {
+                    "value": null
+                }
+            },
+            "id": "QWWZSn4R4BCnDIQM",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "effects": [],
+            "folder": null,
+            "sort": 0,
+            "ownership": {
+                "default": 0,
+                "JO2te57bCRbZS9jS": 3
+            },
+            "flags": {},
+            "_stats": {
+                "compendiumSource": null,
+                "duplicateSource": null,
+                "coreVersion": "12.331",
+                "systemId": "pf2e",
+                "systemVersion": "6.11.1",
+                "createdTime": 1744978244630,
+                "modifiedTime": 1744978297845,
+                "lastModifiedBy": "JO2te57bCRbZS9jS"
+            }
+        },
+        {
+            "id": "tIonH8VxLUBgK5O2",
+            "folder": "T8AzYUgNIAgTJ9Iz",
+            "img": "systems/pf2e/icons/spells/alarm.webp",
+            "name": "Alarm",
+            "system": {
+                "description": {
+                    "gm": "",
+                    "value": "<p>You ward an area to alert you when creatures enter without your permission. When you cast alarm, select a password. Whenever a Small or larger corporeal creature enters the spell's area without speaking the password, alarm sends your choice of a mental alert (in which case the spell gains the mental trait) or an audible alarm with the sound and volume of a hand bell (in which case the spell gains the auditory trait). Either option automatically awakens you, and the bell allows each creature in the area to attempt a @Check[perception|dc:15] check to wake up. A creature aware of the alarm must succeed at a Stealth check against the spell's DC or trigger the spell when moving into the area.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can specify a trigger for which types of creatures sound the alarm spell.</p>"
+                },
+                "rules": [],
+                "slug": "alarm",
+                "_migration": {
+                    "version": 0.935,
+                    "lastMigration": null,
+                    "previous": null
+                },
+                "traits": {
+                    "otherTags": [],
+                    "value": [
+                        "concentrate",
+                        "manipulate"
+                    ],
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "divine",
+                        "occult",
+                        "primal"
+                    ]
+                },
+                "publication": {
+                    "title": "Pathfinder Player Core",
+                    "authors": "",
+                    "license": "ORC",
+                    "remaster": true
+                },
+                "level": {
+                    "value": 1
+                },
+                "requirements": "",
+                "target": {
+                    "value": ""
+                },
+                "range": {
+                    "value": "touch"
+                },
+                "area": {
+                    "type": "burst",
+                    "value": 20
+                },
+                "time": {
+                    "value": "10 minutes"
+                },
+                "duration": {
+                    "value": "8 hours",
+                    "sustained": false
+                },
+                "damage": {},
+                "defense": null,
+                "cost": {
+                    "value": ""
+                },
+                "location": {
+                    "value": "QWWZSn4R4BCnDIQM",
+                    "signature": true
+                },
+                "counteraction": false
+            },
+            "type": "spell",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.4WAib3GichxLjp5p",
+                "duplicateSource": null,
+                "coreVersion": "12.331",
+                "systemId": "pf2e",
+                "systemVersion": "6.11.1",
+                "createdTime": 1744978254842,
+                "modifiedTime": 1744978340269,
+                "lastModifiedBy": "JO2te57bCRbZS9jS"
+            },
+            "effects": [],
+            "sort": 0,
+            "ownership": {
+                "default": 0,
+                "JO2te57bCRbZS9jS": 3
+            },
+            "flags": {}
+        },
+        {
+            "img": "icons/creatures/eyes/human-single-blue.webp",
+            "name": "Perception Expertise",
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>You remain alert to threats around you. Your proficiency rank for Perception increases to expert.</p>",
+                    "gm": ""
+                },
+                "level": {
+                    "value": 3
+                },
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": true,
+                    "title": "Pathfinder Rage of Elements",
+                    "authors": ""
+                },
+                "rules": [],
+                "subfeatures": {
+                    "proficiencies": {
+                        "perception": {
+                            "rank": 2,
+                            "attribute": null
+                        }
+                    },
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "alchemist",
+                        "animist",
+                        "champion",
+                        "cleric",
+                        "druid",
+                        "exemplar",
+                        "kineticist",
+                        "monk",
+                        "sorcerer",
+                        "witch",
+                        "wizard"
+                    ],
+                    "otherTags": []
+                },
+                "slug": "perception-expertise",
+                "_migration": {
+                    "version": 0.935,
+                    "previous": null
+                },
+                "onlyLevel1": false,
+                "maxTakable": 1,
+                "location": "MVDHMoKUysXAJZKj"
+            },
+            "type": "feat",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classfeatures.Item.JCqACxgrm5ixX0Jy",
+                "duplicateSource": null,
+                "coreVersion": "12.331",
+                "systemId": "pf2e",
+                "systemVersion": "6.11.1",
+                "createdTime": 1744978274789,
+                "modifiedTime": 1744978274789,
+                "lastModifiedBy": "JO2te57bCRbZS9jS"
+            },
+            "effects": [],
+            "folder": null,
+            "sort": 0,
+            "ownership": {
+                "default": 0,
+                "JO2te57bCRbZS9jS": 3
+            },
+            "flags": {},
+            "id": "B4FfacFHgSTZMIq0"
+        },
+        {
+            "img": "icons/magic/life/cross-explosion-burst-green.webp",
+            "name": "Fortitude Expertise",
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p><strong>Animist</strong> Spiritual energy reinforces your body, making you more resilient. Your proficiency rank for Fortitude saves increases to expert.</p>\n<p><strong>Bard, Investigator, Swashbuckler</strong> Your physique has grown hardy in your adventures. Your proficiency rank for Fortitude saves increases to expert.</p>\n<p><strong>Druid</strong> Adventures have made your physique more hardy. Your proficiency rank for Fortitude saves increases to expert.</p>",
+                    "gm": ""
+                },
+                "level": {
+                    "value": 3
+                },
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core",
+                    "authors": ""
+                },
+                "rules": [
+                    {
+                        "itemId": "{item|id}",
+                        "key": "ItemAlteration",
+                        "mode": "override",
+                        "property": "description",
+                        "value": [
+                            {
+                                "text": "PF2E.SpecificRule.ClassFeatures.FortitudeExpertise.{actor|class.slug}.Description"
+                            }
+                        ]
+                    },
+                    {
+                        "itemId": "{item|id}",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "property": "traits",
+                        "value": "{actor|class.slug}"
+                    }
+                ],
+                "subfeatures": {
+                    "proficiencies": {
+                        "fortitude": {
+                            "rank": 2,
+                            "attribute": null
+                        }
+                    },
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "animist",
+                        "bard",
+                        "druid",
+                        "investigator",
+                        "swashbuckler"
+                    ],
+                    "otherTags": []
+                },
+                "slug": "fortitude-expertise",
+                "_migration": {
+                    "version": 0.935,
+                    "previous": null
+                },
+                "onlyLevel1": false,
+                "maxTakable": 1,
+                "location": "MVDHMoKUysXAJZKj"
+            },
+            "type": "feat",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classfeatures.Item.F57Na5VxfBp56kke",
+                "duplicateSource": null,
+                "coreVersion": "12.331",
+                "systemId": "pf2e",
+                "systemVersion": "6.11.1",
+                "createdTime": 1744978274789,
+                "modifiedTime": 1744978274789,
+                "lastModifiedBy": "JO2te57bCRbZS9jS"
+            },
+            "effects": [],
+            "folder": null,
+            "sort": 0,
+            "ownership": {
+                "default": 0,
+                "JO2te57bCRbZS9jS": 3
+            },
+            "flags": {},
+            "id": "Pw1RgsfCIfpRAkgE"
+        },
+        {
+            "img": "icons/magic/symbols/symbol-lightning-bolt.webp",
+            "name": "Reflex Expertise",
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>You've developed a knack for dodging danger. Your proficiency rank for Reflex saves increases to expert.</p>",
+                    "gm": ""
+                },
+                "level": {
+                    "value": 5
+                },
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2",
+                    "authors": ""
+                },
+                "rules": [],
+                "subfeatures": {
+                    "proficiencies": {
+                        "reflex": {
+                            "rank": 2,
+                            "attribute": null
+                        }
+                    },
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "barbarian",
+                        "bard",
+                        "champion",
+                        "cleric",
+                        "druid",
+                        "sorcerer",
+                        "witch",
+                        "wizard"
+                    ],
+                    "otherTags": []
+                },
+                "slug": "reflex-expertise",
+                "_migration": {
+                    "version": 0.935,
+                    "previous": null
+                },
+                "onlyLevel1": false,
+                "maxTakable": 1,
+                "location": "MVDHMoKUysXAJZKj"
+            },
+            "type": "feat",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classfeatures.Item.TUOeATt52P43r5W0",
+                "duplicateSource": null,
+                "coreVersion": "12.331",
+                "systemId": "pf2e",
+                "systemVersion": "6.11.1",
+                "createdTime": 1744978274789,
+                "modifiedTime": 1744978274789,
+                "lastModifiedBy": "JO2te57bCRbZS9jS"
+            },
+            "effects": [],
+            "folder": null,
+            "sort": 0,
+            "ownership": {
+                "default": 0,
+                "JO2te57bCRbZS9jS": 3
+            },
+            "flags": {},
+            "id": "EUYlvzlPyBZWYEzY"
+        },
+        {
+            "id": "fNSukTeHDwtRv4XN",
+            "folder": "lPzcDrjGDFbzuF2r",
+            "img": "systems/pf2e/icons/spells/loose-times-arrow.webp",
+            "name": "Loose Time's Arrow",
+            "system": {
+                "description": {
+                    "gm": "",
+                    "value": "<p>You pluck the time stream like a bow-pull one string back, release, and watch a creature fly. All affected targets are @UUID[Compendium.pf2e.conditionitems.Item.nlCjDvLMf2EkV2dl]{Quickened}. They can use the extra action only to Step or Stride.</p>"
+                },
+                "rules": [],
+                "slug": "loose-times-arrow",
+                "_migration": {
+                    "version": 0.935,
+                    "lastMigration": null,
+                    "previous": null
+                },
+                "traits": {
+                    "otherTags": [],
+                    "value": [
+                        "concentrate",
+                        "manipulate"
+                    ],
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "occult",
+                        "primal"
+                    ]
+                },
+                "publication": {
+                    "title": "Pathfinder Dark Archive",
+                    "authors": "",
+                    "license": "OGL",
+                    "remaster": false
+                },
+                "level": {
+                    "value": 2
+                },
+                "requirements": "",
+                "target": {
+                    "value": "up to 6 creatures"
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "area": null,
+                "time": {
+                    "value": "2"
+                },
+                "duration": {
+                    "value": "until the end of your next turn",
+                    "sustained": false
+                },
+                "damage": {},
+                "defense": null,
+                "cost": {
+                    "value": ""
+                },
+                "location": {
+                    "value": "QWWZSn4R4BCnDIQM",
+                    "signature": true
+                },
+                "counteraction": false,
+                "heightening": {
+                    "damage": {},
+                    "interval": 1,
+                    "type": "interval"
+                }
+            },
+            "type": "spell",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.mLAYvbafVKfBgEhz",
+                "duplicateSource": null,
+                "coreVersion": "12.331",
+                "systemId": "pf2e",
+                "systemVersion": "6.11.1",
+                "createdTime": 1744978306049,
+                "modifiedTime": 1744978336321,
+                "lastModifiedBy": "JO2te57bCRbZS9jS"
+            },
+            "effects": [],
+            "sort": 0,
+            "ownership": {
+                "default": 0,
+                "JO2te57bCRbZS9jS": 3
+            },
+            "flags": {}
+        },
+        {
+            "id": "LwMKucF3R1VUswV3",
+            "folder": "T8AzYUgNIAgTJ9Iz",
+            "img": "systems/pf2e/icons/spells/shocking-grasp.webp",
+            "name": "Shocking Grasp",
+            "system": {
+                "description": {
+                    "gm": "",
+                    "value": "<p>You shroud your hands in a crackling field of lightning. Make a melee spell attack roll. On a hit, the target takes 2d12 electricity damage. If the target is wearing metal armor or is made of metal, you gain a +1 circumstance bonus to your attack roll with shocking grasp, and the target also takes @Damage[(1d4+((@item.level)-1))[persistent,electricity]] damage on a hit. On a critical hit, double the initial damage, but not the persistent damage.</p><hr /><p><strong>Heightened (+1)</strong> The damage increases by 1d12, and the persistent electricity damage increases by 1.</p>"
+                },
+                "rules": [],
+                "slug": "shocking-grasp",
+                "_migration": {
+                    "version": 0.935,
+                    "lastMigration": null,
+                    "previous": null
+                },
+                "traits": {
+                    "otherTags": [],
+                    "value": [
+                        "attack",
+                        "concentrate",
+                        "electricity",
+                        "manipulate"
+                    ],
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "primal"
+                    ]
+                },
+                "publication": {
+                    "title": "Pathfinder Core Rulebook",
+                    "authors": "",
+                    "license": "OGL",
+                    "remaster": false
+                },
+                "level": {
+                    "value": 1
+                },
+                "requirements": "",
+                "target": {
+                    "value": "1 creature"
+                },
+                "range": {
+                    "value": "touch"
+                },
+                "area": null,
+                "time": {
+                    "value": "2"
+                },
+                "duration": {
+                    "value": "",
+                    "sustained": false
+                },
+                "damage": {
+                    "0": {
+                        "applyMod": false,
+                        "category": null,
+                        "formula": "2d12",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "electricity"
+                    }
+                },
+                "defense": null,
+                "cost": {
+                    "value": ""
+                },
+                "location": {
+                    "value": "QWWZSn4R4BCnDIQM",
+                    "signature": true
+                },
+                "counteraction": false,
+                "heightening": {
+                    "damage": {
+                        "0": "1d12"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                }
+            },
+            "type": "spell",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.r3NeUnsgt9mS03Sn",
+                "duplicateSource": null,
+                "coreVersion": "12.331",
+                "systemId": "pf2e",
+                "systemVersion": "6.11.1",
+                "createdTime": 1744978312057,
+                "modifiedTime": 1744978319400,
+                "lastModifiedBy": "JO2te57bCRbZS9jS"
+            },
+            "effects": [],
+            "sort": 0,
+            "ownership": {
+                "default": 0,
+                "JO2te57bCRbZS9jS": 3
+            },
+            "flags": {}
+        },
+        {
+            "id": "Tth1MBSPsSvLNpGq",
+            "folder": "T8AzYUgNIAgTJ9Iz",
+            "img": "systems/pf2e/icons/spells/shillelagh.webp",
+            "name": "Shillelagh",
+            "system": {
+                "description": {
+                    "gm": "",
+                    "value": "<p>The target grows vines and leaves, brimming with primal energy. The target becomes a <em>+1 striking weapon</em> while in your hands, gaining a +1 item bonus to attack rolls and increasing the number of weapon damage dice to two. Additionally, as long as you are on your home plane, attacks you make with the target against aberrations, extraplanar creatures, and undead increase the number of weapon damage dice to three.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.deG1dtfuQph03Kkg]{Spell Effect: Shillelagh}</p>"
+                },
+                "rules": [],
+                "slug": "shillelagh",
+                "_migration": {
+                    "version": 0.935,
+                    "lastMigration": null,
+                    "previous": null
+                },
+                "traits": {
+                    "otherTags": [],
+                    "value": [
+                        "concentrate",
+                        "manipulate",
+                        "plant"
+                    ],
+                    "rarity": "common",
+                    "traditions": [
+                        "primal"
+                    ]
+                },
+                "publication": {
+                    "title": "Pathfinder Core Rulebook",
+                    "authors": "",
+                    "license": "OGL",
+                    "remaster": false
+                },
+                "level": {
+                    "value": 1
+                },
+                "requirements": "",
+                "target": {
+                    "value": "1 club or staff you hold"
+                },
+                "range": {
+                    "value": "touch"
+                },
+                "area": null,
+                "time": {
+                    "value": "2"
+                },
+                "duration": {
+                    "value": "1 minute",
+                    "sustained": false
+                },
+                "damage": {},
+                "defense": null,
+                "cost": {
+                    "value": ""
+                },
+                "location": {
+                    "value": "QWWZSn4R4BCnDIQM",
+                    "signature": false
+                },
+                "counteraction": false
+            },
+            "type": "spell",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.s3abwDbTV43pGFFW",
+                "duplicateSource": null,
+                "coreVersion": "12.331",
+                "systemId": "pf2e",
+                "systemVersion": "6.11.1",
+                "createdTime": 1744978317047,
+                "modifiedTime": 1744978339782,
+                "lastModifiedBy": "JO2te57bCRbZS9jS"
+            },
+            "effects": [],
+            "sort": 0,
+            "ownership": {
+                "default": 0,
+                "JO2te57bCRbZS9jS": 3
+            },
+            "flags": {}
+        },
+        {
+            "id": "1IEFT38Vu9nTRCow",
+            "folder": "lPzcDrjGDFbzuF2r",
+            "img": "icons/magic/fire/projectile-fireball-embers-yellow.webp",
+            "name": "Flame Wisp",
+            "system": {
+                "description": {
+                    "gm": "",
+                    "value": "<p>Three faintly glowing wisps of fire float around your head. Each time you hit a creature with a Strike, one of the wisps goes hurtling towards that creature, dealing 1d4 fire damage. If you Cast a Spell with the fire trait while you have fewer than three wisps, a new wisp appears.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.ei9MIyZbIaP4AZmh]{Spell Effect: Flame Wisp}</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The damage increases by 1d4.</p>"
+                },
+                "rules": [],
+                "slug": "flame-wisp",
+                "_migration": {
+                    "version": 0.935,
+                    "lastMigration": null,
+                    "previous": null
+                },
+                "traits": {
+                    "otherTags": [],
+                    "value": [
+                        "concentrate",
+                        "fire",
+                        "manipulate"
+                    ],
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "primal"
+                    ]
+                },
+                "publication": {
+                    "title": "Pathfinder Secrets of Magic",
+                    "authors": "",
+                    "license": "OGL",
+                    "remaster": false
+                },
+                "level": {
+                    "value": 2
+                },
+                "requirements": "",
+                "target": {
+                    "value": ""
+                },
+                "range": {
+                    "value": ""
+                },
+                "area": null,
+                "time": {
+                    "value": "2"
+                },
+                "duration": {
+                    "value": "1 minute",
+                    "sustained": false
+                },
+                "damage": {},
+                "defense": null,
+                "cost": {
+                    "value": ""
+                },
+                "location": {
+                    "value": "QWWZSn4R4BCnDIQM",
+                    "signature": true
+                },
+                "counteraction": false,
+                "heightening": {
+                    "damage": {
+                        "0": "1d4"
+                    },
+                    "interval": 2,
+                    "type": "interval"
+                }
+            },
+            "type": "spell",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.3q9tBMWsWQKlXPPJ",
+                "duplicateSource": null,
+                "coreVersion": "12.331",
+                "systemId": "pf2e",
+                "systemVersion": "6.11.1",
+                "createdTime": 1744978323610,
+                "modifiedTime": 1744978338668,
+                "lastModifiedBy": "JO2te57bCRbZS9jS"
+            },
+            "effects": [],
+            "sort": 0,
+            "ownership": {
+                "default": 0,
+                "JO2te57bCRbZS9jS": 3
+            },
+            "flags": {}
+        },
+        {
+            "id": "jJLw546QWLr90C3L",
+            "folder": "4fJHnYFqH0VjZXPv",
+            "img": "systems/pf2e/icons/spells/safe-passage.webp",
+            "name": "Safe Passage",
+            "system": {
+                "description": {
+                    "gm": "",
+                    "value": "<p><strong>Area</strong> 10-foot-wide, 10-foot-tall, 60-foot-long section of terrain</p><hr /><p>You make passage through the area safe for a brief amount of time. Anyone passing through the area gains the following benefits against harmful effects of the terrain and environment, including environmental damage, hazardous terrain, and hazards in the area. The spell grants a +2 status bonus to AC and saves against such effects, and resistance 5 to all damage from such effects. Furthermore, the spell prevents anything in the area that's prone to collapse, such as a rickety bridge or an unstable ceiling, from collapsing, except under extreme strain that would collapse a normal structure of its type.</p>\n<p><em>Safe passage</em> protects only against harm, not inconvenience, and it doesn't reduce difficult terrain, remove the @UUID[Compendium.pf2e.conditionitems.Item.DmAIPqOBomZ7H95W]{Concealed} condition caused by precipitation, or the like, nor does it protect against creatures within the spell's area.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.5blVLpIH65hvFJpn]{Spell Effect: Safe Passage}</p><hr /><p><strong>Heightened (5th)</strong> The granted resistance increases to 10, and the area can be 120 feet long.</p>\n<p><strong>Heightened (8th)</strong> The granted resistance increases to 15, and the area can be 500 feet long.</p>"
+                },
+                "rules": [],
+                "slug": "safe-passage",
+                "_migration": {
+                    "version": 0.935,
+                    "lastMigration": null,
+                    "previous": null
+                },
+                "traits": {
+                    "otherTags": [],
+                    "value": [
+                        "concentrate",
+                        "manipulate"
+                    ],
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "divine",
+                        "primal"
+                    ]
+                },
+                "publication": {
+                    "title": "Pathfinder Player Core",
+                    "authors": "",
+                    "license": "ORC",
+                    "remaster": true
+                },
+                "level": {
+                    "value": 3
+                },
+                "requirements": "",
+                "target": {
+                    "value": ""
+                },
+                "range": {
+                    "value": "touch"
+                },
+                "area": null,
+                "time": {
+                    "value": "3"
+                },
+                "duration": {
+                    "value": "1 minute",
+                    "sustained": true
+                },
+                "damage": {},
+                "defense": null,
+                "cost": {
+                    "value": ""
+                },
+                "location": {
+                    "value": "QWWZSn4R4BCnDIQM",
+                    "signature": true
+                },
+                "counteraction": false
+            },
+            "type": "spell",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.IFuEzfmmWyNwVbhY",
+                "duplicateSource": null,
+                "coreVersion": "12.331",
+                "systemId": "pf2e",
+                "systemVersion": "6.11.1",
+                "createdTime": 1744978333450,
+                "modifiedTime": 1744978335021,
+                "lastModifiedBy": "JO2te57bCRbZS9jS"
+            },
+            "effects": [],
+            "sort": 0,
+            "ownership": {
+                "default": 0,
+                "JO2te57bCRbZS9jS": 3
+            },
+            "flags": {}
+        }
+    ],
+    "folder": null,
+    "sort": 0,
+    "flags": {},
+    "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.331",
+        "systemId": "pf2e",
+        "systemVersion": "6.11.1",
+        "createdTime": 1744978126202,
+        "modifiedTime": 1744978274826,
+        "lastModifiedBy": "JO2te57bCRbZS9jS"
+    }
+}

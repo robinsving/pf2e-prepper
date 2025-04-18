@@ -1,0 +1,118 @@
+<div class="pf2e-prepper">
+  <div class="prepper-tabs">
+    <a class="item" data-tab="current">{{localize "SPELLLIST.CurrentList"}}</a>
+    {{#each spellLists as |list|}}
+      <a class="item {{#if (eq list.id ../activeListId)}}active{{/if}}" data-tab="{{list.id}}">{{list.name}}</a>
+    {{/each}}
+  </div>
+
+  <div class="prepper-tab-content">
+    <div class="tab" data-tab="current">
+      <div class="prepper-list-info">
+        <h3>{{localize "SPELLLIST.CurrentList"}}</h3>
+        <button class="prepper-reload-current-btn">
+          <i class="fas fa-sync"></i> {{localize "SPELLLIST.Reload"}}
+        </button>
+      </div>
+      
+      <div class="prepper-spell-list-container">
+        {{#if currentSpells.length}}
+          {{#each currentSpells as |entry|}}
+            <div class="prepper-spellcasting-entry">
+              <h4>{{entry.name}}</h4>
+              {{#each entry.levels as |level|}}
+                <div class="prepper-spell-level">
+                  <h5>{{localize "SPELLLIST.Level"}} {{level.level}}</h5>
+                  <ul class="spell-list">
+                    {{#each level.spells as |spell|}}
+                      <li class="spell-item {{#if spell.expended}}expended{{/if}}">
+                        {{spell.name}}
+                        {{#if spell.expended}}
+                          <span class="expended-marker">({{localize "SPELLLIST.Expended"}})</span>
+                        {{/if}}
+                      </li>
+                    {{/each}}
+                  </ul>
+                </div>
+              {{/each}}
+            </div>
+          {{/each}}
+        {{else}}
+          <p class="no-spells-message">{{localize "SPELLLIST.NoSpells"}}</p>
+        {{/if}}
+      </div>
+      
+      <div class="prepper-list-actions">
+        <button class="prepper-new-list-btn">
+          <i class="fas fa-plus"></i> {{localize "SPELLLIST.New"}}
+        </button>
+      </div>
+    </div>
+
+    {{#each spellLists as |list|}}
+      <div class="tab" data-tab="{{list.id}}">
+        <div class="prepper-list-info">
+          <h3>{{list.name}}</h3>
+          {{#if list.description}}
+            <p class="description">{{list.description}}</p>
+          {{/if}}
+          <div class="prepper-list-metadata">
+            <span class="last-used">
+              {{#if list.lastUsed}}
+                {{localize "SPELLLIST.LastUsed"}}: {{formatDate list.lastUsed}}
+              {{/if}}
+            </span>
+          </div>
+        </div>
+        
+        <div class="prepper-spell-list-container">
+          {{#each list.displayEntries as |entry|}}
+            <div class="prepper-spellcasting-entry">
+              <h4>{{entry.name}}</h4>
+              {{#each entry.levels as |level|}}
+                <div class="prepper-spell-level">
+                  <h5>{{localize "SPELLLIST.Level"}} {{level.level}}</h5>
+                  <ul class="spell-list">
+                    {{#each level.spells as |spell|}}
+                      <li class="spell-item {{#if spell.expended}}expended{{/if}}">
+                        {{spell.name}}
+                        {{#if spell.expended}}
+                          <span class="expended-marker">({{localize "SPELLLIST.Expended"}})</span>
+                        {{/if}}
+                      </li>
+                    {{/each}}
+                  </ul>
+                </div>
+              {{/each}}
+            </div>
+          {{/each}}
+        </div>
+        
+        <div class="prepper-list-actions">
+          <button class="prepper-load-list-btn" data-list-id="{{list.id}}">
+            <i class="fas fa-book-open"></i> {{localize "SPELLLIST.Load"}}
+          </button>
+          <button class="prepper-update-list-btn" data-list-id="{{list.id}}">
+            <i class="fas fa-sync-alt"></i> {{localize "SPELLLIST.Update"}}
+          </button>
+          <button class="prepper-duplicate-list-btn" data-list-id="{{list.id}}">
+            <i class="fas fa-copy"></i> {{localize "SPELLLIST.Duplicate"}}
+          </button>
+          <button class="prepper-rename-list-btn" data-list-id="{{list.id}}">
+            <i class="fas fa-edit"></i> {{localize "SPELLLIST.Rename"}}
+          </button>
+          <button class="prepper-delete-list-btn" data-list-id="{{list.id}}">
+            <i class="fas fa-trash"></i> {{localize "SPELLLIST.Delete"}}
+          </button>
+        </div>
+      </div>
+    {{/each}}
+
+    {{#unless hasLists}}
+      <div class="prepper-no-lists-message">
+        <p>{{localize "SPELLLIST.NoLists"}}</p>
+        <p>{{localize "SPELLLIST.CreateFirstList"}}</p>
+      </div>
+    {{/unless}}
+  </div>
+</div>

@@ -11,10 +11,10 @@ export default defineConfig({
         sourcemap: true,
         rollupOptions: {
             input: {
-                control: "./module/control.js"
+                control: "./prepper/prepper.js"
             },
             output: {
-                entryFileNames: 'module/entry-[name].js',
+                entryFileNames: 'prepper/entry-[name].js',
                 format: "es",
             },
         },
@@ -34,10 +34,12 @@ export default defineConfig({
         // Vitest configuration options
         include: ['**/*.{test,spec}.?(c|m)[jt]s?(x)'],
         exclude: ['**/node_modules/**', '**/dist/**'],
+        silent: false, // Allow console logs to be printed
         globals: true,
+        setupFiles: "./vitest.setup.js", // Path to your setup file
         coverage: {
           provider: 'v8',
-          reporter: ['text', 'json', 'html'],
+          reporter: ['text', 'json'],
         },
       },
 });

@@ -25,7 +25,7 @@ jobs:
 
     # create a zip file with all files required by the module to add to the release
     - name: Zip Files
-      run: zip -r ./pf2e-flexible-loadout-release.zip ./dist/*
+      run: zip -r ./pf2e-prepper-release.zip ./dist/*
 
     # Get the version from 'module.json'
     - name: Extract version from module.json
@@ -43,7 +43,7 @@ jobs:
         files: 'module.json'
       env:
         manifest: https://github.com/${{github.repository}}/releases/latest/download/module.json
-        download: https://github.com/${{github.repository}}/releases/latest/download/pf2e-flexible-loadout-release.zip
+        download: https://github.com/${{github.repository}}/releases/latest/download/pf2e-prepper-release.zip
 
     # Update the 'latest' release
     - name: Create Release
@@ -56,7 +56,7 @@ jobs:
         draft: false
         prerelease: false
         token: ${{ secrets.GITHUB_TOKEN }}
-        artifacts: './module.json, ./pf2e-flexible-loadout-release.zip'
+        artifacts: './module.json, ./pf2e-prepper-release.zip'
         tag: latest
 
     #Substitute the Manifest and Download URLs in the module.json
@@ -67,7 +67,7 @@ jobs:
         files: 'module.json'
       env:
         manifest: https://github.com/${{github.repository}}/releases/latest/download/module.json
-        download: https://github.com/${{github.repository}}/releases/download/${{ env.VERSION }}/pf2e-flexible-loadout-release.zip
+        download: https://github.com/${{github.repository}}/releases/download/${{ env.VERSION }}/pf2e-prepper-release.zip
 
     # Create a release for this specific version
     - name: Create Release
@@ -79,5 +79,5 @@ jobs:
         draft: false
         prerelease: false
         token: ${{ secrets.GITHUB_TOKEN }}
-        artifacts: './module.json,./pf2e-flexible-loadout-release.zip'
+        artifacts: './module.json,./pf2e-prepper-release.zip'
         tag: ${{ env.VERSION }}

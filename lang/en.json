@@ -1,22 +1,33 @@
 {
-    "pf2e-flexible-loadout": {
-        "settings": {
-            "debug": {
-                "name": "Print debug to console log",
-                "hint": ""
-            }
-        },
-        "script": {
-            "name": "PF2E Flexible Loadout",
-            "title": "Flexible Loadout",
-            "close_button": "Close",
-            "results_title": "Results",
-            "actor": "Actor",
-            "item_type": "Type",
-            "item_name": "Name",
-            "changed_property": "Changed Property",
-            "origin_item": "Origin Item",
-            "actor_item": "Actor's Item"
-        }
+    "SPELLLIST": {
+      "Title": "Spell Lists",
+      "Save": "Save",
+      "Load": "Load",
+      "Reset": "Reset",
+      "New": "New List",
+      "Delete": "Delete",
+      "Rename": "Rename",
+      "Duplicate": "Duplicate",
+      "Update": "Update to Current",
+      "Reload": "Reload Current",
+      "ConfirmDelete": "Are you sure you want to delete this spell list?",
+      "NamePrompt": "Enter a name for this spell list:",
+      "DescriptionPrompt": "Enter a description (optional):",
+      "LoadConfirm": "Loading this list will replace your current prepared spells. Continue?",
+      "UpdateConfirm": "Updating this list will overwrite it with your current prepared spells. Continue?",
+      "SaveSuccess": "Spell list saved successfully.",
+      "LoadSuccess": "Spell list loaded successfully.",
+      "UpdateSuccess": "Spell list updated successfully.",
+      "DeleteSuccess": "Spell list deleted.",
+      "NoLists": "No saved spell lists.",
+      "NoSpells": "No prepared spells found.",
+      "CurrentList": "Current Preparation",
+      "ManageSpellLists": "Manage Spell Lists",
+      "Level": "Rank",
+      "Expended": "expended",
+      "LastUsed": "Last used",
+      "CreateFirstList": "Prepare spells and click 'New List' to create your first spell list.",
+      "UnknownSpell": "Unknown Spell"
     }
-}
+  }
+  

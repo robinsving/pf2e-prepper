@@ -1,0 +1,1021 @@
+{
+    "name": "Prepierre",
+    "type": "character",
+    "ownership": {
+        "default": 1,
+        "JO2te57bCRbZS9jS": 3
+    },
+    "effects": [],
+
+    "id": "86jHMaECBlNtYfTt",
+    "img": "systems/pf2e/icons/default-icons/character.svg",
+    "items": [
+        {
+            "id": "Lb8vhwFFTu7MZt7L",
+            "img": "systems/pf2e/icons/classes/witch.webp",
+            "name": "Witch",
+            "system": {
+                "description": {
+                    "gm": "",
+                    "value": "<p><em>You command powerful magic, not through study or devotion, but as an agent for an otherworldly patron that even you don't entirely understand. This entity might be a covert divinity, a powerful fey, an ancient spirit, or any other mighty supernatural being—but its nature is likely as much a mystery to you as it is to others. Through a special familiar, your patron grants you versatile spells and powerful hexes to use as you see fit, though you're never certain if you're merely serving your patron's larger plan.</em></p>\n<p><em>@UUID[Compendium.pf2e.journals.JournalEntry.kzxu2dI7tFxv6Ix6.JournalEntryPage.fYJruhQfzs4dj0mp]{Witch}</em></p>"
+                },
+                "rules": [],
+                "slug": "witch",
+                "_migration": {
+                    "version": 0.935,
+                    "lastMigration": null,
+                    "previous": null
+                },
+                "traits": {
+                    "otherTags": [],
+                    "value": [],
+                    "rarity": "common"
+                },
+                "publication": {
+                    "title": "Pathfinder Player Core",
+                    "authors": "",
+                    "license": "ORC",
+                    "remaster": true
+                },
+                "keyAbility": {
+                    "value": [
+                        "int"
+                    ]
+                },
+                "items": {
+                    "568ec": {
+                        "img": "systems/pf2e/icons/features/classes/weapon-expertise.webp",
+                        "level": 11,
+                        "name": "Weapon Expertise",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.9XLUh9iMepZesdmc"
+                    },
+                    "58uhg": {
+                        "img": "icons/skills/trades/academics-book-study-purple.webp",
+                        "level": 15,
+                        "name": "Master Spellcaster",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.l1InYvhnQSz6Ucxc"
+                    },
+                    "5a5an": {
+                        "img": "icons/sundries/books/book-open-purple.webp",
+                        "level": 19,
+                        "name": "Legendary Spellcaster",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Hfaa7TuLn3nE8lr3"
+                    },
+                    "5jVMU": {
+                        "img": "icons/creatures/eyes/human-single-blue.webp",
+                        "level": 11,
+                        "name": "Perception Expertise",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.JCqACxgrm5ixX0Jy"
+                    },
+                    "H4nN0": {
+                        "img": "icons/creatures/mammals/bull-horns-eyes-glowin-orange.webp",
+                        "level": 17,
+                        "name": "Will of the Pupil",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.FuVO8ksHI1B5ozVI"
+                    },
+                    "ac5cq": {
+                        "img": "icons/equipment/back/cloak-collared-pink-gold.webp",
+                        "level": 13,
+                        "name": "Defensive Robes",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.gU7epgcPSm0TD1UK"
+                    },
+                    "dmo5u": {
+                        "img": "systems/pf2e/icons/features/classes/weapon-specialization.webp",
+                        "level": 13,
+                        "name": "Weapon Specialization",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.9EqIasqfI8YIM3Pt"
+                    },
+                    "kQI3o": {
+                        "img": "icons/magic/symbols/symbol-lightning-bolt.webp",
+                        "level": 9,
+                        "name": "Reflex Expertise",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.TUOeATt52P43r5W0"
+                    },
+                    "q4i1v": {
+                        "img": "systems/pf2e/icons/features/classes/witch-spellcasting.webp",
+                        "level": 1,
+                        "name": "Witch Spellcasting",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.zT6QiTMxxj8JYoN9"
+                    },
+                    "rmucq": {
+                        "img": "systems/pf2e/icons/features/classes/familiar.webp",
+                        "level": 1,
+                        "name": "Familiar (Witch)",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.yksPhweBZYVCsE1A"
+                    },
+                    "sbys9": {
+                        "img": "systems/pf2e/icons/features/classes/hexes.webp",
+                        "level": 1,
+                        "name": "Hexes",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.9uLh5z2uPo6LDFRY"
+                    },
+                    "tasue": {
+                        "img": "icons/magic/symbols/question-stone-yellow.webp",
+                        "level": 1,
+                        "name": "Patron",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.KPtF29AaeX2sJW0K"
+                    },
+                    "vkt9a": {
+                        "img": "systems/pf2e/icons/features/classes/magical-fortitude.webp",
+                        "level": 5,
+                        "name": "Magical Fortitude",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.70jqXP2eS4tRZ0Ok"
+                    },
+                    "vq6ja": {
+                        "img": "icons/sundries/books/book-backed-silver-gold.webp",
+                        "level": 7,
+                        "name": "Expert Spellcaster",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.cD3nSupdCvONuHiE"
+                    },
+                    "x762n": {
+                        "img": "systems/pf2e/icons/features/classes/patrons-gift.webp",
+                        "level": 19,
+                        "name": "Patron's Gift",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.cDnFXfl3i5Z2l7JP"
+                    }
+                },
+                "hp": 6,
+                "trainedSkills": {
+                    "value": [],
+                    "additional": 3
+                },
+                "perception": 1,
+                "savingThrows": {
+                    "fortitude": 1,
+                    "reflex": 1,
+                    "will": 2
+                },
+                "attacks": {
+                    "simple": 1,
+                    "martial": 0,
+                    "advanced": 0,
+                    "unarmed": 1,
+                    "other": {
+                        "name": "",
+                        "rank": 0
+                    }
+                },
+                "defenses": {
+                    "unarmored": 1,
+                    "light": 0,
+                    "medium": 0,
+                    "heavy": 0
+                },
+                "spellcasting": 1,
+                "ancestryFeatLevels": {
+                    "value": [
+                        1,
+                        5,
+                        9,
+                        13,
+                        17
+                    ]
+                },
+                "classFeatLevels": {
+                    "value": [
+                        2,
+                        4,
+                        6,
+                        8,
+                        10,
+                        12,
+                        14,
+                        16,
+                        18,
+                        20
+                    ]
+                },
+                "generalFeatLevels": {
+                    "value": [
+                        3,
+                        7,
+                        11,
+                        15,
+                        19
+                    ]
+                },
+                "skillFeatLevels": {
+                    "value": [
+                        2,
+                        4,
+                        6,
+                        8,
+                        10,
+                        12,
+                        14,
+                        16,
+                        18,
+                        20
+                    ]
+                },
+                "skillIncreaseLevels": {
+                    "value": [
+                        3,
+                        5,
+                        7,
+                        9,
+                        11,
+                        13,
+                        15,
+                        17,
+                        19
+                    ]
+                }
+            },
+            "type": "class",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classes.Item.bYDXk9HUMKOuym9h",
+                "duplicateSource": null,
+                "coreVersion": "12.331",
+                "systemId": "pf2e",
+                "systemVersion": "6.11.1",
+                "createdTime": 1744975072213,
+                "modifiedTime": 1744975072213,
+                "lastModifiedBy": "JO2te57bCRbZS9jS"
+            },
+            "effects": [],
+            "folder": null,
+            "sort": 0,
+            "ownership": {
+                "default": 0,
+                "JO2te57bCRbZS9jS": 3
+            },
+            "flags": {}
+        },
+        {
+            "img": "systems/pf2e/icons/features/classes/familiar.webp",
+            "name": "Familiar (Witch)",
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>Your patron has sent you a familiar, a mystical creature that teaches you magic and facilitates your spells. This familiar follows the rules for familiars, though as it's a direct conduit between you and your patron, it's more powerful than typical familiars. Your familiar gains two additional familiar abilities: one of these is a unique ability based on your patron and is always selected, and the other is an additional familiar ability that can be selected daily as normal. Your familiar gains another extra ability at 6th, 12th, and 18th levels.</p>\n<p><strong>Spells:</strong> Your familiar is the source and repository of the spells your patron has bestowed upon you, and you must commune with your familiar to prepare your spells each day using your witch spellcasting. Your familiar starts off knowing 10 cantrips, five 1st-rank spells, and one additional spell determined by your patron's initial lesson. You choose these spells from the common spells of the tradition determined by your patron or from other spells of that tradition you gain access to. Each time you gain a level, your patron teaches your familiar two new spells of any rank for which you have spell slots, chosen from common spells of your tradition or others you gain access to. Feats can also grant your familiar additional spells.</p>\n<p><strong>Learning Spells:</strong> Your familiar can learn new spells independently of your patron. It can learn any spell on your tradition's spell list by physically consuming a written version of that spell over the course of 1 hour. This can be a scroll of that spell, or you can prepare a written version using the Learn a Spell exploration activity. You and your familiar can use the Learn a Spell activity to teach your familiar a spell from another witch's familiar. Both familiars must be present for the entirety of the activity, the spell must be on your spellcasting tradition's spell list, and you must pay the usual cost for that activity, typically in the form of an offering to the other familiar's patron. You can't prepare spells from another witch's familiar.</p>\n<p><strong>Undying:</strong> If your familiar dies, your patron replaces it during your next daily preparations. The new familiar might be a duplicate or reincarnation of your former familiar or a new entity altogether, but it knows the same spells your former familiar knew regardless. Your familiar's death doesn't affect any spells you have already prepared.</p>",
+                    "gm": ""
+                },
+                "level": {
+                    "value": 1
+                },
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core",
+                    "authors": ""
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "add",
+                        "path": "system.attributes.familiarAbilities.value",
+                        "predicate": [
+                            "class:witch"
+                        ],
+                        "value": "2 + min(3,floor(@actor.level / 6))"
+                    },
+                    {
+                        "key": "GrantItem",
+                        "uuid": "Compendium.pf2e.feats-srd.Item.6yPrvbSDaa8glLjn",
+                        "flag": "pet"
+                    }
+                ],
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "witch"
+                    ],
+                    "otherTags": []
+                },
+                "slug": "familiar-witch",
+                "_migration": {
+                    "version": 0.935,
+                    "previous": null
+                },
+                "onlyLevel1": false,
+                "maxTakable": 1,
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "location": "Lb8vhwFFTu7MZt7L"
+            },
+            "type": "feat",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classfeatures.Item.yksPhweBZYVCsE1A",
+                "duplicateSource": null,
+                "coreVersion": "12.331",
+                "systemId": "pf2e",
+                "systemVersion": "6.11.1",
+                "createdTime": 1744975072213,
+                "modifiedTime": 1744975072213,
+                "lastModifiedBy": "JO2te57bCRbZS9jS"
+            },
+            "effects": [],
+            "folder": null,
+            "sort": 100,
+            "ownership": {
+                "default": 0,
+                "JO2te57bCRbZS9jS": 3
+            },
+            "flags": {
+                "pf2e": {
+                    "itemGrants": {
+                        "pet": {
+                            "id": "qzYRJDsZd0a4zA3J",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "id": "G8gJ4O9d1FD6pWeQ"
+        },
+        {
+            "img": "icons/magic/symbols/question-stone-yellow.webp",
+            "name": "Patron",
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>You weren't born with the power to cast spells, nor have you spent years dedicated to worship, study, or uncovering mystical secrets. Your magic instead has been gifted to you by a potent being, one who knows that by empowering you so, you'll further the being's agenda in the world, whatever it may be. This entity is typically mysterious and distant, revealing little of their identity and motivations. They make their will known to you in abstract signs such as omens, dreams, or similar subtleties rather than words.</p>\n<p>Rather than interacting with you directly, your patron works through a familiar—a mystical creature that teaches you, serves as the conduit for your patron's magic, and maybe even keeps an eye on you to ensure you're furthering your patron's nebulous ends.</p>\n<p>At 1st level, choose your patron, which determines your spellcasting tradition and grants you the skill for that tradition of magic, your first witch's lesson and a unique familiar ability.</p>",
+                    "gm": ""
+                },
+                "level": {
+                    "value": 1
+                },
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core",
+                    "authors": ""
+                },
+                "rules": [
+                    {
+                        "adjustName": false,
+                        "choices": {
+                            "filter": [
+                                "item:tag:witch-patron",
+                                {
+                                    "or": [
+                                        {
+                                            "and": [
+                                                "class:witch",
+                                                "item:tag:witch-patron"
+                                            ]
+                                        },
+                                        {
+                                            "and": [
+                                                "item:tag:witch-patron",
+                                                {
+                                                    "not": "item:tag:class-archetype"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        "flag": "patron",
+                        "key": "ChoiceSet",
+                        "prompt": "PF2E.SpecificRule.Witch.Patron.Prompt",
+                        "selection": "Compendium.pf2e.classfeatures.Item.v2JQB6j3VIKWqPpQ"
+                    },
+                    {
+                        "key": "GrantItem",
+                        "uuid": "{item|flags.pf2e.rulesSelections.patron}",
+                        "flag": "choirPolitic"
+                    }
+                ],
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "witch"
+                    ],
+                    "otherTags": []
+                },
+                "slug": "patron",
+                "_migration": {
+                    "version": 0.935,
+                    "previous": null
+                },
+                "onlyLevel1": false,
+                "maxTakable": 1,
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "location": "Lb8vhwFFTu7MZt7L"
+            },
+            "type": "feat",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classfeatures.Item.KPtF29AaeX2sJW0K",
+                "duplicateSource": null,
+                "coreVersion": "12.331",
+                "systemId": "pf2e",
+                "systemVersion": "6.11.1",
+                "createdTime": 1744975072213,
+                "modifiedTime": 1744975072213,
+                "lastModifiedBy": "JO2te57bCRbZS9jS"
+            },
+            "effects": [],
+            "folder": null,
+            "sort": 300,
+            "ownership": {
+                "default": 0,
+                "JO2te57bCRbZS9jS": 3
+            },
+            "flags": {
+                "pf2e": {
+                    "itemGrants": {
+                        "choirPolitic": {
+                            "id": "Am2Ea05PM1nY35XW",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "id": "uj9lAIFsZN0cumSv"
+        },
+        {
+            "folder": "waujsnHrfCsPk0zO",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Pet",
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "general",
+                "description": {
+                    "value": "<p>You have a pet—a Tiny animal of a type you choose, such as a cat, bird, or rodent. It has the minion trait, meaning it gains 2 actions during your turn if you use the Command an Animal action to command it; this replaces the usual effects of @UUID[Compendium.pf2e.actionspf2e.Item.q9nbyIF0PEBqMtYe]{Command an Animal}, and you don't need to attempt a Nature check. A pet can't make Strikes.</p>\n<p><strong>Level</strong> Your pet's level is equal to yours.</p>\n<p><strong>Modifiers and AC</strong> Your pet's save modifiers and AC are equal to yours before applying circumstance or status bonuses or penalties. It uses 3 + your level as its modifier for Perception, Acrobatics, and Stealth, and just your level as its modifier for other skill checks. It doesn't have or use its own attribute modifiers and can never benefit from item bonuses.</p>\n<p><strong>Hit Points</strong> Your pet has 5 Hit Points per level.</p>\n<p><strong>Senses</strong> Your pet has low-light vision and can gain additional senses from pet abilities.</p>\n<p><strong>Speed</strong> Your pet has a Speed of 25 feet. You can choose to instead have an aquatic pet, which breathes in water instead of air and has the aquatic trait, no land Speed, and a swim Speed of 25 feet.</p>\n<p><strong>Pet Abilities</strong> When you gain your pet, choose two of the following abilities. If your pet is an animal that naturally has one of these abilities (for instance, an owl has a fly Speed), you must select that ability. Your pet can't be an animal that naturally has more pet abilities than the maximum. In some cases, the GM might add some familiar abilities to the pet abilities you can choose.</p>\n<ul>\n<li><strong>Amphibious</strong> It gains the amphibious trait, allowing it to breathe in both air and water, and has both a land Speed and a swim Speed, each equal to its highest land Speed or swim Speed.</li>\n<li><strong>Burrower</strong> It gains a burrow Speed of 5 feet, allowing it to dig Tiny holes.</li>\n<li><strong>Climber</strong> It gains a climb Speed of 25 feet.</li>\n<li><strong>Darkvision</strong> It gains darkvision.</li>\n<li><strong>Echolocation</strong> Your pet can use hearing as a precise sense within 20 feet.</li>\n<li><strong>Fast</strong> Movement Increase one of the pet's Speeds from 25 feet to 40 feet.</li>\n<li><strong>Flier</strong> It gains a fly Speed of 25 feet.</li>\n<li><strong>Manual Dexterity</strong> It can use up to two of its limbs as if they were hands to perform manipulate actions.</li>\n<li><strong>Scent</strong> Your pet can use scent as an imprecise sense within 30 feet</li>\n<li><strong>Tough</strong> Your pet's max HP increase by 2 per level.</li>\n</ul>\n<hr />\n<p><strong>Special</strong> You can gain a new pet by retraining this feat, releasing any previous pet you have. If you later gain a familiar or other companion that uses the Pet feat, you can immediately retrain this feat.</p>",
+                    "gm": ""
+                },
+                "level": {
+                    "value": 1
+                },
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core",
+                    "authors": ""
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "system.attributes.familiarAbilities.value",
+                        "priority": 19,
+                        "value": 2
+                    }
+                ],
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "general"
+                    ],
+                    "otherTags": []
+                },
+                "slug": "pet",
+                "_migration": {
+                    "version": 0.935,
+                    "previous": null
+                },
+                "onlyLevel1": false,
+                "maxTakable": 1,
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "location": null
+            },
+            "type": "feat",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.feats-srd.Item.6yPrvbSDaa8glLjn",
+                "duplicateSource": null,
+                "coreVersion": "12.331",
+                "systemId": "pf2e",
+                "systemVersion": "6.11.1",
+                "createdTime": 1744975072213,
+                "modifiedTime": 1744975072213,
+                "lastModifiedBy": "JO2te57bCRbZS9jS"
+            },
+            "effects": [],
+            "sort": 0,
+            "ownership": {
+                "default": 0,
+                "JO2te57bCRbZS9jS": 3
+            },
+            "flags": {
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "G8gJ4O9d1FD6pWeQ",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "id": "qzYRJDsZd0a4zA3J"
+        },
+        {
+            "img": "icons/skills/social/diplomacy-unity-alliance.webp",
+            "name": "Choir Politic",
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>When your patron speaks, it is a chorus of voices sounding as one. They first appeared to you in the faces of your neighbors in the middle of a town festival or council meeting, when the success of an endeavor hinged on everyone working together. With the strength of your patron behind you, you then rallied the community together for a common goal. Your patron might be a single entity gathering a coterie of subjects together for an unknown cause or a like-minded covenant of deities and spirits. Whatever the case, your patron—and by extension, you—understands that mortals are stronger together.</p>\n<p><strong>Spell List</strong> divine</p>\n<p><strong>Patron Skill</strong> Religion</p>\n<p><strong>Lesson of Community Knowledge</strong> Your patron taught you the importance of pooling information to help a group with a common cause. You gain the @UUID[Compendium.pf2e.spells-srd.Item.TRlI5zAbNW2hDiH9]{Share Vision} hex cantrip and your familiar learns @UUID[Compendium.pf2e.spells-srd.Item.nXmC2Xx9WmS5NsAo]{Share Lore}.</p>\n<p><strong>Familiar of Bolstering Aid</strong> Your familiar knows all manner of tricks that can help! When you Cast or Sustain a hex, and your familiar is adjacent to an ally, that ally gains a +2 status bonus to the next non-attack skill check that ally attempts before the start of your next turn.</p>",
+                    "gm": ""
+                },
+                "level": {
+                    "value": 1
+                },
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Lost Omens Divine Mysteries",
+                    "authors": ""
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "system.skills.religion.rank",
+                        "value": 1
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.proficiencies.aliases.witch",
+                        "priority": 39,
+                        "value": "divine"
+                    },
+                    {
+                        "itemType": "spell",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            "class:witch",
+                            "item:trait:hex"
+                        ],
+                        "property": "description",
+                        "value": [
+                            {
+                                "divider": true,
+                                "text": "PF2E.SpecificRule.Witch.Patron.FamiliarAbility.BolsteringAid.Description",
+                                "title": "PF2E.SpecificRule.Witch.Patron.FamiliarAbility.BolsteringAid.Title"
+                            }
+                        ]
+                    }
+                ],
+                "traits": {
+                    "otherTags": [
+                        "witch-patron"
+                    ],
+                    "rarity": "common",
+                    "value": [
+                        "witch"
+                    ]
+                },
+                "slug": "choir-politic",
+                "_migration": {
+                    "version": 0.935,
+                    "previous": null
+                },
+                "onlyLevel1": false,
+                "maxTakable": 1,
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "location": null
+            },
+            "type": "feat",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classfeatures.Item.v2JQB6j3VIKWqPpQ",
+                "duplicateSource": null,
+                "coreVersion": "12.331",
+                "systemId": "pf2e",
+                "systemVersion": "6.11.1",
+                "createdTime": 1744975072213,
+                "modifiedTime": 1744975072213,
+                "lastModifiedBy": "JO2te57bCRbZS9jS"
+            },
+            "effects": [],
+            "folder": null,
+            "sort": 0,
+            "ownership": {
+                "default": 0,
+                "JO2te57bCRbZS9jS": 3
+            },
+            "flags": {
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "uj9lAIFsZN0cumSv",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "id": "Am2Ea05PM1nY35XW"
+        },
+        {
+            "img": "systems/pf2e/icons/features/classes/witch-spellcasting.webp",
+            "name": "Witch Spellcasting",
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>Using your familiar as a conduit, your patron provides you the power to cast spells. You are a spellcaster, and you can cast spells of your patron's tradition using the Cast a Spell activity. As a witch, when you cast spells, your incantations might rhyme, your gestures might be as simple as an ominous pointing finger or a complex folk sign, and your familiar might even echo your words or movements slightly as your patron's magic surges.</p>\n<p>At 1st level, you can prepare up to two 1st-rank spells and five cantrips each morning from the spells your familiar knows. Prepared spells remain available to you until you cast them or until you prepare your spells again. The number of spells you can prepare each day is called your spell slots. As you increase in level as a witch, the number of spells you can prepare each day increases, as does the highest rank of spell you can cast, as shown in the Witch Spells per Day table.</p>\n<p>Some of your spells require you to attempt a spell attack to see how effective they are, or have your enemies roll against your spell DC (typically by attempting a saving throw). Since your key attribute is Intelligence, your spell attack modifier and spell DC use your Intelligence modifier.</p>\n<h2>Heightening Spells</h2>\n<p>When you get spell slots of 2nd-rank and higher, you can fill those slots with stronger versions of lower-rank spells. This increases the spell's rank, heightening it to match the spell slot. Many spells have specific improvements when they are heightened to certain ranks.</p>\n<h2>Cantrips</h2>\n<p>Some of your spells are cantrips. A cantrip is a special type of spell that doesn't use spell slots. You can cast a cantrip at will, any number of times per day. A cantrip is always automatically heightened to half your level rounded up—this is usually equal to the highest rank of witch spell slot you have. For example, as a 1st-level witch, your cantrips are 1st-rank spells, and as a 5th-level witch, your cantrips are 3rd-rank spells.</p>",
+                    "gm": ""
+                },
+                "level": {
+                    "value": 1
+                },
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core",
+                    "authors": ""
+                },
+                "rules": [],
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "witch"
+                    ],
+                    "otherTags": []
+                },
+                "slug": "witch-spellcasting",
+                "_migration": {
+                    "version": 0.935,
+                    "previous": null
+                },
+                "onlyLevel1": false,
+                "maxTakable": 1,
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "location": "Lb8vhwFFTu7MZt7L"
+            },
+            "type": "feat",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classfeatures.Item.zT6QiTMxxj8JYoN9",
+                "duplicateSource": null,
+                "coreVersion": "12.331",
+                "systemId": "pf2e",
+                "systemVersion": "6.11.1",
+                "createdTime": 1744975072213,
+                "modifiedTime": 1744975072213,
+                "lastModifiedBy": "JO2te57bCRbZS9jS"
+            },
+            "effects": [],
+            "folder": null,
+            "sort": 0,
+            "ownership": {
+                "default": 0,
+                "JO2te57bCRbZS9jS": 3
+            },
+            "flags": {},
+            "id": "KxoYBuKxAifdgqk7"
+        },
+        {
+            "img": "systems/pf2e/icons/features/classes/hexes.webp",
+            "name": "Hex Spells",
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>As a favored agent of your patron, you can invoke their power for a more direct magical intervention. A hex is a spell shaped by your patron and sent to you through your familiar, rather than an ability you use directly. Your patron expects you to advance its interests and does not take kindly to repeated requests for aid; as such, you can use only one hex each turn, and any attempts to use a second hex on that turn fail and the actions are lost.</p>\n<p>Hex spells are a type of focus spell. It costs 1 Focus Point to cast a focus spell, and you start with a focus pool of 1 Focus Point. You refill your focus pool during your daily preparations, and you can regain 1 Focus Point by spending 10 minutes using the Refocus activity to commune with your familiar.</p>\n<p>Focus spells are automatically heightened to half your level rounded up, much like cantrips. Focus spells don't require spell slots, and you can't cast them using spell slots. Certain feats give you more focus spells. The maximum Focus Points your focus pool can hold is equal to the number of focus spells you have, but it can never be more than 3 points.</p>\n<p>You learn your choice of the @UUID[Compendium.pf2e.spells-srd.Item.aq1yonHeYpbaj3XI]{Patron's Puppet} hex or @UUID[Compendium.pf2e.spells-srd.Item.rMOI8JFJ0nT2mrCF]{Phase Familiar} hex, which let you command your familiar or defend it from harm, respectively. You learn most other hexes from witch lessons.</p>\n<h2>Hex Cantrips</h2>\n<p>Hex cantrips are special hexes that don't cost Focus Points, so you can cast them as often as you like, though you can still use only one hex each round. Hex cantrips are in addition to the cantrips you choose with witch spellcasting and aren't counted toward your prepared cantrips.</p>\n<p>You gain a hex cantrip determined by your choice of patron.</p>",
+                    "gm": ""
+                },
+                "level": {
+                    "value": 1
+                },
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core",
+                    "authors": ""
+                },
+                "rules": [],
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "witch"
+                    ],
+                    "otherTags": []
+                },
+                "slug": "hex-spells",
+                "_migration": {
+                    "version": 0.935,
+                    "previous": null
+                },
+                "onlyLevel1": false,
+                "maxTakable": 1,
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "location": "Lb8vhwFFTu7MZt7L"
+            },
+            "type": "feat",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classfeatures.Item.9uLh5z2uPo6LDFRY",
+                "duplicateSource": null,
+                "coreVersion": "12.331",
+                "systemId": "pf2e",
+                "systemVersion": "6.11.1",
+                "createdTime": 1744975072213,
+                "modifiedTime": 1744975072213,
+                "lastModifiedBy": "JO2te57bCRbZS9jS"
+            },
+            "effects": [],
+            "folder": null,
+            "sort": 200,
+            "ownership": {
+                "default": 0,
+                "JO2te57bCRbZS9jS": 3
+            },
+            "flags": {},
+            "id": "eGtEkxtLiBTEmPP6"
+        },
+        {
+            "name": "Occult Prepared Spells",
+            "type": "spellcastingEntry",
+            "system": {
+                "description": {
+                    "gm": "",
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "_migration": {
+                    "version": 0.935,
+                    "lastMigration": null
+                },
+                "traits": {
+                    "otherTags": []
+                },
+                "publication": {
+                    "title": "",
+                    "authors": "",
+                    "license": "OGL",
+                    "remaster": false
+                },
+                "ability": {
+                    "value": "int"
+                },
+                "spelldc": {
+                    "value": 0,
+                    "dc": 0
+                },
+                "tradition": {
+                    "value": "occult"
+                },
+                "prepared": {
+                    "value": "prepared",
+                    "flexible": false
+                },
+                "showSlotlessLevels": {
+                    "value": true
+                },
+                "proficiency": {
+                    "value": 1,
+                    "slug": ""
+                },
+                "slots": {
+                    "slot0": {
+                        "prepared": [],
+                        "value": 0,
+                        "max": 0
+                    },
+                    "slot1": {
+                        "prepared": [
+                            {
+                                "id": "9csscbuv7MrMXsqE",
+                                "expended": false
+                            }
+                        ],
+                        "value": 0,
+                        "max": 1
+                    },
+                    "slot2": {
+                        "prepared": [],
+                        "value": 0,
+                        "max": 0
+                    },
+                    "slot3": {
+                        "prepared": [],
+                        "value": 0,
+                        "max": 0
+                    },
+                    "slot4": {
+                        "prepared": [],
+                        "value": 0,
+                        "max": 0
+                    },
+                    "slot5": {
+                        "prepared": [],
+                        "value": 0,
+                        "max": 0
+                    },
+                    "slot6": {
+                        "prepared": [],
+                        "value": 0,
+                        "max": 0
+                    },
+                    "slot7": {
+                        "prepared": [],
+                        "value": 0,
+                        "max": 0
+                    },
+                    "slot8": {
+                        "prepared": [],
+                        "value": 0,
+                        "max": 0
+                    },
+                    "slot9": {
+                        "prepared": [],
+                        "value": 0,
+                        "max": 0
+                    },
+                    "slot10": {
+                        "prepared": [],
+                        "value": 0,
+                        "max": 0
+                    },
+                    "slot11": {
+                        "prepared": [],
+                        "value": 0,
+                        "max": 0
+                    }
+                },
+                "autoHeightenLevel": {
+                    "value": null
+                }
+            },
+            "id": "oGVGhQnQjByubbM4",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "effects": [],
+            "folder": null,
+            "sort": 0,
+            "ownership": {
+                "default": 0,
+                "JO2te57bCRbZS9jS": 3
+            },
+            "flags": {},
+            "_stats": {
+                "compendiumSource": null,
+                "duplicateSource": null,
+                "coreVersion": "12.331",
+                "systemId": "pf2e",
+                "systemVersion": "6.11.1",
+                "createdTime": 1744975086445,
+                "modifiedTime": 1744975154113,
+                "lastModifiedBy": "JO2te57bCRbZS9jS"
+            }
+        },
+        {
+            "id": "9csscbuv7MrMXsqE",
+            "folder": "T8AzYUgNIAgTJ9Iz",
+            "img": "icons/sundries/survival/rope-wrapped-red.webp",
+            "name": "Animate Rope",
+            "system": {
+                "description": {
+                    "gm": "",
+                    "value": "<p>You cause a length or section of @UUID[Compendium.pf2e.equipment-srd.Item.fyYnQf1NAx9fWFaS]{Rope} or a rope-like object to animate and follow simple commands. You can give it two commands when you @UUID[Compendium.pf2e.actionspf2e.Item.aBQ8ajvEBByv45yz]{Cast the Spell}, and one command each time you @UUID[Compendium.pf2e.actionspf2e.Item.3f5DMFu8fPiqHpRg]{Sustain the Spell}.</p>\n<hr />\n<ul>\n<li><strong>Bind</strong> (attack) The Rope attempts to partially bind a creature. Attempt a spell attack roll against the target's Reflex DC. If you succeed, the target takes a -10-foot circumstance penalty to its Speed (-20-foot on a critical success). This ends if the target @UUID[Compendium.pf2e.actionspf2e.Item.SkZAQRkLLkmBQNB9]{Escapes} against your spell DC or breaks the Rope. (A standard adventuring Rope has Hardness 2, HP 8, and a Broken Threshold of 4.) @UUID[Compendium.pf2e.spell-effects.Item.OwvrQKuMLEktNWzA]{Spell Effect: Animate Rope}</li>\n<li><strong>Coil</strong> The Rope forms a tidy, coiled stack.</li>\n<li><strong>Crawl</strong> The Rope inches along the ground like a snake, moving one of its ends 10 feet. The Rope must move along a surface, but that surface doesn't need to be horizontal.</li>\n<li><strong>Knot</strong> The Rope ties a sturdy knot in itself.</li>\n<li><strong>Loop</strong> The Rope forms a simple loop at one or both ends, or straightens itself back out.</li>\n<li><strong>Tie</strong> The Rope ties itself around a willing creature or an object that's unattended or attended by a willing creature.</li>\n<li><strong>Undo</strong> The Rope undoes one of its knots, ties, or bindings.</li>\n</ul>\n<hr />\n<p><strong>Heightened (+2)</strong> The range increases by 50 feet, and you can animate 50 more feet of Rope.</p>"
+                },
+                "rules": [],
+                "slug": "animate-rope",
+                "_migration": {
+                    "version": 0.935,
+                    "lastMigration": null,
+                    "previous": null
+                },
+                "traits": {
+                    "otherTags": [],
+                    "value": [
+                        "concentrate",
+                        "manipulate"
+                    ],
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "occult"
+                    ]
+                },
+                "publication": {
+                    "title": "Pathfinder Advanced Player's Guide",
+                    "authors": "",
+                    "license": "OGL",
+                    "remaster": false
+                },
+                "level": {
+                    "value": 1
+                },
+                "requirements": "",
+                "target": {
+                    "value": "up to 50 feet of rope or a nonliving rope-like object"
+                },
+                "range": {
+                    "value": "100 feet"
+                },
+                "area": null,
+                "time": {
+                    "value": "2"
+                },
+                "duration": {
+                    "value": "1 minute",
+                    "sustained": true
+                },
+                "damage": {},
+                "defense": null,
+                "cost": {
+                    "value": ""
+                },
+                "location": {
+                    "value": "oGVGhQnQjByubbM4"
+                },
+                "counteraction": false
+            },
+            "type": "spell",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.rVANhQgB8Uqi9PTl",
+                "duplicateSource": null,
+                "coreVersion": "12.331",
+                "systemId": "pf2e",
+                "systemVersion": "6.11.1",
+                "createdTime": 1744975106549,
+                "modifiedTime": 1744975106549,
+                "lastModifiedBy": "JO2te57bCRbZS9jS"
+            },
+            "effects": [],
+            "sort": 0,
+            "ownership": {
+                "default": 0,
+                "JO2te57bCRbZS9jS": 3
+            },
+            "flags": {}
+        }
+    ],
+    "folder": null,
+    "sort": 0,
+    "flags": {},
+    "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.331",
+        "systemId": "pf2e",
+        "systemVersion": "6.11.1",
+        "createdTime": 1744975057726,
+        "modifiedTime": 1744975072175,
+        "lastModifiedBy": "JO2te57bCRbZS9jS"
+    }
+}
