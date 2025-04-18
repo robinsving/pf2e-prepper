@@ -19,6 +19,11 @@ global.game = {
             return false;
         }),
     },
+    modules: {
+        get: vi.fn(() => ({
+            api: { },
+        })),
+    },
     combats: [
         {
             active: true,

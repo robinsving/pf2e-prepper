@@ -1,18 +1,27 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi } from "vitest";
 import PrepperApp from "../prepper/PrepperApp.js";
 import singleSpellActor from "./data/single-spell-actor.json";
 import multiSpellActor from "./data/multi-spell-actor.json";
 
 describe("_getCurrentSpellsDisplay on single-spell-actor", () => {
     it("should return the full list of spells with requested data", () => {
+        // Mock PrepperStorage for this test
+        const mockStorage = {
+            getSpellLists: vi.fn(() => ({})),
+            getActiveListId: vi.fn(() => null),
+        };
+        vi.spyOn(game.modules, "get").mockImplementation((_) => {
+            return { api: { PrepperStorage: mockStorage } };
+        });
+
         // Setup: Create an instance of PrepperApp with the actor
         const prepperApp = new PrepperApp(singleSpellActor);
 
         // Call the method
-        const spells = prepperApp._getCurrentSpellsDisplay();
+        const data = prepperApp.getData();
 
         // Assertions
-        expect(spells).toStrictEqual([
+        expect(data.currentSpells).toStrictEqual([
             {
                 "id": "oGVGhQnQjByubbM4",
                 "flexible": false,
@@ -30,19 +39,32 @@ describe("_getCurrentSpellsDisplay on single-spell-actor", () => {
                 ]
             }
         ]);
+
+        // Restore original behavior
+        game.modules.get.mockRestore();
     });
 });
 
 describe("_getCurrentSpellsDisplay on multi-spell-actor", () => {
     it("should return the full list of spells with requested data", () => {
+
+        // Mock PrepperStorage for this test
+        const mockStorage = {
+            getSpellLists: vi.fn(() => ({})),
+            getActiveListId: vi.fn(() => null),
+        };
+        vi.spyOn(game.modules, "get").mockImplementation((_) => {
+            return { api: { PrepperStorage: mockStorage } };
+        });
+
         // Setup: Create an instance of PrepperApp with the actor
         const prepperApp = new PrepperApp(multiSpellActor);
 
         // Call the method
-        const spells = prepperApp._getCurrentSpellsDisplay();
+        const data = prepperApp.getData();
 
         // Assertions
-        expect(spells).toStrictEqual([
+        expect(data.currentSpells).toStrictEqual([
             {
                 "id": "QWWZSn4R4BCnDIQM",
                 "flexible": true,
@@ -86,6 +108,8 @@ describe("_getCurrentSpellsDisplay on multi-spell-actor", () => {
                 ]
             }
         ]);
+
+        // Restore original behavior
+        game.modules.get.mockRestore();
     });
-}
-);
+});
