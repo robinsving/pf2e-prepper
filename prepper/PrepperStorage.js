@@ -36,78 +36,35 @@ export default class PrepperStorage {
     }
   
     /**
-     * Save the current spell preparation as a new list
-     * @param {Actor} actor - The actor to save the spell list for
-     * @param {string} name - The name of the spell list
-     * @param {string} description - Optional description of the spell list
-     * @returns {Promise<string>} - The ID of the newly created spell list
-     */
-    static async saveCurrentAsNewList(actor, name, description = '') {
+    * Save the current spell preparation as a new list
+    * @param {Actor} actor - The actor to save the spell list for
+    * @param {Array} currentSpells - The spellcastingEntries to save
+    * @param {string} name - The name of the spell list
+    * @param {string} description - Optional description of the spell list
+    * @returns {Promise<string>} - The ID of the newly created spell list
+    */
+    static async saveCurrentAsNewList(actor, currentSpells, name, description = '') {
       // Generate a unique ID for the new list
       const listId = foundry.utils.randomID();
-      
-      // Get the current spell preparation
-      const spellcastingEntries = actor.itemTypes.spellcastingEntry || [];
-      const preparedEntries = spellcastingEntries.filter(entry => 
-        entry.system.prepared?.value === 'prepared');
-      
-      if (preparedEntries.length === 0) {
-        throw new Error("No prepared spellcasting entries found");
-      }
-      
+
       // Create the spell list data structure
       const spellListData = {
         id: listId,
         name: name,
         description: description,
-        spellcastingEntries: [],
+        spellcastingEntries: currentSpells, // currentSpells should already be in the correct format (with levels array)
         lastUsed: Date.now()
       };
-      
-      // For each prepared spellcasting entry, save its prepared spells
-      for (const entry of preparedEntries) {
-        const entryData = {
-          id: entry.id,
-          name: entry.name,
-          preparedSpells: {}
-        };
-        
-        // Get all prepared spells for this entry
-        const preparedSpells = entry.system.slots || {};
-        
-        // For each spell level, save the prepared spells
-        for (const [level, slotData] of Object.entries(preparedSpells)) {
-          if (level === 'slot0') continue; // Skip cantrips
-          
-          // Get the prepared spells for this level
-          const prepared = slotData.prepared || [];
-          
-          entryData.preparedSpells[level] = prepared.map(spell => {
-            if (!spell.id) return null;
-            
-            // Get the spell name for better display
-            const spellItem = actor.items.get(spell.id);
-            return {
-              id: spell.id,
-              name: spellItem ? spellItem.name : null,
-              castLevel: spell.castLevel,
-              expended: spell.expended || false
-            };
-          }).filter(spell => spell !== null);
-        }
-        
-        spellListData.spellcastingEntries.push(entryData);
-      }
-      
+
       // Save the spell list to the actor's flags
       const lists = this.getSpellLists(actor);
       lists[listId] = spellListData;
-      
+
       await actor.setFlag(SCRIPT_ID, 'spellLists', lists);
-      
+
       // Set this as the active list
       await actor.setFlag(SCRIPT_ID, 'activeListId', listId);
-      
+
       return listId;
     }
   
@@ -128,20 +85,16 @@ export default class PrepperStorage {
       for (const savedEntry of list.spellcastingEntries) {
         const entry = spellcastingEntries.find(e => e.id === savedEntry.id);
         if (!entry || entry.system.prepared?.value !== 'prepared') continue;
-        
-        // Create the update data for this entry
+
+        // Only support the levels array format (flexible-actor.json style)
         const updateData = {};
-        
-        // For each spell level, update the prepared spells
-        for (const [level, spells] of Object.entries(savedEntry.preparedSpells)) {
-          // Skip if there are no spells for this level
-          if (!spells || spells.length === 0) continue;
-          
-          // Update the prepared spells for this level
-          updateData[`system.slots.${level}.prepared`] = spells;
+        if (savedEntry.levels) {
+          for (const levelObj of savedEntry.levels) {
+            if (!levelObj.spells || levelObj.spells.length === 0) continue;
+            updateData[`system.slots.slot${levelObj.level}.prepared`] = levelObj.spells;
+          }
         }
-        
-        // Update the entry
+
         if (Object.keys(updateData).length > 0) {
           await entry.update(updateData);
         }

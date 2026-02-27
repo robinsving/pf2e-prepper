@@ -25,11 +25,8 @@
                   <h5>{{localize "SPELLLIST.Level"}} {{level.level}}</h5>
                   <ul class="spell-list">
                     {{#each level.spells as |spell|}}
-                      <li class="spell-item {{#if spell.expended}}expended{{/if}}">
+                      <li class="spell-item">
                         {{spell.name}}
-                        {{#if spell.expended}}
-                          <span class="expended-marker">({{localize "SPELLLIST.Expended"}})</span>
-                        {{/if}}
                       </li>
                     {{/each}}
                   </ul>
@@ -57,6 +54,7 @@
             <p class="description">{{list.description}}</p>
           {{/if}}
           <div class="prepper-list-metadata">
+            <span>Id: {{list.id}}</span><br>
             <span class="last-used">
               {{#if list.lastUsed}}
                 {{localize "SPELLLIST.LastUsed"}}: {{formatDate list.lastUsed}}
@@ -74,11 +72,8 @@
                   <h5>{{localize "SPELLLIST.Level"}} {{level.level}}</h5>
                   <ul class="spell-list">
                     {{#each level.spells as |spell|}}
-                      <li class="spell-item {{#if spell.expended}}expended{{/if}}">
+                      <li class="spell-item">
                         {{spell.name}}
-                        {{#if spell.expended}}
-                          <span class="expended-marker">({{localize "SPELLLIST.Expended"}})</span>
-                        {{/if}}
                       </li>
                     {{/each}}
                   </ul>

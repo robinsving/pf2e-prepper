@@ -136,17 +136,6 @@
   padding: 4px 0;
 }
 
-.pf2e-prepper .prepper-spell-item.expended {
-  color: #999;
-  text-decoration: line-through;
-}
-
-.pf2e-prepper .prepper-expended-marker {
-  font-style: italic;
-  color: #999;
-  font-size: 0.9em;
-}
-
 .pf2e-prepper .prepper-no-spells-message {
   text-align: center;
   padding: 32px;

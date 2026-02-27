@@ -40,6 +40,14 @@ global.Hooks = {
     on: vi.fn(),
     callAll: vi.fn(),
 };
+
+// Mock the foundry object
+global.foundry = {
+    utils: {
+        randomID: vi.fn(() => `id_${Math.random().toString(36).substring(2, 9)}`), // Generate a random ID
+    },
+};
+
 /*
 // Mock the Handlebars object
 global.Handlebars = {

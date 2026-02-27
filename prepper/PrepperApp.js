@@ -1,5 +1,5 @@
 import { id as SCRIPT_ID, title } from "../module.json";
-import { info, debug } from "./utilities/Utilities.js";
+import { info, debug, popup, error } from "./utilities/Utilities.js";
 
 /**
 * Application for managing spell lists
@@ -41,13 +41,13 @@ export default class PrepperApp extends Application {
             return a.name.localeCompare(b.name);
         });
         
-        // Get current spells
-        const currentSpells = this._getCurrentSpellsDisplay();
-        
-        // Add display data to each list
+        // Process each list to add displayEntries for the template
         for (const list of sortedLists) {
             list.displayEntries = this._getSpellListDisplay(list);
         }
+        
+        // Get current spells
+        const currentSpells = this._getCurrentSpellsDisplay();
         
         return {
             actor: this.actor,
@@ -57,11 +57,11 @@ export default class PrepperApp extends Application {
             currentSpells: currentSpells
         };
     }
-    
+        
     /** @override */
     activateListeners(html) {
         super.activateListeners(html);
-        
+
         // Button handlers
         html.find('.prepper-new-list-btn').click(this._onNewList.bind(this));
         html.find('.prepper-load-list-btn').click(this._onLoadList.bind(this));
@@ -69,11 +69,43 @@ export default class PrepperApp extends Application {
         html.find('.prepper-delete-list-btn').click(this._onDeleteList.bind(this));
         html.find('.prepper-rename-list-btn').click(this._onRenameList.bind(this));
         html.find('.prepper-reload-current-btn').click(this._onReloadCurrent.bind(this));
-        
+        html.find('.prepper-update-list-btn').click(this._onUpdateList.bind(this));
+
         // Tab change handler
         html.find('.prepper-tabs a').click(ev => {
             this.activeTab = ev.currentTarget.dataset.tab;
         });
+    }
+
+    /**
+     * Handle updating a spell list
+     * @param {Event} event - The triggering event
+     * @private
+     */
+    async _onUpdateList(event) {
+        event.preventDefault();
+
+        const listId = event.currentTarget.dataset.listId;
+        if (!listId) return;
+
+        // Confirm before updating
+        const confirm = await Dialog.confirm({
+            title: game.i18n.localize('SPELLLIST.Update'),
+            content: game.i18n.localize('SPELLLIST.UpdateConfirm'),
+            defaultYes: false
+        });
+
+        if (!confirm) return;
+
+        // Update the selected list
+        const storage = game.modules.get(SCRIPT_ID).api.PrepperStorage;
+        //const currentSpells = this._getCurrentSpellsDisplay();
+        const success = await storage.updateSpellList(this.actor, listId);
+
+        if (success) {
+            popup(game.i18n.localize('SPELLLIST.UpdateSuccess'));
+            this.render(false);
+        }
     }
     
     /**
@@ -161,7 +193,6 @@ export default class PrepperApp extends Application {
                 levelData.spells.push({
                     id: spell.id,
                     name: spell.name,
-                    //expended: preparedSpell.expended || false
                 });
             }
             
@@ -226,6 +257,10 @@ export default class PrepperApp extends Application {
     _getSpellListDisplay(list) {
         const result = [];
         
+        if (!list.spellcastingEntries || list.spellcastingEntries.length === 0) {
+            return result;
+        }
+        
         for (const entry of list.spellcastingEntries) {
             const entryData = {
                 id: entry.id,
@@ -233,58 +268,31 @@ export default class PrepperApp extends Application {
                 levels: []
             };
             
-            // For each spell level, get the prepared spells
-            for (const [slotKey, spells] of Object.entries(entry.preparedSpells)) {
-                if (!spells || spells.length === 0) continue;
-                
-                // Extract level number from slotKey (e.g., "slot1" -> 1)
-                const level = parseInt(slotKey.replace('slot', ''));
-                if (isNaN(level)) continue;
-                
-                const levelData = {
-                    level: level,
-                    spells: []
-                };
-                
-                // Get spell data
-                for (const preparedSpell of spells) {
-                    if (!preparedSpell.id) continue;
+            // Entry already has levels array from when it was saved
+            if (entry.levels && entry.levels.length > 0) {
+                for (const levelObj of entry.levels) {
+                    const levelData = {
+                        level: levelObj.level,
+                        spells: []
+                    };
                     
-                    // Find the spell item in the compendium or actor items
-                    const spell = this.actor.items.get(preparedSpell.id);
-                    if (!spell) {
-                        // If spell not found on actor, try to get name from list metadata if available
-                        if (preparedSpell.name) {
-                            levelData.spells.push({
-                                id: preparedSpell.id,
-                                name: preparedSpell.name,
-                                expended: preparedSpell.expended || false
-                            });
-                        } else {
-                            // Add unknown spell
-                            levelData.spells.push({
-                                id: preparedSpell.id,
-                                name: game.i18n.localize("SPELLLIST.UnknownSpell"),
-                                expended: preparedSpell.expended || false
-                            });
-                        }
-                        continue;
+                    // Get spell data
+                    for (const spellInfo of (levelObj.spells || [])) {
+                        if (!spellInfo.id) continue;
+                        
+                        // Try to find spell on actor, but use stored name if not found
+                        const spell = this.actor.items.get(spellInfo.id);
+                        levelData.spells.push({
+                            id: spellInfo.id,
+                            name: spell?.name || spellInfo.name || game.i18n.localize("SPELLLIST.UnknownSpell"),
+                        });
                     }
                     
-                    levelData.spells.push({
-                        id: spell.id,
-                        name: spell.name,
-                        expended: preparedSpell.expended || false
-                    });
-                }
-                
-                if (levelData.spells.length > 0) {
-                    entryData.levels.push(levelData);
+                    if (levelData.spells.length > 0) {
+                        entryData.levels.push(levelData);
+                    }
                 }
             }
-            
-            // Sort levels
-            entryData.levels.sort((a, b) => a.level - b.level);
             
             if (entryData.levels.length > 0) {
                 result.push(entryData);
@@ -330,7 +338,8 @@ export default class PrepperApp extends Application {
                         
                         // Save the current preparation as a new list
                         const storage = game.modules.get(SCRIPT_ID).api.PrepperStorage;
-                        await storage.saveCurrentAsNewList(this.actor, name, description);
+                        const currentSpells = this._getCurrentSpellsDisplay();
+                        await storage.saveCurrentAsNewList(this.actor, currentSpells, name, description);
                         
                         // Refresh the app
                         this.render(true);
@@ -438,8 +447,7 @@ export default class PrepperApp extends Application {
         const success = await storage.loadSpellList(this.actor, listId);
         
         if (success) {
-            ui.notifications.info(game.i18n.localize('SPELLLIST.LoadSuccess'));
-            this.render(true);
+            popup(game.i18n.localize('SPELLLIST.LoadSuccess'));
         }
     }
     
