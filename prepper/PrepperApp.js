@@ -97,8 +97,8 @@ export default class PrepperApp extends Application {
 
         // Update the selected list
         const storage = game.modules.get(SCRIPT_ID).api.PrepperStorage;
-        //const currentSpells = this._getCurrentSpellsDisplay();
-        const success = await storage.updateSpellList(this.actor, listId);
+        const currentSpells = this._getCurrentSpellsDisplay();
+        const success = await storage.updateSpellList(this.actor, currentSpells, listId);
 
         if (success) {
             popup(game.i18n.localize('SPELLLIST.UpdateSuccess'));

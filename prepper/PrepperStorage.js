@@ -184,68 +184,18 @@ export default class PrepperStorage {
   /**
    * Update an existing spell list with the current preparation
    * @param {Actor} actor - The actor to update the spell list for
+   * @param {Array} currentSpells - The current spellcastingEntries to save
    * @param {string} listId - The ID of the spell list to update
    * @returns {Promise<boolean>} - Whether the update was successful
    */
-  static async updateSpellList(actor, listId) {
+  static async updateSpellList(actor, currentSpells, listId) {
     const list = this.getSpellList(actor, listId);
     if (!list) return false;
-    
-    // Get the current spell preparation
-    const spellcastingEntries = actor.itemTypes.spellcastingEntry || [];
-    const preparedEntries = spellcastingEntries.filter(entry => 
-      entry.system.prepared?.value === 'prepared');
-    
-    if (preparedEntries.length === 0) {
-      throw new Error("No prepared spellcasting entries found");
-    }
-    
-    // Update the spell list data structure
-    const updatedEntries = [];
-    
-    // For each prepared spellcasting entry, save its prepared spells
-    for (const entry of preparedEntries) {
-      const entryData = {
-        id: entry.id,
-        name: entry.name,
-        preparedSpells: {}
-      };
-      
-      // Get all prepared spells for this entry
-      const preparedSpells = entry.system.slots || {};
-      
-      // For each spell level, save the prepared spells
-      for (const [level, slotData] of Object.entries(preparedSpells)) {
-        if (level === 'slot0') continue; // Skip cantrips
-        
-        // Get the prepared spells for this level
-        const prepared = slotData.prepared || [];
-        
-        entryData.preparedSpells[level] = prepared.map(spell => {
-          if (!spell.id) return null;
-          
-          // Get the spell name for better display
-          const spellItem = actor.items.get(spell.id);
-          return {
-            id: spell.id,
-            name: spellItem ? spellItem.name : null,
-            castLevel: spell.castLevel,
-            expended: spell.expended || false
-          };
-        }).filter(spell => spell !== null);
-      }
-      
-      updatedEntries.push(entryData);
-    }
-    
-    // Update the spell list
-    const lists = this.getSpellLists(actor);
-    lists[listId].spellcastingEntries = updatedEntries;
-    lists[listId].lastUsed = Date.now();
-    
-    await actor.unsetFlag(SCRIPT_ID, settings.flagNames.spellLists);
-    await actor.setFlag(SCRIPT_ID, settings.flagNames.spellLists, lists);
-    
+
+    // Since the structure of the spell list is quite complex and closely tied to the current preparation, it's simpler and more reliable to just save the current preparation as a new list with the same name & description, and then delete the current list
+    await this.saveCurrentAsNewList(actor, currentSpells, list.name, list.description);
+    await this.deleteSpellList(actor, listId);
+
     return true;
   }
 
