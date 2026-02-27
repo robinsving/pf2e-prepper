@@ -1,22 +1,31 @@
 import { describe, it, expect, vi } from "vitest";
 import PrepperStorage from "../prepper/PrepperStorage.js";
-import flexibleActor from "./data/flexible-actor.json";
-import preparedActor from "./data/prepared-actor.json";
 
 describe("PrepperStorage", () => {
     let mockActor;
 
     beforeEach(() => {
         mockActor = {
+            flags: { "pf2e-prepper": { spellLists: {} } },
             getFlag: vi.fn((module, key) => {
                 if (module === "pf2e-prepper" && key === "spellLists") {
-                    return {};
+                    return mockActor.flags["pf2e-prepper"].spellLists || {};
                 }
                 return null;
             }),
+            unsetFlag: vi.fn(async (module, key) => {
+                if (module === "pf2e-prepper") {
+                    if (mockActor.flags["pf2e-prepper"]) {
+                        delete mockActor.flags["pf2e-prepper"][key];
+                    }
+                }
+            }),
             setFlag: vi.fn(async (module, key, value) => {
-                if (module === "pf2e-prepper" && key === "spellLists") {
-                    mockActor.flags = { "pf2e-prepper": { spellLists: value } };
+                if (module === "pf2e-prepper") {
+                    if (!mockActor.flags["pf2e-prepper"]) {
+                        mockActor.flags["pf2e-prepper"] = {};
+                    }
+                    mockActor.flags["pf2e-prepper"][key] = value;
                 }
             }),
         };
@@ -121,10 +130,52 @@ describe("PrepperStorage", () => {
         expect(spellList).toEqual({ id: "list1", name: "List 1" });
     });
 
-    it("should retrieve the active spell list ID using getActiveListId", () => {
-        mockActor.getFlag.mockReturnValueOnce("list1");
+    it("should delete a spell list successfully", async () => {
+        // Setup: Create lists with known data
+        const lists = {
+            list1: { id: "list1", name: "List 1" },
+            list2: { id: "list2", name: "List 2" },
+        };
+        mockActor.flags["pf2e-prepper"].spellLists = lists;
 
-        const activeListId = PrepperStorage.getActiveListId(mockActor);
-        expect(activeListId).toBe("list1");
+        // Delete list1
+        const success = await PrepperStorage.deleteSpellList(mockActor, "list1");
+
+        // Verify deletion was successful
+        expect(success).toBe(true);
+
+        // Verify the list was removed from flags
+        const savedLists = mockActor.flags["pf2e-prepper"].spellLists;
+        expect(savedLists).not.toHaveProperty("list1");
+        expect(savedLists).toHaveProperty("list2");
+
+        // Verify setFlag was called with updated lists
+        expect(mockActor.setFlag).toHaveBeenCalledWith(
+            "pf2e-prepper",
+            "spellLists",
+            expect.objectContaining({
+                list2: { id: "list2", name: "List 2" },
+            })
+        );
+    });
+
+    it("should return false when deleting a non-existent list", async () => {
+        // Setup: Create a list
+        const lists = {
+            list1: { id: "list1", name: "List 1" },
+        };
+        mockActor.flags["pf2e-prepper"].spellLists = lists;
+
+        // Try to delete a non-existent list
+        const success = await PrepperStorage.deleteSpellList(mockActor, "nonexistent");
+
+        // Verify it returned false
+        expect(success).toBe(false);
+
+        // Verify setFlag was NOT called
+        expect(mockActor.setFlag).not.toHaveBeenCalled();
+
+        // Verify lists remain unchanged
+        expect(mockActor.flags["pf2e-prepper"].spellLists).toEqual(lists);
     });
 });

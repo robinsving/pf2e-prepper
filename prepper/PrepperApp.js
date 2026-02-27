@@ -34,7 +34,6 @@ export default class PrepperApp extends Application {
         // Get all spell lists for this actor
         const storage = game.modules.get(SCRIPT_ID).api.PrepperStorage;
         const spellLists = storage.getSpellLists(this.actor);
-        const activeListId = storage.getActiveListId(this.actor);
         
         // Sort lists alphabetically
         const sortedLists = Object.values(spellLists).sort((a, b) => {
@@ -52,7 +51,6 @@ export default class PrepperApp extends Application {
         return {
             actor: this.actor,
             spellLists: sortedLists,
-            activeListId: activeListId,
             hasLists: sortedLists.length > 0,
             currentSpells: currentSpells
         };
@@ -486,7 +484,7 @@ export default class PrepperApp extends Application {
         const success = await storage.deleteSpellList(this.actor, listId);
         
         if (success) {
-            ui.notifications.info(game.i18n.localize('SPELLLIST.DeleteSuccess'));
+            debug(game.i18n.localize('SPELLLIST.DeleteSuccess'));
             this.activeTab = 'current';
             this.render(true);
         }

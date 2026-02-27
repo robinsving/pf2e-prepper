@@ -14,6 +14,11 @@ describe("_getCurrentSpellsDisplay on multi-spell-actor", () => {
             if (!actor.flags) actor.flags = {};
             return actor.flags[module]?.[key];
         });
+        actor.unsetFlag = vi.fn(async (module, key) => {
+            if (actor.flags?.[module]) {
+                delete actor.flags[module][key];
+            }
+        });
         actor.setFlag = vi.fn(async (module, key, value) => {
             if (!actor.flags) actor.flags = {};
             if (!actor.flags[module]) actor.flags[module] = {};

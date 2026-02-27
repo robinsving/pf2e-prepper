@@ -33,6 +33,7 @@
 
 ## Testing
 - [x] Unit tests for PrepperStorage core logic
+- [x] Unit tests for spell list deletion
 - [ ] UI tests for spell list management
 - [ ] Manual testing in Foundry VTT environment
 

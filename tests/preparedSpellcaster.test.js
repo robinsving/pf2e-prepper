@@ -7,7 +7,6 @@ describe("_getCurrentSpellsDisplay on single-spell-actor", () => {
         // Mock PrepperStorage for this test
         const mockStorage = {
             getSpellLists: vi.fn(() => ({})),
-            getActiveListId: vi.fn(() => null),
         };
         vi.spyOn(game.modules, "get").mockImplementation((_) => {
             return { api: { PrepperStorage: mockStorage } };

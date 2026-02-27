@@ -8,7 +8,7 @@
       "Delete": "Delete",
       "Rename": "Rename",
       "Duplicate": "Duplicate",
-      "Update": "Update to Current",
+      "Update": "Set to Current",
       "Reload": "Reload Current",
       "ConfirmDelete": "Are you sure you want to delete this spell list?",
       "NamePrompt": "Enter a name for this spell list:",

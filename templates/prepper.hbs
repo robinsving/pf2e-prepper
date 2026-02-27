@@ -2,7 +2,7 @@
   <div class="prepper-tabs">
     <a class="item" data-tab="current">{{localize "SPELLLIST.CurrentList"}}</a>
     {{#each spellLists as |list|}}
-      <a class="item {{#if (eq list.id ../activeListId)}}active{{/if}}" data-tab="{{list.id}}">{{list.name}}</a>
+      <a class="item" data-tab="{{list.id}}">{{list.name}}</a>
     {{/each}}
   </div>
 
