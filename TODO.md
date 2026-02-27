@@ -8,7 +8,7 @@
 - [x] Delete a spell list
 - [x] Rename a spell list
 - [x] Duplicate a spell list
-- [ ] Handle flexible spellcasters: spell information is not same as prepared, but instead information of preparation exists in the spells themselves: entry.spells.{key is Id}.value.system.location.signature = true name. Perhaps investigate docs to see if there are quick functions to add spells faster.
+- [x] Handle flexible spellcasters (limited)
 
 ## UI/UX
 - [x] Add an interface to create a new list

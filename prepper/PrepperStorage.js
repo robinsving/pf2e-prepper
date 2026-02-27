@@ -92,11 +92,46 @@ export default class PrepperStorage {
       
       const isFlexible = entry.system.prepared?.flexible === true;
       
-      if (!isFlexible && actor.spellcasting?.collections) {
-        // Handle flexible spellcasters using the prepareSpell API (if available in Foundry)
+      if (actor.spellcasting?.collections) {
         const spellcasting = actor.spellcasting.collections.find(sc => sc.id === entry.id);
         
-        if (spellcasting && spellcasting.prepareSpell) {
+        /**
+         * Handle both flexible and prepared spellcasting entries. For flexible entries, we update the signature of each spell directly.
+         * For prepared entries, we use the prepareSpell API to set the prepared spells according to the saved list, and clear any slots that are not included in the saved list.
+         * 
+         * Note: For flexible spellcasters, we assume that the saved list's spells are the ones that should be prepared, and we set the signature accordingly.
+         * This current implementation does not handle the case where a spell has been _removed_ from the list of available spells for a flexible caster, as the system does not have a built-in way to "unprepare" a spell in that case.
+         * It simply sets the signature to true for spells that are included in the saved list, and leaves it unchanged for others.
+         */
+        if (isFlexible) {
+          // Handle flexible spellcasters by updating system.location.signature
+          if (spellcasting) {
+            try {
+              // Collect all spell IDs that should be prepared
+              const spellsToInclude = new Set();
+              for (const levelObj of savedEntry.levels) {
+                if (levelObj.spells) {
+                  for (const spellData of levelObj.spells) {
+                    spellsToInclude.add(spellData.id);
+                  }
+                }
+              }
+              
+              // Iterate over all spells in the spellcasting collection
+              if (spellcasting.size > 0) {
+                for (const spell of spellcasting.contents) {
+                  const shouldPrepare = spellsToInclude.has(spell.id);
+                  await spell.update({
+                    'system.location.signature': shouldPrepare
+                  });
+                }
+              }
+            } catch (e) {
+              error(`Failed to update spell signature: ${e.message}`);
+            }
+          }
+        } else if (spellcasting && spellcasting.prepareSpell) {
+          // Handle prepared spellcasters using the prepareSpell API
           try {
             // For each spell level in the saved list
             for (const levelObj of savedEntry.levels) {
@@ -131,7 +166,6 @@ export default class PrepperStorage {
               }
             }
           } catch (e) {
-            // If prepareSpell API fails, fall back to slot updates
             error(`Failed to prepare spell via API: ${e.message}`);
           }
         }
