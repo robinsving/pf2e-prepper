@@ -120,6 +120,7 @@ export default class PrepperStorage {
               // Iterate over all spells in the spellcasting collection
               if (spellcasting.size > 0) {
                 for (const spell of spellcasting.contents) {
+                  // TODO TI-02, TI-03: If the spell is not currently in the spellcasting collection, this will not work. We may want to re-add it to the collection first before preparing, or handle this case in some way (e.g. skip it and show a warning).
                   const shouldPrepare = spellsToInclude.has(spell.id);
                   await spell.update({
                     'system.location.signature': shouldPrepare
@@ -152,6 +153,7 @@ export default class PrepperStorage {
                 if (spell && spell.type === 'spell') {
                   // Verify slot index is valid before preparing
                   if (slotIndex < slots.max) {
+                    // TODO TI-02, TI-03: If the spell is not currently in the spellcasting collection, this will not work. We may want to re-add it to the collection first before preparing, or handle this case in some way (e.g. skip it and show a warning).
                     await spellcasting.prepareSpell(spell, level, slotIndex);
                   }
                 }
