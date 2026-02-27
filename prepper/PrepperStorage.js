@@ -89,25 +89,58 @@ export default class PrepperStorage {
     for (const savedEntry of list.spellcastingEntries) {
       const entry = spellcastingEntries.find(e => e.id === savedEntry.id);
       if (!entry || entry.system.prepared?.value !== 'prepared') continue;
-
-      // Only support the levels array format (flexible-actor.json style)
-      const updateData = {};
-      if (savedEntry.levels) {
-        for (const levelObj of savedEntry.levels) {
-          if (!levelObj.spells || levelObj.spells.length === 0) continue;
-          updateData[`system.slots.slot${levelObj.level}.prepared`] = levelObj.spells;
+      
+      const isFlexible = entry.system.prepared?.flexible === true;
+      
+      if (!isFlexible && actor.spellcasting?.collections) {
+        // Handle flexible spellcasters using the prepareSpell API (if available in Foundry)
+        const spellcasting = actor.spellcasting.collections.find(sc => sc.id === entry.id);
+        
+        if (spellcasting && spellcasting.prepareSpell) {
+          try {
+            // For each spell level in the saved list
+            for (const levelObj of savedEntry.levels) {
+              const level = levelObj.level;
+              const slotKey = `slot${level}`;
+              const slots = entry.system.slots[slotKey];
+              
+              // Verify slots exist for this level
+              if (!slots) continue;
+              
+              const savedSpellCount = levelObj.spells?.length || 0;
+              
+              // First, prepare the spells we want to load
+              for (let slotIndex = 0; slotIndex < savedSpellCount; slotIndex++) {
+                const spellData = levelObj.spells[slotIndex];
+                const spell = actor.items.get(spellData.id);
+                
+                if (spell && spell.type === 'spell') {
+                  // Verify slot index is valid before preparing
+                  if (slotIndex < slots.max) {
+                    await spellcasting.prepareSpell(spell, level, slotIndex);
+                  }
+                }
+              }
+              
+              // Then, clear any spells in slots we don't have saved
+              const prepared = slots.prepared || [];
+              for (let slotIndex = prepared.length - 1; slotIndex >= savedSpellCount; slotIndex--) {
+                if (slotIndex < prepared.length) {
+                  await spellcasting.prepareSpell(null, level, slotIndex);
+                }
+              }
+            }
+          } catch (e) {
+            // If prepareSpell API fails, fall back to slot updates
+            error(`Failed to prepare spell via API: ${e.message}`);
+          }
         }
-      }
-
-      if (Object.keys(updateData).length > 0) {
-        await entry.update(updateData);
       }
     }
     
     // Update the lastUsed timestamp
     const lists = this.getSpellLists(actor);
     lists[listId].lastUsed = Date.now();
-
     await actor.unsetFlag(SCRIPT_ID, settings.flagNames.spellLists);
     await actor.setFlag(SCRIPT_ID, settings.flagNames.spellLists, lists);
     
