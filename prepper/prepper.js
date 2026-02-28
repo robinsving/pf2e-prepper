@@ -85,7 +85,7 @@ Hooks.on('renderActorSheet', (app, html, _) => {
             // Add the button to manage spell lists
             const buttonHtml = `
                 <button type="button" class="spell-lists-manager" style="background: #782e22; color: white; border: none; border-radius: 4px; padding: 4px 8px; margin: 5px; cursor: pointer;">
-                    <i class="fas fa-book-spells"></i> ${game.i18n.localize('SPELLLIST.ManageSpellLists')}
+                    <i class="fas fa-book-spells"></i> ${game.i18n.localize('PREPPER.ManageSpellLists')}
                 </button>
                 `;
             

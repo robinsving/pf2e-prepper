@@ -85,6 +85,11 @@
   margin-bottom: 8px;
 }
 
+.pf2e-prepper .prepper-list-description {
+  font: 0.9em var(--font-primary);
+  color: #777;
+}
+
 .pf2e-prepper .prepper-list-metadata {
   font-size: 0.9em;
   color: #777;
@@ -158,7 +163,7 @@
   grid-column: span 5;
 }
 
-.prepper-list-actions .prepper-update-list-btn {
+.prepper-list-actions .prepper-reset-list-btn {
   grid-column: span 5;
 }
 
@@ -201,13 +206,13 @@
 }
 
 .pf2e-prepper .prepper-load-list-btn,
-.pf2e-prepper .prepper-update-list-btn {
+.pf2e-prepper .prepper-reset-list-btn {
   background: #782e22;
   color: white;
 }
 
 .pf2e-prepper .prepper-load-list-btn:hover,
-.pf2e-prepper .prepper-update-list-btn:hover {
+.pf2e-prepper .prepper-reset-list-btn:hover {
   background: #632419;
 }
 

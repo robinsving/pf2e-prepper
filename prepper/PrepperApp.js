@@ -19,7 +19,7 @@ export default class PrepperApp extends Application {
     static get defaultOptions() {
         return foundry.utils.mergeObject(super.defaultOptions, {
             id: SCRIPT_ID,
-            title: game.i18n.localize('SPELLLIST.Title'),
+            title: game.i18n.localize('PREPPER.Title'),
             template: `modules/${SCRIPT_ID}/templates/prepper.hbs`,
             width: 700,
             height: 700,
@@ -67,43 +67,12 @@ export default class PrepperApp extends Application {
         html.find('.prepper-delete-list-btn').click(this._onDeleteList.bind(this));
         html.find('.prepper-rename-list-btn').click(this._onRenameList.bind(this));
         html.find('.prepper-reload-current-btn').click(this._onReloadCurrent.bind(this));
-        html.find('.prepper-update-list-btn').click(this._onUpdateList.bind(this));
+        html.find('.prepper-reset-list-btn').click(this._onResetList.bind(this));
 
         // Tab change handler
         html.find('.prepper-tabs a').click(ev => {
             this.activeTab = ev.currentTarget.dataset.tab;
         });
-    }
-
-    /**
-     * Handle updating a spell list
-     * @param {Event} event - The triggering event
-     * @private
-     */
-    async _onUpdateList(event) {
-        event.preventDefault();
-
-        const listId = event.currentTarget.dataset.listId;
-        if (!listId) return;
-
-        // Confirm before updating
-        const confirm = await Dialog.confirm({
-            title: game.i18n.localize('SPELLLIST.Update'),
-            content: game.i18n.localize('SPELLLIST.UpdateConfirm'),
-            defaultYes: false
-        });
-
-        if (!confirm) return;
-
-        // Update the selected list
-        const storage = game.modules.get(SCRIPT_ID).api.PrepperStorage;
-        const currentSpells = this._getCurrentSpellsDisplay();
-        const success = await storage.updateSpellList(this.actor, currentSpells, listId);
-
-        if (success) {
-            popup(game.i18n.localize('SPELLLIST.UpdateSuccess'));
-            this.render(false);
-        }
     }
     
     /**
@@ -282,7 +251,7 @@ export default class PrepperApp extends Application {
                         const spell = this.actor.items.get(spellInfo.id);
                         levelData.spells.push({
                             id: spellInfo.id,
-                            name: spell?.name || spellInfo.name || game.i18n.localize("SPELLLIST.UnknownSpell"),
+                            name: spell?.name || spellInfo.name || game.i18n.localize("PREPPER.spellList.unknownSpell"),
                         });
                     }
                     
@@ -310,15 +279,15 @@ export default class PrepperApp extends Application {
         
         // Prompt for name and description
         const dialog = new Dialog({
-            title: game.i18n.localize('SPELLLIST.New'),
+            title: game.i18n.localize('PREPPER.spellListButton.new'),
             content: `
                 <form class="$SCRIPT_ID-dialog">
                 <div class="form-group">
-                <label>${game.i18n.localize('SPELLLIST.NamePrompt')}</label>
+                <label>${game.i18n.localize('PREPPER.popup.namePrompt')}</label>
                 <input type="text" name="name" value="" required>
                 </div>
                 <div class="form-group">
-                <label>${game.i18n.localize('SPELLLIST.DescriptionPrompt')}</label>
+                <label>${game.i18n.localize('PREPPER.popup.descriptionPrompt')}</label>
                 <textarea name="description"></textarea>
                 </div>
                 </form>
@@ -326,7 +295,7 @@ export default class PrepperApp extends Application {
             buttons: {
                 save: {
                     icon: '<i class="fas fa-save"></i>',
-                    label: game.i18n.localize('SPELLLIST.Save'),
+                    label: game.i18n.localize('PREPPER.popup.save'),
                     callback: async (html) => {
                         const form = html.find('form')[0];
                         const name = form.name.value;
@@ -343,12 +312,12 @@ export default class PrepperApp extends Application {
                         this.render(true);
                         
                         // Show success notification
-                        ui.notifications.info(game.i18n.localize('SPELLLIST.SaveSuccess'));
+                        popup(game.i18n.localize('PREPPER.spellList.saveSuccess'));
                     }
                 },
                 cancel: {
                     icon: '<i class="fas fa-times"></i>',
-                    label: game.i18n.localize('Cancel')
+                    label: game.i18n.localize('PREPPER.popup.cancel')
                 }
             },
             default: 'save'
@@ -375,15 +344,15 @@ export default class PrepperApp extends Application {
         
         // Prompt for name and description
         const dialog = new Dialog({
-            title: game.i18n.localize('SPELLLIST.Duplicate'),
+            title: game.i18n.localize('PREPPER.spellListButton.duplicate'),
             content: `
                 <form class="pf2e-prepper-dialog">
                 <div class="form-group">
-                <label>${game.i18n.localize('SPELLLIST.NamePrompt')}</label>
+                <label>${game.i18n.localize('PREPPER.popup.namePrompt')}</label>
                 <input type="text" name="name" value="${list.name} (Copy)" required>
                 </div>
                 <div class="form-group">
-                <label>${game.i18n.localize('SPELLLIST.DescriptionPrompt')}</label>
+                <label>${game.i18n.localize('PREPPER.popup.descriptionPrompt')}</label>
                 <textarea name="description">${list.description || ''}</textarea>
                 </div>
                 </form>
@@ -391,7 +360,7 @@ export default class PrepperApp extends Application {
             buttons: {
                 save: {
                     icon: '<i class="fas fa-save"></i>',
-                    label: game.i18n.localize('SPELLLIST.Save'),
+                    label: game.i18n.localize('PREPPER.popup.save'),
                     callback: async (html) => {
                         const form = html.find('form')[0];
                         const name = form.name.value;
@@ -406,12 +375,12 @@ export default class PrepperApp extends Application {
                         this.render(true);
                         
                         // Show success notification
-                        ui.notifications.info(game.i18n.localize('SPELLLIST.SaveSuccess'));
+                        popup(game.i18n.localize('PREPPER.spellList.saveSuccess'));
                     }
                 },
                 cancel: {
                     icon: '<i class="fas fa-times"></i>',
-                    label: game.i18n.localize('Cancel')
+                    label: game.i18n.localize('PREPPER.popup.cancel')
                 }
             },
             default: 'save'
@@ -433,8 +402,8 @@ export default class PrepperApp extends Application {
         
         // Confirm before loading
         const confirm = await Dialog.confirm({
-            title: game.i18n.localize('SPELLLIST.Load'),
-            content: game.i18n.localize('SPELLLIST.LoadConfirm'),
+            title: game.i18n.localize('PREPPER.spellListButton.load'),
+            content: game.i18n.localize('PREPPER.popup.loadConfirm'),
             defaultYes: false
         });
         
@@ -445,7 +414,7 @@ export default class PrepperApp extends Application {
         const success = await storage.loadSpellList(this.actor, listId);
         
         if (success) {
-            popup(game.i18n.localize('SPELLLIST.LoadSuccess'));
+            popup(game.i18n.localize('PREPPER.spellList.loadSuccess'));
         }
     }
     
@@ -457,6 +426,37 @@ export default class PrepperApp extends Application {
     async _onReloadCurrent(event) {
         event.preventDefault();
         this.render(true);
+    }
+
+    /**
+     * Handle updating a spell list
+     * @param {Event} event - The triggering event
+     * @private
+     */
+    async _onResetList(event) {
+        event.preventDefault();
+
+        const listId = event.currentTarget.dataset.listId;
+        if (!listId) return;
+
+        // Confirm before updating
+        const confirm = await Dialog.confirm({
+            title: game.i18n.localize('PREPPER.popup.reset'),
+            content: game.i18n.localize('PREPPER.popup.resetConfirm'),
+            defaultYes: false
+        });
+
+        if (!confirm) return;
+
+        // Update the selected list
+        const storage = game.modules.get(SCRIPT_ID).api.PrepperStorage;
+        const currentSpells = this._getCurrentSpellsDisplay();
+        const success = await storage.resetSpellList(this.actor, currentSpells, listId);
+
+        if (success) {
+            popup(game.i18n.localize('PREPPER.spellList.updateSuccess'));
+            this.render(false);
+        }
     }
     
     /**
@@ -472,8 +472,8 @@ export default class PrepperApp extends Application {
         
         // Confirm before deleting
         const confirm = await Dialog.confirm({
-            title: game.i18n.localize('SPELLLIST.Delete'),
-            content: game.i18n.localize('SPELLLIST.ConfirmDelete'),
+            title: game.i18n.localize('PREPPER.spellListButton.delete'),
+            content: game.i18n.localize('PREPPER.popup.deleteConfirm'),
             defaultYes: false
         });
         
@@ -484,7 +484,7 @@ export default class PrepperApp extends Application {
         const success = await storage.deleteSpellList(this.actor, listId);
         
         if (success) {
-            debug(game.i18n.localize('SPELLLIST.DeleteSuccess'));
+            debug(game.i18n.localize('PREPPER.spellList.deleteSuccess'));
             this.activeTab = 'current';
             this.render(true);
         }
@@ -509,15 +509,15 @@ export default class PrepperApp extends Application {
         
         // Prompt for new name and description
         const dialog = new Dialog({
-            title: game.i18n.localize('SPELLLIST.Rename'),
+            title: game.i18n.localize('PREPPER.spellListButton.rename'),
             content: `
                 <form class="pf2e-prepper-dialog">
                 <div class="form-group">
-                <label>${game.i18n.localize('SPELLLIST.NamePrompt')}</label>
+                <label>${game.i18n.localize('PREPPER.popup.namePrompt')}</label>
                 <input type="text" name="name" value="${list.name}" required>
                 </div>
                 <div class="form-group">
-                <label>${game.i18n.localize('SPELLLIST.DescriptionPrompt')}</label>
+                <label>${game.i18n.localize('PREPPER.popup.descriptionPrompt')}</label>
                 <textarea name="description">${list.description || ''}</textarea>
                 </div>
                 </form>
@@ -525,7 +525,7 @@ export default class PrepperApp extends Application {
             buttons: {
                 save: {
                     icon: '<i class="fas fa-save"></i>',
-                    label: game.i18n.localize('SPELLLIST.Save'),
+                    label: game.i18n.localize('PREPPER.popup.save'),
                     callback: async (html) => {
                         const form = html.find('form')[0];
                         const name = form.name.value;
@@ -542,7 +542,7 @@ export default class PrepperApp extends Application {
                 },
                 cancel: {
                     icon: '<i class="fas fa-times"></i>',
-                    label: game.i18n.localize('Cancel')
+                    label: game.i18n.localize('PREPPER.popup.cancel')
                 }
             },
             default: 'save'

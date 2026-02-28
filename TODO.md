@@ -20,6 +20,7 @@
 - [x] Display list metadata (name, description, last used) in the UI
 - [x] Confirmation dialogs for destructive actions (delete, overwrite)
 - [ ] Use foundry.applications.api.ApplicationV2. V1 is deprecated since Version 13
+- [ ] Extract spell list dialog (for rename etc.) to be a (V2) templated file
 
 ## Integration :: TI
 - [x] 01 Ensure compatibility with all PF2e spellcasting entry types (prepared, flexible, etc.)

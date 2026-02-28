@@ -59,7 +59,7 @@ export default class PrepperStorage {
       name: name,
       description: description,
       spellcastingEntries: currentSpells, // currentSpells should already be in the correct format (with levels array)
-      lastUsed: Date.now()
+      created: Date.now()
     };
 
     // Save the spell list to the actor's flags
@@ -174,9 +174,8 @@ export default class PrepperStorage {
       }
     }
     
-    // Update the lastUsed timestamp
+    // Update the created timestamp
     const lists = this.getSpellLists(actor);
-    lists[listId].lastUsed = Date.now();
     await actor.unsetFlag(SCRIPT_ID, settings.flagNames.spellLists);
     await actor.setFlag(SCRIPT_ID, settings.flagNames.spellLists, lists);
     
@@ -190,7 +189,7 @@ export default class PrepperStorage {
    * @param {string} listId - The ID of the spell list to update
    * @returns {Promise<boolean>} - Whether the update was successful
    */
-  static async updateSpellList(actor, currentSpells, listId) {
+  static async resetSpellList(actor, currentSpells, listId) {
     const list = this.getSpellList(actor, listId);
     if (!list) return false;
 
@@ -278,7 +277,7 @@ export default class PrepperStorage {
     if (newDescription !== null) {
       newList.description = newDescription;
     }
-    newList.lastUsed = Date.now();
+    newList.created = Date.now();
     
     // Save the new list with a deep clone to avoid reference issues
     const lists = this.getSpellLists(actor);
