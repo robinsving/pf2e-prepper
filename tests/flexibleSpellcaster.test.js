@@ -33,29 +33,28 @@ describe("_getCurrentSpellsDisplay on multi-spell-actor", () => {
             ...flexibleActor.items
         };
 
+        // Mock some
+        actor.spellcasting = {
+            collections: actor.items
+                .filter(i => i.type === "spellcastingEntry")
+                .map(entry => ({
+                id: entry.id,
+                size: 1,
+                // add spells, and for each spell add the update function that allows setting a system.location.signature
+                contents: flexibleActor.items.filter(i => i.type === "spell" && i.system.location.value === entry.id).map(spell => ({
+                    ...spell,
+                    update: async (data) => {
+                        // change the signature of the spell in the original flexibleActor data to simulate the update that would happen in the real actor
+                        spell.system.location.signature = data["system.location.signature"];
+                    }
+                }))
+            }))
+        };
+
         // Add itemTypes.spellcastingEntry for PrepperStorage compatibility
         actor.itemTypes = {
             spellcastingEntry: flexibleActor.items.filter(i => i.type === "spellcastingEntry").map(entry => ({
-                ...entry,
-                update: vi.fn(async function (updateData) {
-                    // Simulate updating the entry's system.slots
-                    if (!this.system.slots) this.system.slots = {};
-                    // Clear all prepared arrays for all slots
-                    for (let i = 1; i <= 10; i++) {
-                        const slotKey = `slot${i}`;
-                        if (!this.system.slots[slotKey]) this.system.slots[slotKey] = {};
-                        this.system.slots[slotKey].prepared = [];
-                    }
-                    // Apply updateData
-                    for (const key in updateData) {
-                        const match = key.match(/^system\.slots\.(slot\d+)\.prepared$/);
-                        if (match) {
-                            const slotKey = match[1];
-                            this.system.slots[slotKey] = this.system.slots[slotKey] || {};
-                            this.system.slots[slotKey].prepared = updateData[key];
-                        }
-                    }
-                })
+                ...entry
             }))
         };
 
@@ -66,10 +65,9 @@ describe("_getCurrentSpellsDisplay on multi-spell-actor", () => {
         expect(currentSpells.length).toBeGreaterThan(0);
         
         // Extract the spell objects from level 1 for later comparison
-        const level1Spells = currentSpells[0].levels[0].spells;
-        expect(level1Spells).toEqual([
+        expect(currentSpells[0].levels[0].spells).toEqual([
             { id: "tIonH8VxLUBgK5O2", name: "Alarm" },
-            { id: "LwMKucF3R1VUswV3", name: "Shocking Grasp" },
+            { id: "LwMKucF3R1VUswV3", name: "Shocking Grasp" }
         ]);
 
         // 2. Save as new list
@@ -91,16 +89,22 @@ describe("_getCurrentSpellsDisplay on multi-spell-actor", () => {
         const emptyLoadResult = await PrepperStorage.loadSpellList(actor, emptyListId);
         expect(emptyLoadResult).toBe(true);
         
-        // Verify that system.slots is empty after loading the empty list
-        const emptySlots = actor.itemTypes.spellcastingEntry[0].system.slots.slot1.prepared;
-        expect(emptySlots).toStrictEqual([]);
+        // Verify that flexible signature spells (the way to determine prepared spells for this actor) are cleared
+        const clearedSpells = prepperApp._getCurrentSpellsDisplay();
+        expect(clearedSpells).toEqual([]);
 
         // 5. Load the original list back
         const restoreResult = await PrepperStorage.loadSpellList(actor, listId);
         expect(restoreResult).toBe(true);
 
         // Verify that system.slots is restored with the original spell objects
-        const restoredSlots = actor.itemTypes.spellcastingEntry[0].system.slots.slot1.prepared;
-        expect(restoredSlots).toStrictEqual(level1Spells);
+        const restoredSpells = prepperApp._getCurrentSpellsDisplay();
+        expect(restoredSpells.length).toBeGreaterThan(0);
+        
+        // Extract the spell objects from level 1 for later comparison
+        expect(restoredSpells[0].levels[0].spells).toEqual([
+            { id: "tIonH8VxLUBgK5O2", name: "Alarm" },
+            { id: "LwMKucF3R1VUswV3", name: "Shocking Grasp" }
+        ]);
     });
 });

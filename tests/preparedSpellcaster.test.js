@@ -1,44 +1,118 @@
 import { describe, it, expect, vi } from "vitest";
 import PrepperApp from "../prepper/PrepperApp.js";
+import PrepperStorage from "../prepper/PrepperStorage.js";
 import preparedActor from "./data/prepared-actor.json";
 
-describe("_getCurrentSpellsDisplay on single-spell-actor", () => {
-    it("should return the full list of spells with requested data", () => {
-        // Mock PrepperStorage for this test
-        const mockStorage = {
-            getSpellLists: vi.fn(() => ({})),
-        };
-        vi.spyOn(game.modules, "get").mockImplementation((_) => {
-            return { api: { PrepperStorage: mockStorage } };
+describe("_getCurrentSpellsDisplay on multi-spell-actor", () => {
+
+    it("should save and load a spell list without crashing", async () => {
+        // Setup: Deep clone the actor to avoid mutation
+        const actor = JSON.parse(JSON.stringify(preparedActor));
+
+        // Mock getFlag/setFlag for actor
+        actor.getFlag = vi.fn((module, key) => {
+            if (!actor.flags) actor.flags = {};
+            return actor.flags[module]?.[key];
+        });
+        actor.unsetFlag = vi.fn(async (module, key) => {
+            if (actor.flags?.[module]) {
+                delete actor.flags[module][key];
+            }
+        });
+        actor.setFlag = vi.fn(async (module, key, value) => {
+            if (!actor.flags) actor.flags = {};
+            if (!actor.flags[module]) actor.flags[module] = {};
+            actor.flags[module][key] = value;
         });
 
-        // Setup: Create an instance of PrepperApp with the actor
-        const prepperApp = new PrepperApp(preparedActor);
+        // Add .items as a Map-like for compatibility
+        actor.items = {
+            filter: (...args) => Array.prototype.filter.apply(preparedActor.items, args),
+            find: (...args) => Array.prototype.find.apply(preparedActor.items, args),
+            get: (id) => preparedActor.items.find(i => i.id === id),
+            ...preparedActor.items
+        };
 
-        // Call the method
-        const data = prepperApp.getData();
+        // Add spellcasting to actor, and add prepareSpell to each entry, simulating the behavior of the SpellcastingEntry class
+        actor.spellcasting = {
+            collections: preparedActor.items.filter(i => i.type === "spellcastingEntry").map(entry => ({
+                ...entry,
+                prepareSpell: vi.fn(async function (spell, level, slotIndex) {
+                    // Simulate updating the entry's system.slots
+                    if (!this.system.slots) this.system.slots = {};
 
-        // Assertions
-        expect(data.currentSpells).toStrictEqual([
-            {
-                "id": "oGVGhQnQjByubbM4",
-                "flexible": false,
-                "name": "Occult Prepared Spells",
-                "levels": [
-                    {
-                        "level": 1,
-                        "spells": [
-                            {
-                                "id": "9csscbuv7MrMXsqE",
-                                "name": "Animate Rope"
-                            }
-                        ]
+                    // Add the spell to the prepared array for this slot, unless spell is null (indicating delete)
+                    if (spell) {
+                        const slotKey = `slot${level}`;
+                        this.system.slots[slotKey] = this.system.slots[slotKey] || {};
+                        this.system.slots[slotKey].prepared[slotIndex] = {
+                                "id": spell.id,
+                                "expended": false
+                            };
+                    } else {
+                        // If spell is null, clear the prepared value of slotIndex for this slot (in this test, we clear the entire prepared array for simplicity)
+                        const slotKey = `slot${level}`;
+                        if (this.system.slots[slotKey]) {
+                            this.system.slots[slotKey].prepared = [];
+                        }
                     }
-                ]
-            }
+                })
+            }))
+        };
+
+        // Add itemTypes.spellcastingEntry for PrepperStorage compatibility
+        actor.itemTypes = {
+            spellcastingEntry: preparedActor.items.filter(i => i.type === "spellcastingEntry").map(entry => ({
+                ...entry
+            }))
+        };
+
+        const prepperApp = new PrepperApp(actor);
+
+        // 1. Get current spells
+        const currentSpells = prepperApp._getCurrentSpellsDisplay();
+        expect(currentSpells.length).toBeGreaterThan(0);
+        
+        // Extract the spell objects from level 1 for later comparison
+        const level1Spells = currentSpells[0].levels[0].spells;
+        expect(level1Spells).toEqual([
+            { id: "9csscbuv7MrMXsqE", name: "Animate Rope" },
         ]);
 
-        // Restore original behavior
-        game.modules.get.mockRestore();
+        // 2. Save as new list
+        const listId = await PrepperStorage.saveCurrentAsNewList(actor, currentSpells, "Test List", "Round-trip test");
+        expect(listId).toBeDefined();
+
+        // 3. Save an empty spell list  
+        const emptySpells = currentSpells.map(entry => ({
+            ...entry,
+            levels: Array.from({ length: 10 }, (_, i) => ({
+                level: i + 1,
+                spells: []
+            }))
+        }));
+        const emptyListId = await PrepperStorage.saveCurrentAsNewList(actor, emptySpells, "Empty List", "Cleared spells");
+        expect(emptyListId).toBeDefined();
+
+        // 4. Load the empty list
+        const emptyLoadResult = await PrepperStorage.loadSpellList(actor, emptyListId);
+        expect(emptyLoadResult).toBe(true);
+        
+        // Verify that system.slots is empty after loading the empty list
+        const emptySlots = prepperApp._getCurrentSpellsDisplay();
+        expect(emptySlots).toStrictEqual([]);
+
+        // 5. Load the original list back
+        const restoreResult = await PrepperStorage.loadSpellList(actor, listId);
+        expect(restoreResult).toBe(true);
+
+        // Verify that system.slots is restored with the original spell objects
+        const restoredSpells = prepperApp._getCurrentSpellsDisplay();
+        expect(restoredSpells.length).toBeGreaterThan(0);
+        
+        // Extract the spell objects from level 1 for later comparison
+        expect(restoredSpells[0].levels[0].spells).toEqual([
+            { id: "9csscbuv7MrMXsqE", name: "Animate Rope" }
+        ]);
     });
 });
