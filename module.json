@@ -8,7 +8,7 @@
         "minimum": "12",
         "verified": "12"
     },
-    "scripts": [
+    "esmodules": [
         "prepper/entry-control.js"
     ],
     "styles": [
