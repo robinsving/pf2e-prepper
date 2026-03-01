@@ -38,6 +38,7 @@ global.game = {
 // Mock the Hooks object
 global.Hooks = {
     on: vi.fn(),
+    once: vi.fn(),
     callAll: vi.fn(),
 };
 

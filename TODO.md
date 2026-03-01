@@ -33,6 +33,7 @@
 - [x] Store lists using actor flags
 - [-] Add migration logic for older list formats if needed
 - [-] Allow import/export of spell lists (JSON or clipboard)
+- [ ] Make the spell lists be _per_ spellcasting entry (in case of multiple applicable spellcasting entry), and move UI button to the relevant entry
 
 ## Testing
 - [x] Unit tests for PrepperStorage core logic
@@ -44,7 +45,6 @@
 - [ ] Document API for module developers
 
 ## Stretch Goals
-- [ ] Allow sharing spell lists between actors or users (requires store Compendium item instead of local copy)
 - [ ] Integrate with macros or hotbar for one-click loading
 
 ---

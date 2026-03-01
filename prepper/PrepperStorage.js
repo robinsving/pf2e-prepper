@@ -1,4 +1,4 @@
-import { id as SCRIPT_ID } from '../module.json';
+import { MODULE_ID } from './prepper';
 import { settings } from "./utilities/Utilities";
 
 /**
@@ -27,7 +27,7 @@ export default class PrepperStorage {
    */
   static getSpellLists(actor) {
     if (!actor) return {};
-    return actor.getFlag(SCRIPT_ID, settings.flagNames.spellLists) || {};
+    return actor.getFlag(MODULE_ID, settings.flagNames.spellLists) || {};
   }
 
   /**
@@ -66,8 +66,8 @@ export default class PrepperStorage {
     const lists = this.getSpellLists(actor);
     lists[listId] = spellListData;
 
-    await actor.unsetFlag(SCRIPT_ID, settings.flagNames.spellLists);
-    await actor.setFlag(SCRIPT_ID, settings.flagNames.spellLists, lists);
+    await actor.unsetFlag(MODULE_ID, settings.flagNames.spellLists);
+    await actor.setFlag(MODULE_ID, settings.flagNames.spellLists, lists);
 
     return listId;
   }
@@ -176,8 +176,8 @@ export default class PrepperStorage {
     
     // Update the created timestamp
     const lists = this.getSpellLists(actor);
-    await actor.unsetFlag(SCRIPT_ID, settings.flagNames.spellLists);
-    await actor.setFlag(SCRIPT_ID, settings.flagNames.spellLists, lists);
+    await actor.unsetFlag(MODULE_ID, settings.flagNames.spellLists);
+    await actor.setFlag(MODULE_ID, settings.flagNames.spellLists, lists);
     
     return true;
   }
@@ -215,8 +215,8 @@ export default class PrepperStorage {
     delete updatedLists[listId];
     
     // Update the actor's flags
-    await actor.unsetFlag(SCRIPT_ID, settings.flagNames.spellLists);
-    await actor.setFlag(SCRIPT_ID, settings.flagNames.spellLists, updatedLists);
+    await actor.unsetFlag(MODULE_ID, settings.flagNames.spellLists);
+    await actor.setFlag(MODULE_ID, settings.flagNames.spellLists, updatedLists);
     
     // Ensure the flag update is fully processed before returning
     // This gives Foundry's event system a chance to fully synchronize the data
@@ -247,8 +247,8 @@ export default class PrepperStorage {
     }
     
     // Update the actor's flags
-    await actor.unsetFlag(SCRIPT_ID, settings.flagNames.spellLists);
-    await actor.setFlag(SCRIPT_ID, settings.flagNames.spellLists, updatedLists);
+    await actor.unsetFlag(MODULE_ID, settings.flagNames.spellLists);
+    await actor.setFlag(MODULE_ID, settings.flagNames.spellLists, updatedLists);
     
     return true;
   }
@@ -284,8 +284,8 @@ export default class PrepperStorage {
     const updatedLists = this._deepClone(lists);
     updatedLists[newListId] = newList;
     
-    await actor.unsetFlag(SCRIPT_ID, settings.flagNames.spellLists);
-    await actor.setFlag(SCRIPT_ID, settings.flagNames.spellLists, updatedLists);
+    await actor.unsetFlag(MODULE_ID, settings.flagNames.spellLists);
+    await actor.setFlag(MODULE_ID, settings.flagNames.spellLists, updatedLists);
     
     return newListId;
   }

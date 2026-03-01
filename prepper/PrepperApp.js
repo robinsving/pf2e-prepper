@@ -1,5 +1,5 @@
-import { id as SCRIPT_ID, title } from "../module.json";
-import { info, debug, popup, error } from "./utilities/Utilities.js";
+import { MODULE_ID, MODULE_TITLE, API } from "./prepper";
+import { debug, info, popup } from "./utilities/Utilities";
 
 /**
 * Application for managing spell lists
@@ -18,13 +18,13 @@ export default class PrepperApp extends Application {
     /** @override */
     static get defaultOptions() {
         return foundry.utils.mergeObject(super.defaultOptions, {
-            id: SCRIPT_ID,
+            id: MODULE_ID,
             title: game.i18n.localize('PREPPER.Title'),
-            template: `modules/${SCRIPT_ID}/templates/prepper.hbs`,
+            template: `modules/${MODULE_ID}/templates/prepper.hbs`,
             width: 700,
             height: 700,
             resizable: true,
-            classes: [title],
+            classes: [MODULE_TITLE],
             tabs: [{ navSelector: '.prepper-tabs', contentSelector: '.prepper-tab-content', initial: 'current' }]
         });
     }
@@ -32,7 +32,7 @@ export default class PrepperApp extends Application {
     /** @override */
     getData(options = {}) {
         // Get all spell lists for this actor
-        const storage = game.modules.get(SCRIPT_ID).api.PrepperStorage;
+        const storage = API.PrepperStorage;
         const spellLists = storage.getSpellLists(this.actor);
         
         // Sort lists alphabetically
@@ -304,7 +304,7 @@ export default class PrepperApp extends Application {
                         if (!name) return;
                         
                         // Save the current preparation as a new list
-                        const storage = game.modules.get(SCRIPT_ID).api.PrepperStorage;
+                        const storage = API.PrepperStorage;
                         const currentSpells = this._getCurrentSpellsDisplay();
                         await storage.saveCurrentAsNewList(this.actor, currentSpells, name, description);
                         
@@ -338,7 +338,7 @@ export default class PrepperApp extends Application {
         if (!listId) return;
         
         // Get the list to duplicate
-        const storage = game.modules.get(SCRIPT_ID).api.PrepperStorage;
+        const storage = API.PrepperStorage;
         const list = storage.getSpellList(this.actor, listId);
         if (!list) return;
         
@@ -410,7 +410,7 @@ export default class PrepperApp extends Application {
         if (!confirm) return;
         
         // Load the selected list
-        const storage = game.modules.get(SCRIPT_ID).api.PrepperStorage;
+        const storage = API.PrepperStorage;
         const success = await storage.loadSpellList(this.actor, listId);
         
         if (success) {
@@ -449,7 +449,7 @@ export default class PrepperApp extends Application {
         if (!confirm) return;
 
         // Update the selected list
-        const storage = game.modules.get(SCRIPT_ID).api.PrepperStorage;
+        const storage = API.PrepperStorage;
         const currentSpells = this._getCurrentSpellsDisplay();
         const success = await storage.resetSpellList(this.actor, currentSpells, listId);
 
@@ -480,7 +480,7 @@ export default class PrepperApp extends Application {
         if (!confirm) return;
         
         // Delete the selected list
-        const storage = game.modules.get(SCRIPT_ID).api.PrepperStorage;
+        const storage = API.PrepperStorage;
         const success = await storage.deleteSpellList(this.actor, listId);
         
         if (success) {
@@ -502,7 +502,7 @@ export default class PrepperApp extends Application {
         if (!listId) return;
         
         // Get the current list
-        const storage = game.modules.get(SCRIPT_ID).api.PrepperStorage;
+        const storage = API.PrepperStorage;
         const list = storage.getSpellList(this.actor, listId);
         
         if (!list) return;

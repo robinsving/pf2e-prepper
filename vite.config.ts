@@ -1,7 +1,6 @@
 import copy from "rollup-plugin-copy";
 import { defineConfig } from "vite";
 
-
 export default defineConfig({
     esbuild: {
         minifyIdentifiers: false, // Turning this on will cause mangling with Foundry

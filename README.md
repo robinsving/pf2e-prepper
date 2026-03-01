@@ -11,11 +11,10 @@ The PF2e Prepper module enhances the Pathfinder 2e system in Foundry VTT by allo
 5. Enable the module in your world
 
 ## Features
-- Save multiple spell configurations for Prepared spellcaster classes
+- Save multiple spell configurations for Prepared and Flexible spellcaster classes
 - Name and describe each spell list for easy reference
-- Quickly load a saved spell list (during daily preparation)
+- Quickly load a stored spell list (during daily preparation)
 - Manage (rename, update, delete) your saved spell lists
-- Works with all prepared spellcaster classes (Wizard, Cleric, Druid, etc.)
 - Supports multiclass characters with multiple spellcasting entries
 
 ## Usage
