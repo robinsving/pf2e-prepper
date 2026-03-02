@@ -1,10 +1,53 @@
 import { MODULE_ID, MODULE_TITLE, API } from "./prepper";
 import { debug, info, popup } from "./utilities/Utilities";
 
+const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api
+
 /**
 * Application for managing spell lists
 */
-export default class PrepperApp extends Application {
+export default class PrepperApp extends HandlebarsApplicationMixin(ApplicationV2) {
+    static DEFAULT_OPTIONS = {
+        id: MODULE_ID,
+
+        actions: {
+            changeTab: PrepperApp._onChangeTab,
+
+            // Current preparation actions
+            new: PrepperApp._onNewList,
+            reload: PrepperApp._onReloadCurrent,
+
+            // Stored list actions
+            load: PrepperApp._onLoadList,
+            duplicate: PrepperApp._onDuplicateList,
+            delete: PrepperApp._onDeleteList,
+            rename: PrepperApp._onRenameList,
+            reset: PrepperApp._onResetList,
+        },
+
+        position: {
+            width: 700,
+            height: 700
+        },
+
+        tag: "div",
+
+        classes: [MODULE_ID],
+        window: {
+            title: MODULE_TITLE,
+            icon: 'fas fa-scroll',
+            frame: true,
+            resizable: true
+        }
+    };
+
+    static PARTS = {
+        page: {
+            template: `modules/${MODULE_ID}/templates/prepper.hbs`,
+            scrollable: [''],
+        }
+    }
+
     /**
     * @param {Actor} actor - The actor to manage spell lists for
     * @param {Object} options - Application options
@@ -12,25 +55,10 @@ export default class PrepperApp extends Application {
     constructor(actor, options = {}) {
         super(options);
         this.actor = actor;
-        this.activeTab = null;
-    }
-    
-    /** @override */
-    static get defaultOptions() {
-        return foundry.utils.mergeObject(super.defaultOptions, {
-            id: MODULE_ID,
-            title: game.i18n.localize('PREPPER.Title'),
-            template: `modules/${MODULE_ID}/templates/prepper.hbs`,
-            width: 700,
-            height: 700,
-            resizable: true,
-            classes: [MODULE_TITLE],
-            tabs: [{ navSelector: '.prepper-tabs', contentSelector: '.prepper-tab-content', initial: 'current' }]
-        });
-    }
-    
-    /** @override */
-    getData(options = {}) {
+        this.activeTab = 'current';
+    };
+
+    async _preparePartContext() {
         // Get all spell lists for this actor
         const storage = API.PrepperStorage;
         const spellLists = storage.getSpellLists(this.actor);
@@ -47,32 +75,14 @@ export default class PrepperApp extends Application {
         
         // Get current spells
         const currentSpells = this._getCurrentSpellsDisplay();
-        
+
         return {
             actor: this.actor,
             spellLists: sortedLists,
             hasLists: sortedLists.length > 0,
-            currentSpells: currentSpells
+            currentSpells: currentSpells,
+            activeTab: this.activeTab || 'current'
         };
-    }
-        
-    /** @override */
-    activateListeners(html) {
-        super.activateListeners(html);
-
-        // Button handlers
-        html.find('.prepper-new-list-btn').click(this._onNewList.bind(this));
-        html.find('.prepper-load-list-btn').click(this._onLoadList.bind(this));
-        html.find('.prepper-duplicate-list-btn').click(this._onDuplicateList.bind(this));
-        html.find('.prepper-delete-list-btn').click(this._onDeleteList.bind(this));
-        html.find('.prepper-rename-list-btn').click(this._onRenameList.bind(this));
-        html.find('.prepper-reload-current-btn').click(this._onReloadCurrent.bind(this));
-        html.find('.prepper-reset-list-btn').click(this._onResetList.bind(this));
-
-        // Tab change handler
-        html.find('.prepper-tabs a').click(ev => {
-            this.activeTab = ev.currentTarget.dataset.tab;
-        });
     }
     
     /**
@@ -268,16 +278,22 @@ export default class PrepperApp extends Application {
         
         return result;
     }
+
+    static async _onChangeTab(_, button) {
+        this.activeTab  = button.dataset.tab;
+        this.render();
+    }
     
     /**
     * Handle creating a new spell list
     * @param {Event} event - The triggering event
     * @private
     */
-    async _onNewList(event) {
+    static async _onNewList(event) {
         event.preventDefault();
         
         // Prompt for name and description
+        //extends HandlebarsApplicationMixin(ApplicationV2) {
         const dialog = new Dialog({
             title: game.i18n.localize('PREPPER.spellListButton.new'),
             content: `
@@ -306,8 +322,11 @@ export default class PrepperApp extends Application {
                         // Save the current preparation as a new list
                         const storage = API.PrepperStorage;
                         const currentSpells = this._getCurrentSpellsDisplay();
-                        await storage.saveCurrentAsNewList(this.actor, currentSpells, name, description);
+                        const newListId = await storage.saveCurrentAsNewList(this.actor, currentSpells, name, description);
                         
+                        // Switch to the new list tab
+                        this.activeTab = newListId;
+
                         // Refresh the app
                         this.render(true);
                         
@@ -331,10 +350,10 @@ export default class PrepperApp extends Application {
     * @param {Event} event - The triggering event
     * @private
     */
-    async _onDuplicateList(event) {
+    static async _onDuplicateList(event, target) {
         event.preventDefault();
         
-        const listId = event.currentTarget.dataset.listId;
+        const listId = target.dataset.listId;
         if (!listId) return;
         
         // Get the list to duplicate
@@ -369,8 +388,11 @@ export default class PrepperApp extends Application {
                         if (!name) return;
                         
                         // Duplicate the list
-                        await storage.duplicateSpellList(this.actor, listId, name, description);
+                        const newListId = await storage.duplicateSpellList(this.actor, listId, name, description);
                         
+                         // Switch to the new list tab
+                        this.activeTab = newListId;
+
                         // Refresh the app
                         this.render(true);
                         
@@ -394,10 +416,10 @@ export default class PrepperApp extends Application {
     * @param {Event} event - The triggering event
     * @private
     */
-    async _onLoadList(event) {
+    static async _onLoadList(event, target) {
         event.preventDefault();
         
-        const listId = event.currentTarget.dataset.listId;
+        const listId = target.dataset.listId;
         if (!listId) return;
         
         // Confirm before loading
@@ -423,7 +445,7 @@ export default class PrepperApp extends Application {
     * @param {Event} event - The triggering event
     * @private
     */
-    async _onReloadCurrent(event) {
+    static _onReloadCurrent(event) {
         event.preventDefault();
         this.render(true);
     }
@@ -433,10 +455,10 @@ export default class PrepperApp extends Application {
      * @param {Event} event - The triggering event
      * @private
      */
-    async _onResetList(event) {
+    static async _onResetList(event, target) {
         event.preventDefault();
 
-        const listId = event.currentTarget.dataset.listId;
+        const listId = target.dataset.listId;
         if (!listId) return;
 
         // Confirm before updating
@@ -451,9 +473,10 @@ export default class PrepperApp extends Application {
         // Update the selected list
         const storage = API.PrepperStorage;
         const currentSpells = this._getCurrentSpellsDisplay();
-        const success = await storage.resetSpellList(this.actor, currentSpells, listId);
+        const newListId = await storage.resetSpellList(this.actor, currentSpells, listId);
 
-        if (success) {
+        if (newListId) {
+            this.activeTab = newListId;
             popup(game.i18n.localize('PREPPER.spellList.updateSuccess'));
             this.render(false);
         }
@@ -464,10 +487,10 @@ export default class PrepperApp extends Application {
     * @param {Event} event - The triggering event
     * @private
     */
-    async _onDeleteList(event) {
+    static async _onDeleteList(event, target) {
         event.preventDefault();
         
-        const listId = event.currentTarget.dataset.listId;
+        const listId = target.dataset.listId;
         if (!listId) return;
         
         // Confirm before deleting
@@ -495,10 +518,10 @@ export default class PrepperApp extends Application {
     * @param {Event} event - The triggering event
     * @private
     */
-    async _onRenameList(event) {
+    static async _onRenameList(event, target) {
         event.preventDefault();
         
-        const listId = event.currentTarget.dataset.listId;
+        const listId = target.dataset.listId;
         if (!listId) return;
         
         // Get the current list

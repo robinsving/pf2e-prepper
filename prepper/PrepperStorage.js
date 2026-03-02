@@ -80,7 +80,7 @@ export default class PrepperStorage {
    */
   static async loadSpellList(actor, listId) {
     const list = this.getSpellList(actor, listId);
-    if (!list) return false;
+    if (!list || list.spellcastingEntries.length === 0) return false;
     
     // Get the spellcasting entries
     const spellcastingEntries = actor.itemTypes.spellcastingEntry || [];
@@ -194,10 +194,10 @@ export default class PrepperStorage {
     if (!list) return false;
 
     // Since the structure of the spell list is quite complex and closely tied to the current preparation, it's simpler and more reliable to just save the current preparation as a new list with the same name & description, and then delete the current list
-    await this.saveCurrentAsNewList(actor, currentSpells, list.name, list.description);
+    const newListId = await this.saveCurrentAsNewList(actor, currentSpells, list.name, list.description);
     await this.deleteSpellList(actor, listId);
 
-    return true;
+    return newListId;
   }
 
   /**

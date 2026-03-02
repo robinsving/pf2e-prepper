@@ -1,34 +1,40 @@
 <div class="pf2e-prepper">
   <div class="prepper-tabs">
-    <a class="item" data-tab="current">{{localize "PREPPER.spellList.currentPreparation"}}</a>
+    <button type="button" data-action="changeTab" data-tab="current" class="{{#if (eq activeTab "current")}}active{{/if}}">
+        {{localize "PREPPER.spellList.currentPreparation"}}
+    </button>
     {{#each spellLists as |list|}}
-      <a class="item" data-tab="{{list.id}}">{{list.name}}</a>
+      <button type="button" data-action="changeTab" data-tab="{{list.id}}" class="{{#if (eq ../activeTab list.id)}}active{{/if}}">
+        {{list.name}}
+      </button>
     {{/each}}
   </div>
 
   <div class="prepper-tab-content">
-    <div class="tab" data-tab="current">
-      <div class="prepper-list-info">
-        <h3>{{localize "PREPPER.spellList.currentPreparation"}}</h3>
-        <button class="prepper-reload-current-btn">
-          <i class="fas fa-sync"></i> {{localize "PREPPER.spellListButton.reload"}}
-        </button>
-        <button class="prepper-new-list-btn">
-          <i class="fas fa-plus"></i> {{localize "PREPPER.spellListButton.new"}}
-        </button>
-      </div>
+      {{#if (eq activeTab "current")}}
+        <div class="tab active" data-tab="current">
+          <div class="prepper-list-info">
+            <h2>{{localize "PREPPER.spellList.currentPreparation"}}</h2>
+            <button class="prepper-reload-current-btn" data-action="reload">
+              <i class="fas fa-sync"></i> {{localize "PREPPER.spellListButton.reload"}}
+            </button>
+            <button class="prepper-new-list-btn" data-action="new">
+              <i class="fas fa-plus"></i> {{localize "PREPPER.spellListButton.new"}}
+            </button>
+          </div>
+        </div>
       
       <div class="prepper-spell-list-container">
         {{#if currentSpells.length}}
           {{#each currentSpells as |entry|}}
-            <div class="prepper-spellcasting-entry">
+            <div class="tab active prepper-spellcasting-entry">
               <h4>{{entry.name}}</h4>
               {{#each entry.levels as |level|}}
                 <div class="prepper-spell-level">
                   <h5>{{localize "PREPPER.spellList.spellRank"}} {{level.level}}</h5>
-                  <ul class="spell-list">
+                  <ul class="prepper-spell-list">
                     {{#each level.spells as |spell|}}
-                      <li class="spell-item">
+                      <li class="prepper-spell-item">
                         {{spell.name}}
                       </li>
                     {{/each}}
@@ -38,17 +44,19 @@
             </div>
           {{/each}}
         {{else}}
-          <p class="no-spells-message">{{localize "PREPPER.spellList.noSpellsAvailable"}}</p>
+          <p class="prepper-no-spells-message">{{localize "PREPPER.spellList.noSpellsAvailable"}}</p>
         {{/if}}
       </div>
     </div>
+    {{/if}}
 
     {{#each spellLists as |list|}}
-      <div class="tab" data-tab="{{list.id}}">
+      {{#if (eq ../activeTab list.id)}}
+      <div class="tab active" data-tab="{{list.id}}">
         <!-- List header with name and metadata -->
         <div class="prepper-list-info">
           <!-- List name -->
-          <h3>{{list.name}}</h3>
+          <h2>{{list.name}}</h2>
 
           <!-- Metadata -->
           <div class="prepper-list-metadata">
@@ -78,9 +86,9 @@
                 {{#each entry.levels as |level|}}
                   <div class="prepper-spell-level">
                     <h5>{{localize "PREPPER.spellList.spellRank"}} {{level.level}}</h5>
-                    <ul class="spell-list">
+                    <ul class="prepper-spell-list">
                       {{#each level.spells as |spell|}}
-                        <li class="spell-item">
+                        <li class="prepper-spell-item">
                           {{spell.name}}
                         </li>
                       {{/each}}
@@ -90,29 +98,30 @@
               </div>
             {{/each}}
            {{else}}
-            <p class="no-spells-message">{{localize "PREPPER.spellList.noSpellsAvailable"}}</p>
+            <p class="prepper-no-spells-message">{{localize "PREPPER.spellList.noSpellsAvailable"}}</p>
           {{/if}}
         </div>
         
         <!-- Action buttons -->
         <div class="prepper-list-actions">
-          <button class="prepper-load-list-btn" data-list-id="{{list.id}}">
+          <button class="prepper-load-list-btn" data-list-id="{{list.id}}" data-action="load">
             <i class="fas fa-book-open"></i> {{localize "PREPPER.spellListButton.load"}}
           </button>
-          <button class="prepper-reset-list-btn" data-list-id="{{list.id}}">
+          <button class="prepper-reset-list-btn" data-list-id="{{list.id}}" data-action="reset">
             <i class="fas fa-sync-alt"></i> {{localize "PREPPER.spellListButton.reset"}}
           </button>
-          <button class="prepper-duplicate-list-btn" data-list-id="{{list.id}}">
+          <button class="prepper-duplicate-list-btn" data-list-id="{{list.id}}" data-action="duplicate">
             <i class="fas fa-copy"></i> {{localize "PREPPER.spellListButton.duplicate"}}
           </button>
-          <button class="prepper-rename-list-btn" data-list-id="{{list.id}}">
+          <button class="prepper-rename-list-btn" data-list-id="{{list.id}}" data-action="rename">
             <i class="fas fa-edit"></i> {{localize "PREPPER.spellListButton.rename"}}
           </button>
-          <button class="prepper-delete-list-btn" data-list-id="{{list.id}}">
+          <button class="prepper-delete-list-btn" data-list-id="{{list.id}}" data-action="delete">
             <i class="fas fa-trash"></i> {{localize "PREPPER.spellListButton.delete"}}
           </button>
         </div>
       </div>
+      {{/if}}
     {{/each}}
 
   </div>

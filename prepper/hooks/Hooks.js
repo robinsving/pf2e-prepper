@@ -75,8 +75,8 @@ Hooks.on('renderActorSheet', (app, html, _) => {
             
             // Add the button to manage spell lists
             const buttonHtml = `
-                <button type="button" class="spell-lists-manager" style="background: #782e22; color: white; border: none; border-radius: 4px; padding: 4px 8px; margin: 5px; cursor: pointer;">
-                    <i class="fas fa-book-spells"></i> ${game.i18n.localize('PREPPER.ManageSpellLists')}
+                <button type="button" class="pf2e-prepper-spell-lists-manager">
+                    <i class="fas fa-scroll"></i> ${game.i18n.localize('PREPPER.ManageSpellLists')}
                 </button>
                 `;
             
@@ -87,7 +87,7 @@ Hooks.on('renderActorSheet', (app, html, _) => {
             info('Button added to', buttonContainer);
             
             // Add click handler
-            html.find('.spell-lists-manager').click(ev => {
+            html.find('.pf2e-prepper-spell-lists-manager').click(ev => {
                 ev.preventDefault();
                 new PrepperApp(app.actor).render(true);
             });

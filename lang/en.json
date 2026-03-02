@@ -27,12 +27,12 @@
     },
     "spellListButton": {
       "load": "Load to Actor",
-      "new": "New copy",
+      "new": "Create copy",
       "delete": "Delete",
       "rename": "Rename",
       "duplicate": "Duplicate",
       "reset": "Reset to Current",
-      "reload": "Reload from Actor"
+      "reload": "Reload"
     }
   }
 }

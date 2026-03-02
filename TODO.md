@@ -19,8 +19,10 @@
 - [-] Add buttons or controls to quickly save/load lists from the character sheet
 - [x] Display list metadata (name, description, last used) in the UI
 - [x] Confirmation dialogs for destructive actions (delete, overwrite)
-- [ ] Use foundry.applications.api.ApplicationV2. V1 is deprecated since Version 13
+- [x] Use foundry.applications.api.ApplicationV2. V1 is deprecated since Version 13
+- [ ] Use DialogV2 for Dialog windows
 - [ ] Extract spell list dialog (for rename etc.) to be a (V2) templated file
+- [ ] Tabs handling with proper built-ins (https://foundryvtt.wiki/en/development/guides/applicationV2-conversion-guide)
 
 ## Integration :: TI
 - [x] 01 Ensure compatibility with all PF2e spellcasting entry types (prepared, flexible, etc.)
