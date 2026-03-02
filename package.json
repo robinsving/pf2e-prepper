@@ -7,7 +7,7 @@
     "type": "module",
     "scripts": {
         "build": "vite build",
-        "commitlint": "commitlint --from-last-tag",
+        "commitlint": "commitlint --config commitlint.config.js --from-last-tag",
         "test": "vitest run"
     },
     "devDependencies": {
