@@ -21,6 +21,7 @@ const Configuration = {
         'test'
       ]
     ],
+    "body-max-line-length": [0],
   },
   /*
    * Array of functions that return true if commitlint should ignore the given message.
