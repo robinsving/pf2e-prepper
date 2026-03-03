@@ -7,6 +7,8 @@ const { ApplicationV2, HandlebarsApplicationMixin, DialogV2 } = foundry.applicat
 * Application for managing spell lists
 */
 export default class PrepperApp extends HandlebarsApplicationMixin(ApplicationV2) {
+    static SPELL_LIST_DIALOG_TEMPLATE = `modules/${MODULE_ID}/templates/spell-list-name-dialog.hbs`;
+
     static DEFAULT_OPTIONS = {
         id: MODULE_ID,
 
@@ -283,6 +285,17 @@ export default class PrepperApp extends HandlebarsApplicationMixin(ApplicationV2
         this.activeTab  = button.dataset.tab;
         this.render();
     }
+
+    /**
+     * Render spell list dialog form content
+     * @param {{name?: string, description?: string}} dialogData
+     * @returns {Promise<string>}
+     * @private
+     */
+    static async _renderSpellListDialogContent(dialogData = {}) {
+        const { name = "", description = "" } = dialogData;
+        return renderTemplate(this.SPELL_LIST_DIALOG_TEMPLATE, { name, description });
+    }
     
     /**
     * Handle creating a new spell list
@@ -293,20 +306,10 @@ export default class PrepperApp extends HandlebarsApplicationMixin(ApplicationV2
         event.preventDefault();
         
         // Prompt for name and description
+        const content = await PrepperApp._renderSpellListDialogContent();
         await DialogV2.wait({
             window: { title: game.i18n.localize('PREPPER.spellListButton.new') },
-            content: `
-                <form class="$SCRIPT_ID-dialog">
-                <div class="form-group">
-                <label>${game.i18n.localize('PREPPER.popup.namePrompt')}</label>
-                <input type="text" name="name" value="" required>
-                </div>
-                <div class="form-group">
-                <label>${game.i18n.localize('PREPPER.popup.descriptionPrompt')}</label>
-                <textarea name="description"></textarea>
-                </div>
-                </form>
-                `,
+            content,
             buttons: [{
                 action: "save",
                 icon: "fas fa-save",
@@ -360,20 +363,13 @@ export default class PrepperApp extends HandlebarsApplicationMixin(ApplicationV2
         if (!list) return;
         
         // Prompt for name and description
+        const content = await PrepperApp._renderSpellListDialogContent({
+            name: `${list.name} (Copy)`,
+            description: list.description || ""
+        });
         await DialogV2.wait({
             window: { title: game.i18n.localize('PREPPER.spellListButton.duplicate') },
-            content: `
-                <form class="pf2e-prepper-dialog">
-                <div class="form-group">
-                <label>${game.i18n.localize('PREPPER.popup.namePrompt')}</label>
-                <input type="text" name="name" value="${list.name} (Copy)" required>
-                </div>
-                <div class="form-group">
-                <label>${game.i18n.localize('PREPPER.popup.descriptionPrompt')}</label>
-                <textarea name="description">${list.description || ''}</textarea>
-                </div>
-                </form>
-                `,
+            content,
             buttons: [{
                 action: "save",
                 icon: "fas fa-save",
@@ -531,20 +527,13 @@ export default class PrepperApp extends HandlebarsApplicationMixin(ApplicationV2
         if (!list) return;
         
         // Prompt for new name and description
+        const content = await PrepperApp._renderSpellListDialogContent({
+            name: list.name,
+            description: list.description || ""
+        });
         await DialogV2.wait({
             window: { title: game.i18n.localize('PREPPER.spellListButton.rename') },
-            content: `
-                <form class="pf2e-prepper-dialog">
-                <div class="form-group">
-                <label>${game.i18n.localize('PREPPER.popup.namePrompt')}</label>
-                <input type="text" name="name" value="${list.name}" required>
-                </div>
-                <div class="form-group">
-                <label>${game.i18n.localize('PREPPER.popup.descriptionPrompt')}</label>
-                <textarea name="description">${list.description || ''}</textarea>
-                </div>
-                </form>
-                `,
+            content,
             buttons: [{
                 action: "save",
                 icon: "fas fa-save",
