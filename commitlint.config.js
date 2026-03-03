@@ -18,7 +18,8 @@ const Configuration = {
         'refactor',
         'revert',
         'style',
-        'test'
+        'test',
+        'new version',
       ]
     ],
     "body-max-line-length": [0],
