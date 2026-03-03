@@ -2,11 +2,11 @@
     "id": "pf2e-prepper",
     "title": "PF2e Prepper",
     "description": "A module handling multiple Loadouts for daily spell preparation for PF2e.",
-    "version": "0.4.0",
+    "version": "0.4.1",
     "authors": [{"name": "Robin Sving", "email":"robin.sving@gmail.com", "discord":"@.wigglemaster"}],
     "compatibility": {
-        "minimum": "12",
-        "verified": "12"
+        "minimum": "13",
+        "verified": "13"
     },
     "esmodules": [
         "prepper/entry-control.js"
