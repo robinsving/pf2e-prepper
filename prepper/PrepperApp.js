@@ -1,7 +1,7 @@
 import { MODULE_ID, MODULE_TITLE, API } from "./prepper";
 import { debug, info, popup } from "./utilities/Utilities";
 
-const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api
+const { ApplicationV2, HandlebarsApplicationMixin, DialogV2 } = foundry.applications.api
 
 /**
 * Application for managing spell lists
@@ -293,9 +293,8 @@ export default class PrepperApp extends HandlebarsApplicationMixin(ApplicationV2
         event.preventDefault();
         
         // Prompt for name and description
-        //extends HandlebarsApplicationMixin(ApplicationV2) {
-        const dialog = new Dialog({
-            title: game.i18n.localize('PREPPER.spellListButton.new'),
+        await DialogV2.wait({
+            window: { title: game.i18n.localize('PREPPER.spellListButton.new') },
             content: `
                 <form class="$SCRIPT_ID-dialog">
                 <div class="form-group">
@@ -308,14 +307,15 @@ export default class PrepperApp extends HandlebarsApplicationMixin(ApplicationV2
                 </div>
                 </form>
                 `,
-            buttons: {
-                save: {
-                    icon: '<i class="fas fa-save"></i>',
-                    label: game.i18n.localize('PREPPER.popup.save'),
-                    callback: async (html) => {
-                        const form = html.find('form')[0];
-                        const name = form.name.value;
-                        const description = form.description.value;
+            buttons: [{
+                action: "save",
+                icon: "fas fa-save",
+                label: game.i18n.localize('PREPPER.popup.save'),
+                default: true,
+                callback: async (_event, button) => {
+                        const form = button.form;
+                        const name = form?.elements?.name?.value;
+                        const description = form?.elements?.description?.value;
                         
                         if (!name) return;
                         
@@ -334,15 +334,13 @@ export default class PrepperApp extends HandlebarsApplicationMixin(ApplicationV2
                         popup(game.i18n.localize('PREPPER.spellList.saveSuccess'));
                     }
                 },
-                cancel: {
-                    icon: '<i class="fas fa-times"></i>',
+                {
+                    action: "cancel",
+                    icon: "fas fa-times",
                     label: game.i18n.localize('PREPPER.popup.cancel')
                 }
-            },
-            default: 'save'
+            ]
         });
-        
-        dialog.render(true);
     }
     
     /**
@@ -362,8 +360,8 @@ export default class PrepperApp extends HandlebarsApplicationMixin(ApplicationV2
         if (!list) return;
         
         // Prompt for name and description
-        const dialog = new Dialog({
-            title: game.i18n.localize('PREPPER.spellListButton.duplicate'),
+        await DialogV2.wait({
+            window: { title: game.i18n.localize('PREPPER.spellListButton.duplicate') },
             content: `
                 <form class="pf2e-prepper-dialog">
                 <div class="form-group">
@@ -376,14 +374,15 @@ export default class PrepperApp extends HandlebarsApplicationMixin(ApplicationV2
                 </div>
                 </form>
                 `,
-            buttons: {
-                save: {
-                    icon: '<i class="fas fa-save"></i>',
-                    label: game.i18n.localize('PREPPER.popup.save'),
-                    callback: async (html) => {
-                        const form = html.find('form')[0];
-                        const name = form.name.value;
-                        const description = form.description.value;
+            buttons: [{
+                action: "save",
+                icon: "fas fa-save",
+                label: game.i18n.localize('PREPPER.popup.save'),
+                default: true,
+                callback: async (_event, button) => {
+                        const form = button.form;
+                        const name = form?.elements?.name?.value;
+                        const description = form?.elements?.description?.value;
                         
                         if (!name) return;
                         
@@ -400,15 +399,13 @@ export default class PrepperApp extends HandlebarsApplicationMixin(ApplicationV2
                         popup(game.i18n.localize('PREPPER.spellList.saveSuccess'));
                     }
                 },
-                cancel: {
-                    icon: '<i class="fas fa-times"></i>',
+                {
+                    action: "cancel",
+                    icon: "fas fa-times",
                     label: game.i18n.localize('PREPPER.popup.cancel')
                 }
-            },
-            default: 'save'
+            ]
         });
-        
-        dialog.render(true);
     }
     
     /**
@@ -423,10 +420,11 @@ export default class PrepperApp extends HandlebarsApplicationMixin(ApplicationV2
         if (!listId) return;
         
         // Confirm before loading
-        const confirm = await Dialog.confirm({
-            title: game.i18n.localize('PREPPER.spellListButton.load'),
+        const confirm = await DialogV2.confirm({
+            window: { title: game.i18n.localize('PREPPER.spellListButton.load') },
             content: game.i18n.localize('PREPPER.popup.loadConfirm'),
-            defaultYes: false
+            defaultYes: false,
+            rejectClose: false
         });
         
         if (!confirm) return;
@@ -462,10 +460,11 @@ export default class PrepperApp extends HandlebarsApplicationMixin(ApplicationV2
         if (!listId) return;
 
         // Confirm before updating
-        const confirm = await Dialog.confirm({
-            title: game.i18n.localize('PREPPER.popup.reset'),
+        const confirm = await DialogV2.confirm({
+            window: { title: game.i18n.localize('PREPPER.popup.reset') },
             content: game.i18n.localize('PREPPER.popup.resetConfirm'),
-            defaultYes: false
+            defaultYes: false,
+            rejectClose: false
         });
 
         if (!confirm) return;
@@ -494,10 +493,11 @@ export default class PrepperApp extends HandlebarsApplicationMixin(ApplicationV2
         if (!listId) return;
         
         // Confirm before deleting
-        const confirm = await Dialog.confirm({
-            title: game.i18n.localize('PREPPER.spellListButton.delete'),
+        const confirm = await DialogV2.confirm({
+            window: { title: game.i18n.localize('PREPPER.spellListButton.delete') },
             content: game.i18n.localize('PREPPER.popup.deleteConfirm'),
-            defaultYes: false
+            defaultYes: false,
+            rejectClose: false
         });
         
         if (!confirm) return;
@@ -531,8 +531,8 @@ export default class PrepperApp extends HandlebarsApplicationMixin(ApplicationV2
         if (!list) return;
         
         // Prompt for new name and description
-        const dialog = new Dialog({
-            title: game.i18n.localize('PREPPER.spellListButton.rename'),
+        await DialogV2.wait({
+            window: { title: game.i18n.localize('PREPPER.spellListButton.rename') },
             content: `
                 <form class="pf2e-prepper-dialog">
                 <div class="form-group">
@@ -545,14 +545,15 @@ export default class PrepperApp extends HandlebarsApplicationMixin(ApplicationV2
                 </div>
                 </form>
                 `,
-            buttons: {
-                save: {
-                    icon: '<i class="fas fa-save"></i>',
-                    label: game.i18n.localize('PREPPER.popup.save'),
-                    callback: async (html) => {
-                        const form = html.find('form')[0];
-                        const name = form.name.value;
-                        const description = form.description.value;
+            buttons: [{
+                action: "save",
+                icon: "fas fa-save",
+                label: game.i18n.localize('PREPPER.popup.save'),
+                default: true,
+                callback: async (_event, button) => {
+                        const form = button.form;
+                        const name = form?.elements?.name?.value;
+                        const description = form?.elements?.description?.value;
                         
                         if (!name) return;
                         
@@ -563,14 +564,12 @@ export default class PrepperApp extends HandlebarsApplicationMixin(ApplicationV2
                         this.render(true);
                     }
                 },
-                cancel: {
-                    icon: '<i class="fas fa-times"></i>',
+                {
+                    action: "cancel",
+                    icon: "fas fa-times",
                     label: game.i18n.localize('PREPPER.popup.cancel')
                 }
-            },
-            default: 'save'
+            ]
         });
-        
-        dialog.render(true);
     }
 }

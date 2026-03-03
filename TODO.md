@@ -20,7 +20,7 @@
 - [x] Display list metadata (name, description, last used) in the UI
 - [x] Confirmation dialogs for destructive actions (delete, overwrite)
 - [x] Use foundry.applications.api.ApplicationV2. V1 is deprecated since Version 13
-- [ ] Use DialogV2 for Dialog windows
+- [x] Use DialogV2 for Dialog windows
 - [ ] Extract spell list dialog (for rename etc.) to be a (V2) templated file
 - [ ] Tabs handling with proper built-ins (https://foundryvtt.wiki/en/development/guides/applicationV2-conversion-guide)
 
