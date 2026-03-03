@@ -173,6 +173,7 @@
 
 /* Character Sheet Anchor */
 .pf2e-prepper-spell-lists-manager i {
+  color: var(--color-pf-tertiary-dark);
   margin-right: 1px;
 }
 
