@@ -150,7 +150,8 @@
 .pf2e-prepper button {
   margin-bottom: 5px;
   transition: background-color 0.2s;
-  color: var(--color-pf-inventory-header-text)
+  color: var(--color-pf-inventory-header-text);
+  white-space: nowrap;
 }
 
 /* Active state for tabs */
@@ -170,16 +171,9 @@
   color: #666;
 }
 
-/* Character Sheet Button */
-.pf2e-prepper-spell-lists-manager {
-  border: none;
-  cursor: pointer;
-  font-size: 0.9em;
-  width: auto;
-}
-
+/* Character Sheet Anchor */
 .pf2e-prepper-spell-lists-manager i {
-  margin-right: 4px;
+  margin-right: 1px;
 }
 
 /* Dialog Styles */

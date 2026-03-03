@@ -1,7 +1,6 @@
 {
   "PREPPER": {
-    "Title": "PF2e Prepper Spell Lists",
-    "ManageSpellLists": "Manage Prepper",
+    "ManageSpellLists": "Manage Prepared Spell Lists with PF2e Prepper",
     "popup": {
       "save": "Save to List",
       "load": "Load to Actor",
@@ -31,7 +30,7 @@
       "delete": "Delete",
       "rename": "Rename",
       "duplicate": "Duplicate",
-      "reset": "Reset to Current",
+      "reset": "Set to Current",
       "reload": "Reload"
     }
   }

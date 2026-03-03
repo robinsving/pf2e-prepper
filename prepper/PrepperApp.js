@@ -57,13 +57,17 @@ export default class PrepperApp extends HandlebarsApplicationMixin(ApplicationV2
     constructor(actor, options = {}) {
         super(options);
         this.actor = actor;
+        this.spellcastingEntryId = options.spellcastingEntryId;
         this.activeTab = 'current';
     };
 
     async _preparePartContext() {
-        // Get all spell lists for this actor
+        const currentEntry = this._getCurrentSpellsDisplay(this.spellcastingEntryId);
+        if (!currentEntry) throw new Error(`No prepared spells found for spellcasting entry ${this.spellcastingEntryId}`);
+
+        // Get all spell lists for this spellcasting entry
         const storage = API.PrepperStorage;
-        const spellLists = storage.getSpellLists(this.actor);
+        const spellLists = storage.getSpellLists(this.actor, this.spellcastingEntryId);
         
         // Sort lists alphabetically
         const sortedLists = Object.values(spellLists).sort((a, b) => {
@@ -72,17 +76,14 @@ export default class PrepperApp extends HandlebarsApplicationMixin(ApplicationV2
         
         // Process each list to add displayEntries for the template
         for (const list of sortedLists) {
-            list.displayEntries = this._getSpellListDisplay(list);
+            list.displayEntry = this._getSpellListDisplay(list);
         }
-        
-        // Get current spells
-        const currentSpells = this._getCurrentSpellsDisplay();
 
         return {
             actor: this.actor,
+            spellcastingEntry: currentEntry,
             spellLists: sortedLists,
             hasLists: sortedLists.length > 0,
-            currentSpells: currentSpells,
             activeTab: this.activeTab || 'current'
         };
     }
@@ -92,40 +93,27 @@ export default class PrepperApp extends HandlebarsApplicationMixin(ApplicationV2
     * @returns {Array} Array of spellcasting entries with their spells
     * @private
     */
-    _getCurrentSpellsDisplay() {
-        const result = []; // Initialize result array
-        
-        // Get all prepared spellcasting entries
-        const preparedEntries = this.actor.items.filter(entry => entry.system.prepared?.value === 'prepared');
-            
-        debug(`Found ${preparedEntries.length} prepared spellcasting entries.`);
-        
-        for (const entry of preparedEntries) {
-            info(`Processing spellcasting entry\nName: ${entry.name}\nID: ${entry.id}`);
-            const entryData = {
-                id: entry.id,
-                flexible: entry.system.prepared.flexible,
-                name: entry.name,
-                levels: []
-            };
-            debug(`Entry data:`, entryData);
-            
-            let spells;
-            if (entryData.flexible) {
-                // Handle flexible spellcasting
-                spells = this._getCurrentSpellsDisplayFlexible(entryData, entry);
-            } else {
-                // Handle prepared spellcasting
-                spells = this._getCurrentSpellsDisplayPrepared(entryData, entry);
-            }
-            
-            if (spells.length > 0) {
-                result.push(...spells); // Add processed spells to result
-            }
-        }
-        
-        debug(`Final spells data:`, result);
-        return result; // Return the result array
+    _getCurrentSpellsDisplay(spellcastingEntryId) {
+        const entry = this.actor.items.find(entry =>
+            entry.id === spellcastingEntryId && entry.system.prepared?.value === 'prepared'
+        );
+        if (!entry) return null;
+
+        info(`Processing spellcasting entry\nName: ${entry.name}\nID: ${entry.id}`);
+        const entryData = {
+            id: entry.id,
+            flexible: entry.system.prepared.flexible,
+            name: entry.name,
+            levels: []
+        };
+        debug(`Entry data:`, entryData);
+
+        const spells = entryData.flexible
+            ? this._getCurrentSpellsDisplayFlexible(entryData, entry)
+            : this._getCurrentSpellsDisplayPrepared(entryData, entry);
+
+        debug(`Final spells data:`, spells);
+        return spells[0] || null;
     }
     
     _getCurrentSpellsDisplayPrepared(entryData, entry) {
@@ -234,51 +222,39 @@ export default class PrepperApp extends HandlebarsApplicationMixin(ApplicationV2
     * @private
     */
     _getSpellListDisplay(list) {
-        const result = [];
-        
-        if (!list.spellcastingEntries || list.spellcastingEntries.length === 0) {
-            return result;
-        }
-        
-        for (const entry of list.spellcastingEntries) {
-            const entryData = {
-                id: entry.id,
-                name: entry.name,
-                levels: []
-            };
-            
-            // Entry already has levels array from when it was saved
-            if (entry.levels && entry.levels.length > 0) {
-                for (const levelObj of entry.levels) {
-                    const levelData = {
-                        level: levelObj.level,
-                        spells: []
-                    };
-                    
-                    // Get spell data
-                    for (const spellInfo of (levelObj.spells || [])) {
-                        if (!spellInfo.id) continue;
-                        
-                        // Try to find spell on actor, but use stored name if not found
-                        const spell = this.actor.items.get(spellInfo.id);
-                        levelData.spells.push({
-                            id: spellInfo.id,
-                            name: spell?.name || spellInfo.name || game.i18n.localize("PREPPER.spellList.unknownSpell"),
-                        });
-                    }
-                    
-                    if (levelData.spells.length > 0) {
-                        entryData.levels.push(levelData);
-                    }
+        if (!list.spellcastingEntry) return null;
+
+        const entry = list.spellcastingEntry;
+        const entryData = {
+            id: entry.id,
+            name: entry.name,
+            levels: []
+        };
+
+        if (entry.levels && entry.levels.length > 0) {
+            for (const levelObj of entry.levels) {
+                const levelData = {
+                    level: levelObj.level,
+                    spells: []
+                };
+
+                for (const spellInfo of (levelObj.spells || [])) {
+                    if (!spellInfo.id) continue;
+
+                    const spell = this.actor.items.get(spellInfo.id);
+                    levelData.spells.push({
+                        id: spellInfo.id,
+                        name: spell?.name || spellInfo.name || game.i18n.localize("PREPPER.spellList.unknownSpell"),
+                    });
+                }
+
+                if (levelData.spells.length > 0) {
+                    entryData.levels.push(levelData);
                 }
             }
-            
-            if (entryData.levels.length > 0) {
-                result.push(entryData);
-            }
         }
-        
-        return result;
+
+        return entryData;
     }
 
     static async _onChangeTab(_, button) {
@@ -324,8 +300,8 @@ export default class PrepperApp extends HandlebarsApplicationMixin(ApplicationV2
                         
                         // Save the current preparation as a new list
                         const storage = API.PrepperStorage;
-                        const currentSpells = this._getCurrentSpellsDisplay();
-                        const newListId = await storage.saveCurrentAsNewList(this.actor, currentSpells, name, description);
+                        const currentSpells = this._getCurrentSpellsDisplay(this.spellcastingEntryId);
+                        const newListId = await storage.saveCurrentAsNewList(this.actor, this.spellcastingEntryId, currentSpells, name, description);
                         
                         // Switch to the new list tab
                         this.activeTab = newListId;
@@ -359,7 +335,7 @@ export default class PrepperApp extends HandlebarsApplicationMixin(ApplicationV2
         
         // Get the list to duplicate
         const storage = API.PrepperStorage;
-        const list = storage.getSpellList(this.actor, listId);
+        const list = storage.getSpellList(this.actor, this.spellcastingEntryId, listId);
         if (!list) return;
         
         // Prompt for name and description
@@ -383,7 +359,7 @@ export default class PrepperApp extends HandlebarsApplicationMixin(ApplicationV2
                         if (!name) return;
                         
                         // Duplicate the list
-                        const newListId = await storage.duplicateSpellList(this.actor, listId, name, description);
+                        const newListId = await storage.duplicateSpellList(this.actor, this.spellcastingEntryId, listId, name, description);
                         
                          // Switch to the new list tab
                         this.activeTab = newListId;
@@ -427,7 +403,7 @@ export default class PrepperApp extends HandlebarsApplicationMixin(ApplicationV2
         
         // Load the selected list
         const storage = API.PrepperStorage;
-        const success = await storage.loadSpellList(this.actor, listId);
+        const success = await storage.loadSpellList(this.actor, this.spellcastingEntryId, listId);
         
         if (success) {
             popup(game.i18n.localize('PREPPER.spellList.loadSuccess'));
@@ -467,8 +443,8 @@ export default class PrepperApp extends HandlebarsApplicationMixin(ApplicationV2
 
         // Update the selected list
         const storage = API.PrepperStorage;
-        const currentSpells = this._getCurrentSpellsDisplay();
-        const newListId = await storage.resetSpellList(this.actor, currentSpells, listId);
+        const currentSpells = this._getCurrentSpellsDisplay(this.spellcastingEntryId);
+        const newListId = await storage.resetSpellList(this.actor, this.spellcastingEntryId, currentSpells, listId);
 
         if (newListId) {
             this.activeTab = newListId;
@@ -500,7 +476,7 @@ export default class PrepperApp extends HandlebarsApplicationMixin(ApplicationV2
         
         // Delete the selected list
         const storage = API.PrepperStorage;
-        const success = await storage.deleteSpellList(this.actor, listId);
+        const success = await storage.deleteSpellList(this.actor, this.spellcastingEntryId, listId);
         
         if (success) {
             debug(game.i18n.localize('PREPPER.spellList.deleteSuccess'));
@@ -522,7 +498,7 @@ export default class PrepperApp extends HandlebarsApplicationMixin(ApplicationV2
         
         // Get the current list
         const storage = API.PrepperStorage;
-        const list = storage.getSpellList(this.actor, listId);
+        const list = storage.getSpellList(this.actor, this.spellcastingEntryId, listId);
         
         if (!list) return;
         
@@ -547,7 +523,7 @@ export default class PrepperApp extends HandlebarsApplicationMixin(ApplicationV2
                         if (!name) return;
                         
                         // Rename the list
-                        await storage.renameSpellList(this.actor, listId, name, description);
+                        await storage.renameSpellList(this.actor, this.spellcastingEntryId, listId, name, description);
                         
                         // Refresh the app
                         this.render(true);

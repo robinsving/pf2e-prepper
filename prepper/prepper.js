@@ -6,7 +6,7 @@ import PrepperApp from "./PrepperApp";
 // Create API for other modules to use
 const API = {
     PrepperStorage: PrepperStorage,
-    PrepperApp: (actor) => new PrepperApp(actor).render(true)
+    PrepperApp: (actor, options = {}) => new PrepperApp(actor, options).render(true)
 };
 
 export { API, MODULE_ID, MODULE_TITLE };

@@ -50,46 +50,42 @@ Hooks.on('renderActorSheet', (app, html, _) => {
             
             if (!hasPreparedCaster) return;
             
-            // Log for debugging
-            info('Found prepared caster, adding button');
-            
             // Find the spellcasting tab content
             const spellcastingTab = html.find('.tab[data-tab="spellcasting"]');
             if (spellcastingTab.length === 0) {
                 info('Spellcasting tab not found');
                 return;
             }
-            
-            // Try multiple selectors to find a good place for the button
-            let buttonContainer = spellcastingTab.find('.tab-header').first();
-            if (buttonContainer.length === 0) {
-                buttonContainer = spellcastingTab.find('.spellcasting-header').first();
-            }
-            if (buttonContainer.length === 0) {
-                buttonContainer = spellcastingTab.find('header').first();
-            }
-            if (buttonContainer.length === 0) {
-                // If no suitable container found, add to the top of the tab
-                buttonContainer = spellcastingTab;
-            }
-            
-            // Add the button to manage spell lists
-            const buttonHtml = `
-                <button type="button" class="pf2e-prepper-spell-lists-manager">
-                    <i class="fas fa-scroll"></i> ${game.i18n.localize('PREPPER.ManageSpellLists')}
-                </button>
+
+            // Remove stale buttons before re-inserting
+            spellcastingTab.find('.pf2e-prepper-spell-lists-manager').remove();
+
+            const preparedEntries = spellcastingEntries.filter(entry => entry.system.prepared?.value === 'prepared');
+            for (const entry of preparedEntries) {
+                const row = spellcastingTab.find(`.item[data-item-id="${entry.id}"], .spellcasting-entry[data-item-id="${entry.id}"]`).first();
+                if (row.length === 0) continue;
+
+                let controls = row.find('.item-controls').first();
+                if (controls.length === 0) {
+                    controls = row.find('header').first();
+                }
+                if (controls.length === 0) {
+                    controls = row;
+                }
+
+                const buttonHtml = `
+                    <a class="pf2e-prepper-spell-lists-manager" data-entry-id="${entry.id}" data-tooltip="${game.i18n.localize('PREPPER.ManageSpellLists')}">
+                        <i class="fas fa-scroll"></i>
+                    </a>
                 `;
-            
-            // Add the button to the container
-            buttonContainer.prepend(buttonHtml);
-            
-            // Log for debugging
-            info('Button added to', buttonContainer);
-            
-            // Add click handler
-            html.find('.pf2e-prepper-spell-lists-manager').click(ev => {
+                controls.prepend(buttonHtml);
+            }
+
+            spellcastingTab.find('.pf2e-prepper-spell-lists-manager').off('click').on('click', ev => {
                 ev.preventDefault();
-                new PrepperApp(app.actor).render(true);
+                const entryId = ev.currentTarget?.dataset?.entryId;
+                if (!entryId) return;
+                new PrepperApp(app.actor, { spellcastingEntryId: entryId }).render(true);
             });
         } catch (e) {
             error('Error adding button to character sheet', e);

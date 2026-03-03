@@ -67,51 +67,52 @@ describe("_getCurrentSpellsDisplay on multi-spell-actor", () => {
             }))
         };
 
-        const prepperApp = new PrepperApp(actor);
+        const spellcastingEntryId = actor.itemTypes.spellcastingEntry[0].id;
+        const prepperApp = new PrepperApp(actor, { spellcastingEntryId });
 
         // 1. Get current spells
-        const currentSpells = prepperApp._getCurrentSpellsDisplay();
-        expect(currentSpells.length).toBeGreaterThan(0);
+        const currentSpells = prepperApp._getCurrentSpellsDisplay(spellcastingEntryId);
+        expect(currentSpells).toBeTruthy();
         
         // Extract the spell objects from level 1 for later comparison
-        const level1Spells = currentSpells[0].levels[0].spells;
+        const level1Spells = currentSpells.levels[0].spells;
         expect(level1Spells).toEqual([
             { id: "9csscbuv7MrMXsqE", name: "Animate Rope" },
         ]);
 
         // 2. Save as new list
-        const listId = await PrepperStorage.saveCurrentAsNewList(actor, currentSpells, "Test List", "Round-trip test");
+        const listId = await PrepperStorage.saveCurrentAsNewList(actor, spellcastingEntryId, currentSpells, "Test List", "Round-trip test");
         expect(listId).toBeDefined();
 
         // 3. Save an empty spell list  
-        const emptySpells = currentSpells.map(entry => ({
-            ...entry,
+        const emptySpells = {
+            ...currentSpells,
             levels: Array.from({ length: 10 }, (_, i) => ({
                 level: i + 1,
                 spells: []
             }))
-        }));
-        const emptyListId = await PrepperStorage.saveCurrentAsNewList(actor, emptySpells, "Empty List", "Cleared spells");
+        };
+        const emptyListId = await PrepperStorage.saveCurrentAsNewList(actor, spellcastingEntryId, emptySpells, "Empty List", "Cleared spells");
         expect(emptyListId).toBeDefined();
 
         // 4. Load the empty list
-        const emptyLoadResult = await PrepperStorage.loadSpellList(actor, emptyListId);
+        const emptyLoadResult = await PrepperStorage.loadSpellList(actor, spellcastingEntryId, emptyListId);
         expect(emptyLoadResult).toBe(true);
         
         // Verify that system.slots is empty after loading the empty list
-        const emptySlots = prepperApp._getCurrentSpellsDisplay();
-        expect(emptySlots).toStrictEqual([]);
+        const emptySlots = prepperApp._getCurrentSpellsDisplay(spellcastingEntryId);
+        expect(emptySlots).toStrictEqual(null);
 
         // 5. Load the original list back
-        const restoreResult = await PrepperStorage.loadSpellList(actor, listId);
+        const restoreResult = await PrepperStorage.loadSpellList(actor, spellcastingEntryId, listId);
         expect(restoreResult).toBe(true);
 
         // Verify that system.slots is restored with the original spell objects
-        const restoredSpells = prepperApp._getCurrentSpellsDisplay();
-        expect(restoredSpells.length).toBeGreaterThan(0);
+        const restoredSpells = prepperApp._getCurrentSpellsDisplay(spellcastingEntryId);
+        expect(restoredSpells).toBeTruthy();
         
         // Extract the spell objects from level 1 for later comparison
-        expect(restoredSpells[0].levels[0].spells).toEqual([
+        expect(restoredSpells.levels[0].spells).toEqual([
             { id: "9csscbuv7MrMXsqE", name: "Animate Rope" }
         ]);
     });

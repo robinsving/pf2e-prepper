@@ -8,6 +8,7 @@
 - [x] Delete a spell list
 - [x] Rename a spell list
 - [x] Duplicate a spell list
+- [ ] Remove stored flags on uninstall
 
 ## UI/UX
 - [x] Add an interface to create a new list
@@ -35,7 +36,7 @@
 - [x] Store lists using actor flags
 - [-] Add migration logic for older list formats if needed
 - [-] Allow import/export of spell lists (JSON or clipboard)
-- [ ] Make the spell lists be _per_ spellcasting entry (in case of multiple applicable spellcasting entry), and move UI button to the relevant entry
+- [x] Make the spell lists be _per_ spellcasting entry (in case of multiple applicable spellcasting entry), and move UI button to the relevant entry
 
 ## Testing
 - [x] Unit tests for PrepperStorage core logic
