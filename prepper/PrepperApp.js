@@ -63,7 +63,6 @@ export default class PrepperApp extends HandlebarsApplicationMixin(ApplicationV2
 
     async _preparePartContext() {
         const currentEntry = this._getCurrentSpellsDisplay(this.spellcastingEntryId);
-        if (!currentEntry) throw new Error(`No prepared spells found for spellcasting entry ${this.spellcastingEntryId}`);
 
         // Get all spell lists for this spellcasting entry
         const storage = API.PrepperStorage;
@@ -108,17 +107,15 @@ export default class PrepperApp extends HandlebarsApplicationMixin(ApplicationV2
         };
         debug(`Entry data:`, entryData);
 
-        const spells = entryData.flexible
+        entryData.flexible
             ? this._getCurrentSpellsDisplayFlexible(entryData, entry)
             : this._getCurrentSpellsDisplayPrepared(entryData, entry);
 
-        debug(`Final spells data:`, spells);
-        return spells[0] || null;
+        debug(`Final spells data:`, entryData);
+        return entryData;
     }
     
     _getCurrentSpellsDisplayPrepared(entryData, entry) {
-        const result = [];
-        
         // Get all prepared spells for this entry
         const slots = entry.system.slots || {};
         debug(`Slots for entry ${entry.name}:`, slots);
@@ -168,15 +165,10 @@ export default class PrepperApp extends HandlebarsApplicationMixin(ApplicationV2
             }
         }
         
-        if (entryData.levels.length > 0) {
-            result.push(entryData);
-        }
-        return result;
+        return entryData;
     }
     
     _getCurrentSpellsDisplayFlexible(entryData, entry) {
-        const result = [];
-        
         // Get all spells associated with this entry via "location"
         const spells = this.actor.items.filter(spell => 
             spell.type === 'spell' && spell.system.location?.value === entry.id && spell.system.location?.signature === true
@@ -209,10 +201,7 @@ export default class PrepperApp extends HandlebarsApplicationMixin(ApplicationV2
         // Sort levels numerically
         entryData.levels.sort((a, b) => a.level - b.level);
         
-        if (entryData.levels.length > 0) {
-            result.push(entryData);
-        }
-        return result;
+        return entryData;
     }
     
     /**
