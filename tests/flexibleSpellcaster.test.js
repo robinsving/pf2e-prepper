@@ -63,9 +63,9 @@ describe("_getCurrentSpellsDisplay on multi-spell-actor", () => {
 
         // 1. Get current spells
         const currentSpells = prepperApp._getCurrentSpellsDisplay(spellcastingEntryId);
-        expect(currentSpells).toBeTruthy();
+        expect(currentSpells.levels.length).toBe(3);
         
-        // Extract the spell objects from level 1 for later comparison
+        // Confirm that the spells are correctly extracted from the flexible signature
         expect(currentSpells.levels[0].spells).toEqual([
             { id: "tIonH8VxLUBgK5O2", name: "Alarm" },
             { id: "LwMKucF3R1VUswV3", name: "Shocking Grasp" }
@@ -92,7 +92,7 @@ describe("_getCurrentSpellsDisplay on multi-spell-actor", () => {
         
         // Verify that flexible signature spells (the way to determine prepared spells for this actor) are cleared
         const clearedSpells = prepperApp._getCurrentSpellsDisplay(spellcastingEntryId);
-        expect(clearedSpells).toEqual(null);
+        expect(clearedSpells.levels).toEqual([]);
 
         // 5. Load the original list back
         const restoreResult = await PrepperStorage.loadSpellList(actor, spellcastingEntryId, listId);
@@ -100,7 +100,7 @@ describe("_getCurrentSpellsDisplay on multi-spell-actor", () => {
 
         // Verify that system.slots is restored with the original spell objects
         const restoredSpells = prepperApp._getCurrentSpellsDisplay(spellcastingEntryId);
-        expect(restoredSpells).toBeTruthy();
+        expect(currentSpells.levels.length).toBe(3);
         
         // Extract the spell objects from level 1 for later comparison
         expect(restoredSpells.levels[0].spells).toEqual([

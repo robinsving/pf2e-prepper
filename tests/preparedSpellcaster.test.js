@@ -72,7 +72,7 @@ describe("_getCurrentSpellsDisplay on multi-spell-actor", () => {
 
         // 1. Get current spells
         const currentSpells = prepperApp._getCurrentSpellsDisplay(spellcastingEntryId);
-        expect(currentSpells).toBeTruthy();
+        expect(currentSpells.levels.length).toBe(1);
         
         // Extract the spell objects from level 1 for later comparison
         const level1Spells = currentSpells.levels[0].spells;
@@ -101,7 +101,7 @@ describe("_getCurrentSpellsDisplay on multi-spell-actor", () => {
         
         // Verify that system.slots is empty after loading the empty list
         const emptySlots = prepperApp._getCurrentSpellsDisplay(spellcastingEntryId);
-        expect(emptySlots).toStrictEqual(null);
+        expect(emptySlots.levels).toStrictEqual([]);
 
         // 5. Load the original list back
         const restoreResult = await PrepperStorage.loadSpellList(actor, spellcastingEntryId, listId);
@@ -109,7 +109,7 @@ describe("_getCurrentSpellsDisplay on multi-spell-actor", () => {
 
         // Verify that system.slots is restored with the original spell objects
         const restoredSpells = prepperApp._getCurrentSpellsDisplay(spellcastingEntryId);
-        expect(restoredSpells).toBeTruthy();
+        expect(currentSpells.levels.length).toBe(1);
         
         // Extract the spell objects from level 1 for later comparison
         expect(restoredSpells.levels[0].spells).toEqual([
