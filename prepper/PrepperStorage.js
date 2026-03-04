@@ -271,10 +271,26 @@ export default class PrepperStorage {
     if (!spellcasting.prepareSpell) return false;
 
     try {
-      for (const levelObj of (savedEntry.levels || [])) {
-        const level = levelObj.level;
+      const levels = Array.from({ length: 10 }, (_, i) => i + 1);
+      const entrySlots = entry.system.slots || {};
+
+      // Clear all currently prepared slots first, including levels not present in the saved list.
+      for (const level of levels) {
         const slotKey = `slot${level}`;
-        const slots = entry.system.slots[slotKey];
+        const slots = entrySlots[slotKey];
+        if (!slots) continue;
+
+        const prepared = slots.prepared || [];
+        for (let slotIndex = prepared.length - 1; slotIndex >= 0; slotIndex--) {
+          await spellcasting.prepareSpell(null, level, slotIndex);
+        }
+      }
+
+      // Apply saved spells after clearing.
+      for (const levelObj of (savedEntry.levels || [])) {
+        const level = Number(levelObj.level);
+        const slotKey = `slot${level}`;
+        const slots = entrySlots[slotKey];
         if (!slots) continue;
 
         const savedSpellCount = levelObj.spells?.length || 0;
@@ -283,13 +299,6 @@ export default class PrepperStorage {
           const spell = actor.items.get(spellData.id);
           if (spell && spell.type === "spell" && slotIndex < slots.max) {
             await spellcasting.prepareSpell(spell, level, slotIndex);
-          }
-        }
-
-        const prepared = slots.prepared || [];
-        for (let slotIndex = prepared.length - 1; slotIndex >= savedSpellCount; slotIndex--) {
-          if (slotIndex < prepared.length) {
-            await spellcasting.prepareSpell(null, level, slotIndex);
           }
         }
       }
