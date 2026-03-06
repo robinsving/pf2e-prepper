@@ -17,7 +17,7 @@
 - [x] Add an interface to delete a list
 - [x] Add an interface to rename a list
 - [x] Add an interface to inspect a list
-- [-] Add buttons or controls to quickly save/load lists from the character sheet
+- [-] Add anchor to quickly load a list on the character sheet (add button to toggle show/hide) on Character Sheet
 - [x] Display list metadata (name, description, last used) in the UI
 - [x] Confirmation dialogs for destructive actions (delete, overwrite)
 - [x] Use foundry.applications.api.ApplicationV2. V1 is deprecated since Version 13

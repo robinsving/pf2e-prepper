@@ -48,6 +48,12 @@ global.foundry = {
                         return true
                     }
                 }
+        },
+        handlebars: {
+            renderTemplate: vi.fn(async (template, data) => {
+                // For testing purposes, we can return a simple string or the data as JSON
+                return `<div>${JSON.stringify(data)}</div>`;
+            })
         }
     }
 };

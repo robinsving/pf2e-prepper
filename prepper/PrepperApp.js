@@ -2,7 +2,7 @@ import { MODULE_ID, MODULE_TITLE, API } from "./prepper";
 import { debug, info, popup } from "./utilities/Utilities";
 
 const { ApplicationV2, HandlebarsApplicationMixin, DialogV2 } = foundry.applications.api
-
+const { renderTemplate } = foundry.applications.handlebars;
 /**
 * Application for managing spell lists
 */
