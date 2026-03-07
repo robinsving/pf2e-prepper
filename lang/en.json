@@ -22,7 +22,13 @@
       "currentPreparation": "Current Preparation",
       "spellRank": "Spell Rank",
       "createdDate": "Created",
-      "unknownSpell": "Unknown Spell"
+      "unknownSpell": "Unknown Spell",
+      "loadWarning": {
+        "missingSpellsHeading": "Some spells were not added:",
+        "reasonBadSpell": "spell error in saved list. Please remove the spell.",
+        "reasonNotOnActor": "spell no longer exists on this actor.",
+        "reasonNoSlot": "no available slot at spell rank."
+      }
     },
     "spellListButton": {
       "load": "Load to Actor",
@@ -35,4 +41,3 @@
     }
   }
 }
-  

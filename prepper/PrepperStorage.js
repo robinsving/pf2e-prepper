@@ -1,10 +1,24 @@
 import { MODULE_ID } from './prepper';
-import { settings, error } from "./utilities/Utilities";
+import { settings, error, popup } from "./utilities/Utilities";
 
 /**
  * Class for handling spell list storage and management
  */
 export default class PrepperStorage {
+  /**
+   * 
+   * @param {*} missingSpellsText 
+   * @returns 
+   */
+  static _showMissingSpellsWarning(missingSpellsText) {
+    if (!missingSpellsText?.size) return;
+
+    const heading = game.i18n.localize("PREPPER.spellList.loadWarning.missingSpellsHeading");
+    const details = Array.from(missingSpellsText).join("\n");
+
+    popup(`${heading}\n${details}`, "warn");
+  }
+
   /**
    * Deep clone an object using JSON serialization
    * @param {Object} obj - The object to clone
@@ -243,12 +257,30 @@ export default class PrepperStorage {
     if (!spellcasting) return false;
 
     const isFlexible = entry.system.prepared?.flexible === true;
+    const missingSpells = new Set();
+    const addMissingSpell = (spellName, reasonKey) => {
+      const name = spellName?.name || game.i18n.localize("PREPPER.spellList.unknownSpell");
+      const id =  spellName?.id || "-";
+      const reason = game.i18n.localize(reasonKey);
+      missingSpells.add(`- ${name} (${id}): ${reason}`);
+    };
 
     if (isFlexible) {
       try {
         const spellsToInclude = new Set();
         for (const levelObj of savedEntry.levels || []) {
           for (const spellData of (levelObj.spells || [])) {
+            if (!spellData?.id) {
+              addMissingSpell(spellData, "PREPPER.spellList.loadWarning.reasonBadSpell");
+              continue;
+            }
+
+            const spell = actor.items.get(spellData.id);
+            if (!spell) {
+              addMissingSpell(spellData, "PREPPER.spellList.loadWarning.reasonNotOnActor");
+              continue;
+            }
+
             spellsToInclude.add(spellData.id);
           }
         }
@@ -261,6 +293,8 @@ export default class PrepperStorage {
             });
           }
         }
+
+        this._showMissingSpellsWarning(missingSpells);
         return true;
       } catch (e) {
         error(`Failed to update spell signature: ${e.message}`);
@@ -296,12 +330,32 @@ export default class PrepperStorage {
         const savedSpellCount = levelObj.spells?.length || 0;
         for (let slotIndex = 0; slotIndex < savedSpellCount; slotIndex++) {
           const spellData = levelObj.spells[slotIndex];
-          const spell = actor.items.get(spellData.id);
-          if (spell && spell.type === "spell" && slotIndex < slots.max) {
-            await spellcasting.prepareSpell(spell, level, slotIndex);
+          if (!spellData?.id) {
+            addMissingSpell(spellData, "PREPPER.spellList.loadWarning.reasonBadSpell");
+            continue;
           }
+
+          if (slotIndex >= slots.max) {
+            addMissingSpell(spellData, "PREPPER.spellList.loadWarning.reasonNoSlot");
+            continue;
+          }
+
+          const spell = actor.items.get(spellData.id);
+          if (!spell) {
+            addMissingSpell(spellData, "PREPPER.spellList.loadWarning.reasonNotOnActor");
+            continue;
+          }
+
+          if (spell.type !== "spell") {
+            addMissingSpell(spellData, "PREPPER.spellList.loadWarning.reasonBadSpell");
+            continue;
+          }
+
+          await spellcasting.prepareSpell(spell, level, slotIndex);
         }
       }
+
+      this._showMissingSpellsWarning(missingSpells);
       return true;
     } catch (e) {
       error(`Failed to prepare spell via API: ${e.message}`);

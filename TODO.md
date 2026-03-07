@@ -8,7 +8,6 @@
 - [x] Delete a spell list
 - [x] Rename a spell list
 - [x] Duplicate a spell list
-- [ ] Remove stored flags on uninstall
 
 ## UI/UX
 - [x] Add an interface to create a new list
@@ -26,10 +25,9 @@
 - [ ] Tabs handling with proper built-ins (https://foundryvtt.wiki/en/development/guides/applicationV2-conversion-guide)
 
 ## Integration :: TI
-- [x] 01 Ensure compatibility with all PF2e spellcasting entry types (prepared, flexible, etc.)
-- [ ] 02 Make a missing spell send a warning
-- [ ] 03 Improved support for readding a missing spell
-        make a deleted spell reappear (requires store Compendium item instead of local copy)
+- [x] Ensure compatibility with all PF2e spellcasting entry types (prepared, flexible, etc.)
+- [x] Make a load action send warnings on problems
+- [ ] Improved support for readding a missing spell (make a deleted spell be readded iff there is no new spell with the same Companion reference)
 - [-] Support for Foundry VTT updates and PF2e system changes
 
 ## Data & Storage

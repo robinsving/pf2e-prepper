@@ -13,8 +13,25 @@ function getSettings(setting) {
     return game.settings.get(MODULE_ID, setting);
 }
 
-function popup(message) {
-    ui.notifications.info(`${MODULE_TITLE}: ${message}`);
+function popup(message, type = "info") {
+    const notifications = globalThis.ui?.notifications;
+    if (!notifications) {
+        info(message);
+        return;
+    }
+
+    const prefixedMessage = `${MODULE_TITLE}: ${message}`;
+    if (type === "warn") {
+        notifications.warn(prefixedMessage, { permanent: true });
+        return;
+    }
+
+    if (type === "error") {
+        notifications.error(prefixedMessage, { permanent: true });
+        return;
+    }
+
+    notifications.info(prefixedMessage);
 }
 
 function debug(message) {
@@ -34,4 +51,3 @@ function info(message) {
 function error(msg, error) {
     console.error(`${MODULE_TITLE}: ERROR | ${msg}`, error);
 }
-  
