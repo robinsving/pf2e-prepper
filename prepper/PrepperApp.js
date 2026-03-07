@@ -25,6 +25,8 @@ export default class PrepperApp extends HandlebarsApplicationMixin(ApplicationV2
             delete: PrepperApp._onDeleteList,
             rename: PrepperApp._onRenameList,
             reset: PrepperApp._onResetList,
+
+            clearAll: PrepperApp._onClearAllFlags,
         },
 
         position: {
@@ -407,6 +409,34 @@ export default class PrepperApp extends HandlebarsApplicationMixin(ApplicationV2
     static _onReloadCurrent(event) {
         event.preventDefault();
         this.render(true);
+    }
+
+    /**
+    * Handle clearing all saved spell lists for this actor
+    * @param {Event} event - The triggering event
+    * @private
+    */
+    static async _onClearAllFlags(event) {
+        event.preventDefault();
+
+        const confirm = await DialogV2.confirm({
+            window: { title: game.i18n.localize('PREPPER.spellListButton.clearAll') },
+            content: game.i18n.localize('PREPPER.clearAllFlags.confirm'),
+            defaultYes: false,
+            rejectClose: false
+        });
+
+        if (!confirm) return;
+
+        const storage = API.PrepperStorage;
+        const success = await storage.clearAllSpellLists(this.actor);
+
+        if (success) {
+            this.activeTab = 'current';
+            popup(game.i18n.localize('PREPPER.clearAllFlags.success'));
+            this.render(true);
+            return;
+        }
     }
 
     /**

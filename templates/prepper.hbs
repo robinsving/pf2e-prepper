@@ -1,5 +1,6 @@
 <div class="pf2e-prepper">
   <div class="prepper-tabs">
+    <h1>{{localize "PREPPER.spellList.availableLists"}}</h1>
     <button type="button" data-action="changeTab" data-tab="current" class="{{#if (eq activeTab "current")}}active{{/if}}">
       {{localize "PREPPER.spellList.currentPreparation"}}
     </button>
@@ -8,6 +9,9 @@
         {{list.name}}
       </button>
     {{/each}}
+    <button class="prepper-clear-all-btn" data-action="clearAll">
+      <i class="fas fa-trash"></i> {{localize "PREPPER.spellListButton.clearAll"}}
+    </button>
   </div>
 
   <div class="prepper-tab-content">

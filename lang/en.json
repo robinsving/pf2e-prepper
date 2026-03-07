@@ -20,6 +20,7 @@
       "deleteSuccess": "Spell list deleted successfully.",
       "noSpellsAvailable": "No prepared spells found.",
       "currentPreparation": "Current Preparation",
+      "availableLists": "Available lists",
       "spellRank": "Spell Rank",
       "createdDate": "Created",
       "unknownSpell": "Unknown Spell",
@@ -30,6 +31,10 @@
         "reasonNoSlot": "no available slot at spell rank."
       }
     },
+    "clearAllFlags": {
+      "success": "All saved spell lists were deleted for this actor.",
+      "confirm": "Delete all saved spell lists for this actor?<br>THIS CANNOT BE UNDONE."
+    },
     "spellListButton": {
       "load": "Load to Actor",
       "new": "Create copy",
@@ -37,7 +42,8 @@
       "rename": "Rename",
       "duplicate": "Duplicate",
       "reset": "Set to Current",
-      "reload": "Reload"
+      "reload": "Reload",
+      "clearAll": "Clear All Lists"
     }
   }
 }

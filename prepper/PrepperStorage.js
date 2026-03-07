@@ -169,6 +169,16 @@ export default class PrepperStorage {
   }
 
   /**
+   * Clear all module-related flags for this actor.
+   * @param {Actor} actor
+   * @returns {Promise<boolean>} - Whether anything was cleared
+   */
+  static async clearAllSpellLists(actor) {
+    await actor.unsetFlag(MODULE_ID, settings.flagNames.spellLists);
+    return true;
+  }
+
+  /**
    * Rename a spell list
    * @param {Actor} actor - The actor to rename the spell list for
    * @param {string} spellcastingEntryId - The spellcasting entry id where the list is stored

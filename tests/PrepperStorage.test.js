@@ -188,4 +188,17 @@ describe("PrepperStorage", () => {
         // Verify lists remain unchanged
         expect(mockActor.flags["pf2e-prepper"].spellLists).toEqual(lists);
     });
+
+    it("should clear all spell lists for an actor", async () => {
+        mockActor.flags["pf2e-prepper"].spellLists = {
+            entryA: { list1: { id: "list1", name: "List 1" } },
+            entryB: { list2: { id: "list2", name: "List 2" } },
+        };
+
+        const success = await PrepperStorage.clearAllSpellLists(mockActor);
+
+        expect(success).toBe(true);
+        expect(mockActor.unsetFlag).toHaveBeenCalledWith("pf2e-prepper", "spellLists");
+        expect(mockActor.flags["pf2e-prepper"].spellLists).toBeUndefined;
+    });
 });

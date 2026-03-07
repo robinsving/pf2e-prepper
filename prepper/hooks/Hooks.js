@@ -53,7 +53,6 @@ Hooks.on('renderActorSheet', (app, html, _) => {
             // Find the spellcasting tab content
             const spellcastingTab = html.find('.tab[data-tab="spellcasting"]');
             if (spellcastingTab.length === 0) {
-                info('Spellcasting tab not found');
                 return;
             }
 
