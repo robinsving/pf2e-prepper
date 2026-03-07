@@ -42,7 +42,7 @@
 - [ ] UI tests for spell list management
 
 ## Documentation
-- [ ] Update README with usage instructions and screenshots
+- [x] Update README with usage instructions and screenshots
 - [ ] Document API for module developers
 
 ## Stretch Goals
