@@ -1,4 +1,4 @@
-name: Module CI/CD
+name: Create Release
 
 on:
   push:
