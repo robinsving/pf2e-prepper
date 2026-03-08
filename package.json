@@ -8,6 +8,7 @@
     "scripts": {
         "build": "vite build",
         "commitlint": "commitlint --config commitlint.config.js --from-last-tag",
+        "release": "scripts/create-release.mjs",
         "test": "vitest run"
     },
     "devDependencies": {

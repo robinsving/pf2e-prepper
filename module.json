@@ -3,7 +3,13 @@
     "title": "PF2e Prepper",
     "description": "A module handling multiple Loadouts for daily spell preparation for PF2e.",
     "version": "0.6.0",
-    "authors": [{"name": "Robin Sving", "email":"robin.sving@gmail.com", "discord":"@.wigglemaster"}],
+    "authors": [
+        {
+            "name": "Robin Sving",
+            "email": "robin.sving@gmail.com",
+            "discord": "@.wigglemaster"
+        }
+    ],
     "compatibility": {
         "minimum": "13",
         "verified": "13"

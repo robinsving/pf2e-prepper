@@ -1,0 +1,83 @@
+name: Module CI/CD
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+    - uses: actions/checkout@v6
+
+    - name: Use Node.js 20.x
+      uses: actions/setup-node@v6
+      with:
+        node-version: 20.x
+
+    - run: npm install
+
+    - run: npm run build
+
+    # create a zip file with all files required by the module to add to the release
+    - name: Zip Files
+      run: zip -r ./pf2e-prepper-release.zip ./dist/*
+
+    # Get the version from 'module.json'
+    - name: Extract version from module.json
+      id: extract-version
+      run: |
+        version=$(jq -r '.version' module.json)
+        echo "VERSION=$version" >> $GITHUB_ENV
+        echo "Version: $version"
+
+    #Useful only for the template so we can leave the manifest and download urls empty
+    - name: Substitute Manifest and Download Links For Versioned Ones
+      id: sub_manifest_link_latest
+      uses: im-open/variable-substitution@v2
+      with:
+        files: 'module.json'
+      env:
+        manifest: https://github.com/${{github.repository}}/releases/latest/download/module.json
+        download: https://github.com/${{github.repository}}/releases/latest/download/pf2e-prepper-release.zip
+
+    # Update the 'latest' release
+    - name: Create Release
+      id: create_latest_release
+      uses: ncipollo/release-action@v1
+      if: endsWith(github.ref, 'main')
+      with:
+        allowUpdates: true
+        name: Latest
+        draft: false
+        prerelease: false
+        token: ${{ secrets.GITHUB_TOKEN }}
+        artifacts: './module.json, ./pf2e-prepper-release.zip'
+        tag: latest
+
+    #Substitute the Manifest and Download URLs in the module.json
+    - name: Substitute Manifest and Download Links For Versioned Ones
+      id: sub_manifest_link_version
+      uses: im-open/variable-substitution@v2
+      with:
+        files: 'module.json'
+      env:
+        manifest: https://github.com/${{github.repository}}/releases/latest/download/module.json
+        download: https://github.com/${{github.repository}}/releases/download/${{ env.VERSION }}/pf2e-prepper-release.zip
+
+    # Create a release for this specific version
+    - name: Create Release
+      id: create_version_release
+      uses: ncipollo/release-action@v1
+      with:
+        allowUpdates: true # set this to false if you want to prevent updating existing releases
+        name: Release ${{ env.VERSION }}
+        draft: false
+        prerelease: false
+        token: ${{ secrets.GITHUB_TOKEN }}
+        artifacts: './module.json,./pf2e-prepper-release.zip'
+        tag: ${{ env.VERSION }}
