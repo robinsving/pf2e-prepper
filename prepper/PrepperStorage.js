@@ -252,35 +252,6 @@ export default class PrepperStorage {
     return newLoadoutId;
   }
 
-  // Backward-compatible aliases for older callers/tests still using "list" naming.
-  static getSpellLists(actor, spellcastingEntryId) {
-    return this.getSpellLoadouts(actor, spellcastingEntryId);
-  }
-
-  static getSpellList(actor, spellcastingEntryId, loadoutId) {
-    return this.getLoadout(actor, spellcastingEntryId, loadoutId);
-  }
-
-  static saveCurrentAsNewList(actor, spellcastingEntryId, currentEntrySpells, name, description = '') {
-    return this.saveCurrentAsNewLoadout(actor, spellcastingEntryId, currentEntrySpells, name, description);
-  }
-
-  static loadSpellList(actor, spellcastingEntryId, loadoutId) {
-    return this.loadSpellLoadout(actor, spellcastingEntryId, loadoutId);
-  }
-
-  static clearAllSpellLists(actor) {
-    return this.clearAllSpellLoadouts(actor);
-  }
-
-  static renameSpellList(actor, spellcastingEntryId, loadoutId, newName, newDescription = null) {
-    return this.renameSpellLoadout(actor, spellcastingEntryId, loadoutId, newName, newDescription);
-  }
-
-  static duplicateSpellList(actor, spellcastingEntryId, loadoutId, newName, newDescription = null) {
-    return this.duplicateSpellLoadout(actor, spellcastingEntryId, loadoutId, newName, newDescription);
-  }
-
   /**
    * Apply one saved spell loadout to one spellcasting entry.
    * @param {Actor} actor
