@@ -35,7 +35,7 @@ jobs:
           fi
 
       - name: Check out
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
           fetch-tags: true
@@ -145,6 +145,14 @@ jobs:
             echo "module.json version ($MODULE_VERSION) does not match tag ($TAG_VERSION)"
             exit 1
           fi
+
+      - name: Upload changelog artifact (dry-run)
+        if: ${{ github.event.inputs.dry-run == 'true' && steps.version_bump.outputs.tag != '' }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: changelog-preview-${{ steps.version_bump.outputs.tag }}
+          path: CHANGELOG.md
+          if-no-files-found: error
 
       - name: Push release commit and tag
         if: ${{ github.event.inputs.dry-run != 'true' && steps.version_bump.outputs.tag != '' }}
