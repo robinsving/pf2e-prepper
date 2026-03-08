@@ -35,13 +35,13 @@ jobs:
           fi
 
       - name: Check out
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
           fetch-tags: true
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: 20
 
@@ -53,29 +53,91 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
+      - name: Align npm version with module.json
+        run: |
+          MODULE_VERSION=$(jq -r '.version' module.json)
+          npm version --no-git-tag-version "$MODULE_VERSION"
+          echo "Initial version is $MODULE_VERSION"
+
       - name: Bump version and generate changelog
         id: version_bump
         run: |
-          if [ "${{ github.event.inputs.release-type }}" = "auto" ]; then
-            RELEASE_ARG=""
+          git fetch --tags --force
+          LAST_TAG=$(git tag -l "v*.*.*" | sort -V | tail -n1)
+          if [ -z "$LAST_TAG" ]; then
+            RANGE="HEAD"
           else
-            RELEASE_ARG="--release-as ${{ github.event.inputs.release-type }}"
+            RANGE="$LAST_TAG..HEAD"
           fi
 
-          npx commit-and-tag-version \
-            $RELEASE_ARG \
-            --skip.changelog=false \
-            --packageFiles package.json \
-            --packageFiles module.json \
-            --bumpFiles package.json \
-            --bumpFiles package-lock.json \
-            --bumpFiles module.json
+          RELEASE_TYPE="${{ github.event.inputs.release-type }}"
+          if [ "$RELEASE_TYPE" = "auto" ]; then
+            SUBJECTS=$(git log "$RANGE" --pretty=format:%s)
+            BODIES=$(git log "$RANGE" --pretty=format:%B)
+            if echo "$BODIES" | grep -q "BREAKING CHANGE" || echo "$SUBJECTS" | grep -Eq '^[a-z]+(\(.+\))?!:'; then
+              RELEASE_TYPE="major"
+            elif echo "$SUBJECTS" | grep -Eq '^feat(\(.+\))?: '; then
+              RELEASE_TYPE="minor"
+            elif echo "$SUBJECTS" | grep -Eq '^(fix|perf|revert)(\(.+\))?: '; then
+              RELEASE_TYPE="patch"
+            else
+              echo "No releasable commits found in range $RANGE."
+              echo "tag=" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+          fi
 
-          NEW_TAG=$(git describe --tags --abbrev=0)
+          CURRENT_VERSION=$(jq -r '.version' module.json)
+          NEW_VERSION=$(node -e '
+            const [major, minor, patch] = process.argv[1].split(".").map(Number);
+            const type = process.argv[2];
+            if (type === "major") console.log(`${major + 1}.0.0`);
+            else if (type === "minor") console.log(`${major}.${minor + 1}.0`);
+            else if (type === "patch") console.log(`${major}.${minor}.${patch + 1}`);
+            else process.exit(1);
+          ' "$CURRENT_VERSION" "$RELEASE_TYPE")
+
+          npm version --no-git-tag-version "$NEW_VERSION"
+          tmpfile=$(mktemp)
+          jq --arg v "$NEW_VERSION" '.version = $v' module.json > "$tmpfile"
+          mv "$tmpfile" module.json
+
+          DATE=$(date +%Y-%m-%d)
+          {
+            echo "## v$NEW_VERSION ($DATE)"
+            echo
+            git log "$RANGE" --pretty=format:'- %s (%h)'
+            echo
+            echo
+          } > /tmp/release_notes.md
+
+          if [ -f CHANGELOG.md ] && [ -s CHANGELOG.md ]; then
+            {
+              head -n 1 CHANGELOG.md
+              echo
+              cat /tmp/release_notes.md
+              tail -n +2 CHANGELOG.md
+            } > /tmp/new_changelog.md
+          else
+            {
+              echo "# Changelog"
+              echo
+              cat /tmp/release_notes.md
+            } > /tmp/new_changelog.md
+          fi
+          mv /tmp/new_changelog.md CHANGELOG.md
+
+          git add package.json package-lock.json module.json CHANGELOG.md
+          git commit -m "chore(release): v$NEW_VERSION"
+          git tag "v$NEW_VERSION"
+
+          NEW_TAG="v$NEW_VERSION"
           echo "tag=$NEW_TAG" >> "$GITHUB_OUTPUT"
+          echo "release_type=$RELEASE_TYPE" >> "$GITHUB_OUTPUT"
           echo "Created tag: $NEW_TAG"
 
       - name: Verify module version matches tag
+        if: ${{ steps.version_bump.outputs.tag != '' }}
         run: |
           TAG_VERSION="${{ steps.version_bump.outputs.tag }}"
           MODULE_VERSION=$(jq -r '.version' module.json)
@@ -85,7 +147,7 @@ jobs:
           fi
 
       - name: Push release commit and tag
-        if: ${{ github.event.inputs.dry-run != 'true' }}
+        if: ${{ github.event.inputs.dry-run != 'true' && steps.version_bump.outputs.tag != '' }}
         run: |
           git push origin HEAD:${{ github.ref_name }}
           git push origin ${{ steps.version_bump.outputs.tag }}
