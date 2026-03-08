@@ -38,7 +38,7 @@ export default class PrepperApp extends HandlebarsApplicationMixin(ApplicationV2
 
         classes: [MODULE_ID],
         window: {
-            title: MODULE_TITLE,
+            title: game.i18n.localize('PREPPER.Title'),
             icon: 'fas fa-scroll',
             frame: true,
             resizable: true
