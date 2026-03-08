@@ -88,7 +88,7 @@ function updateChangelog(version, fromTag) {
   );
 }
 
-const latestTag = run('git tag -l "v*.*.*" | sort -V | tail -n1');
+const latestTag = run('git tag -l "*.*.*" | sort -V | tail -n1');
 const releaseType =
   requestedType === "auto" ? inferReleaseType(latestTag) : requestedType;
 
