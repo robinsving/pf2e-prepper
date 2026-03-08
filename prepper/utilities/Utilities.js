@@ -5,7 +5,7 @@ const settings = {
     debug: { id: "debugMode", name: "Enable Debugging", hint: "Print debug to console log" },
 
     flagNames: {
-        spellLists: 'spellLists',
+        loadouts: 'loadouts',
     }
 }
 

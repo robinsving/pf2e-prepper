@@ -4,10 +4,10 @@ import { debug, info, popup } from "./utilities/Utilities";
 const { ApplicationV2, HandlebarsApplicationMixin, DialogV2 } = foundry.applications.api
 const { renderTemplate } = foundry.applications.handlebars;
 /**
-* Application for managing spell lists
+* Application for managing spell loadouts
 */
 export default class PrepperApp extends HandlebarsApplicationMixin(ApplicationV2) {
-    static SPELL_LIST_DIALOG_TEMPLATE = `modules/${MODULE_ID}/templates/spell-list-name-dialog.hbs`;
+    static LOADOUT_DIALOG_TEMPLATE = `modules/${MODULE_ID}/templates/loadout-naming-dialog.hbs`;
 
     static DEFAULT_OPTIONS = {
         id: MODULE_ID,
@@ -16,15 +16,15 @@ export default class PrepperApp extends HandlebarsApplicationMixin(ApplicationV2
             changeTab: PrepperApp._onChangeTab,
 
             // Current preparation actions
-            new: PrepperApp._onNewList,
+            new: PrepperApp._onNew,
             reload: PrepperApp._onReloadCurrent,
 
-            // Stored list actions
-            load: PrepperApp._onLoadList,
-            duplicate: PrepperApp._onDuplicateList,
-            delete: PrepperApp._onDeleteList,
-            rename: PrepperApp._onRenameList,
-            reset: PrepperApp._onResetList,
+            // Stored loadout actions
+            load: PrepperApp._onLoad,
+            duplicate: PrepperApp._onDuplicate,
+            delete: PrepperApp._onDelete,
+            rename: PrepperApp._onRename,
+            reset: PrepperApp._onReset,
 
             clearAll: PrepperApp._onClearAllFlags,
         },
@@ -53,7 +53,7 @@ export default class PrepperApp extends HandlebarsApplicationMixin(ApplicationV2
     }
 
     /**
-    * @param {Actor} actor - The actor to manage spell lists for
+    * @param {Actor} actor - The actor to manage spell loadouts for
     * @param {Object} options - Application options
     */
     constructor(actor, options = {}) {
@@ -66,25 +66,25 @@ export default class PrepperApp extends HandlebarsApplicationMixin(ApplicationV2
     async _preparePartContext() {
         const currentEntry = this._getCurrentSpellsDisplay(this.spellcastingEntryId);
 
-        // Get all spell lists for this spellcasting entry
+        // Get all spell loadouts for this spellcasting entry
         const storage = API.PrepperStorage;
-        const spellLists = storage.getSpellLists(this.actor, this.spellcastingEntryId);
+        const spellLoadouts = storage.getSpellLoadouts(this.actor, this.spellcastingEntryId);
         
-        // Sort lists alphabetically
-        const sortedLists = Object.values(spellLists).sort((a, b) => {
+        // Sort loadouts alphabetically
+        const sortedLoadouts = Object.values(spellLoadouts).sort((a, b) => {
             return a.name.localeCompare(b.name);
         });
         
-        // Process each list to add displayEntries for the template
-        for (const list of sortedLists) {
-            list.displayEntry = this._getSpellListDisplay(list);
+        // Process each loadout to add displayEntries for the template
+        for (const loadout of sortedLoadouts) {
+            loadout.displayEntry = this._getLoadoutDisplay(loadout);
         }
 
         return {
             actor: this.actor,
             spellcastingEntry: currentEntry,
-            spellLists: sortedLists,
-            hasLists: sortedLists.length > 0,
+            spellLoadouts: sortedLoadouts,
+            hasLoadouts: sortedLoadouts.length > 0,
             activeTab: this.activeTab || 'current'
         };
     }
@@ -207,15 +207,15 @@ export default class PrepperApp extends HandlebarsApplicationMixin(ApplicationV2
     }
     
     /**
-    * Get the spells from a saved list for display
-    * @param {Object} list - The saved spell list
+    * Get the spells from a saved loadout for display
+    * @param {Object} loadout - The saved spell loadout
     * @returns {Array} Array of spellcasting entries with their spells
     * @private
     */
-    _getSpellListDisplay(list) {
-        if (!list.spellcastingEntry) return null;
+    _getLoadoutDisplay(loadout) {
+        if (!loadout.spellcastingEntry) return null;
 
-        const entry = list.spellcastingEntry;
+        const entry = loadout.spellcastingEntry;
         const entryData = {
             id: entry.id,
             name: entry.name,
@@ -235,7 +235,7 @@ export default class PrepperApp extends HandlebarsApplicationMixin(ApplicationV2
                     const spell = this.actor.items.get(spellInfo.id);
                     levelData.spells.push({
                         id: spellInfo.id,
-                        name: spell?.name || spellInfo.name || game.i18n.localize("PREPPER.spellList.unknownSpell"),
+                        name: spell?.name || spellInfo.name || game.i18n.localize("PREPPER.loadout.unknownSpell"),
                     });
                 }
 
@@ -254,28 +254,28 @@ export default class PrepperApp extends HandlebarsApplicationMixin(ApplicationV2
     }
 
     /**
-     * Render spell list dialog form content
+     * Render loadout dialog form content
      * @param {{name?: string, description?: string}} dialogData
      * @returns {Promise<string>}
      * @private
      */
-    static async _renderSpellListDialogContent(dialogData = {}) {
+    static async _renderLoadoutDialogContent(dialogData = {}) {
         const { name = "", description = "" } = dialogData;
-        return renderTemplate(this.SPELL_LIST_DIALOG_TEMPLATE, { name, description });
+        return renderTemplate(this.LOADOUT_DIALOG_TEMPLATE, { name, description });
     }
     
     /**
-    * Handle creating a new spell list
+    * Handle creating a new spell loadout
     * @param {Event} event - The triggering event
     * @private
     */
-    static async _onNewList(event) {
+    static async _onNew(event) {
         event.preventDefault();
         
         // Prompt for name and description
-        const content = await PrepperApp._renderSpellListDialogContent();
+        const content = await PrepperApp._renderLoadoutDialogContent();
         await DialogV2.wait({
-            window: { title: game.i18n.localize('PREPPER.spellListButton.new') },
+            window: { title: game.i18n.localize('PREPPER.loadoutButton.new') },
             content,
             buttons: [{
                 action: "save",
@@ -289,19 +289,19 @@ export default class PrepperApp extends HandlebarsApplicationMixin(ApplicationV2
                         
                         if (!name) return;
                         
-                        // Save the current preparation as a new list
+                        // Save the current preparation as a new loadout
                         const storage = API.PrepperStorage;
                         const currentSpells = this._getCurrentSpellsDisplay(this.spellcastingEntryId);
-                        const newListId = await storage.saveCurrentAsNewList(this.actor, this.spellcastingEntryId, currentSpells, name, description);
+                        const newId = await storage.saveCurrentAsNewLoadout(this.actor, this.spellcastingEntryId, currentSpells, name, description);
                         
-                        // Switch to the new list tab
-                        this.activeTab = newListId;
+                        // Switch to the new loadout tab
+                        this.activeTab = newId;
 
                         // Refresh the app
                         this.render(true);
                         
                         // Show success notification
-                        popup(game.i18n.localize('PREPPER.spellList.saveSuccess'));
+                        popup(game.i18n.localize('PREPPER.loadout.saveSuccess'));
                     }
                 },
                 {
@@ -314,28 +314,28 @@ export default class PrepperApp extends HandlebarsApplicationMixin(ApplicationV2
     }
     
     /**
-    * Handle duplicating a spell list
+    * Handle duplicating a spell loadout
     * @param {Event} event - The triggering event
     * @private
     */
-    static async _onDuplicateList(event, target) {
+    static async _onDuplicate(event, target) {
         event.preventDefault();
         
-        const listId = target.dataset.listId;
-        if (!listId) return;
+        const loadoutId = target.dataset.loadoutId;
+        if (!loadoutId) return;
         
-        // Get the list to duplicate
+        // Get the loadout to duplicate
         const storage = API.PrepperStorage;
-        const list = storage.getSpellList(this.actor, this.spellcastingEntryId, listId);
-        if (!list) return;
+        const loadout = storage.getLoadout(this.actor, this.spellcastingEntryId, loadoutId);
+        if (!loadout) return;
         
         // Prompt for name and description
-        const content = await PrepperApp._renderSpellListDialogContent({
-            name: `${list.name} (Copy)`,
-            description: list.description || ""
+        const content = await PrepperApp._renderLoadoutDialogContent({
+            name: `${loadout.name} (Copy)`,
+            description: loadout.description || ""
         });
         await DialogV2.wait({
-            window: { title: game.i18n.localize('PREPPER.spellListButton.duplicate') },
+            window: { title: game.i18n.localize('PREPPER.loadoutButton.duplicate') },
             content,
             buttons: [{
                 action: "save",
@@ -349,17 +349,17 @@ export default class PrepperApp extends HandlebarsApplicationMixin(ApplicationV2
                         
                         if (!name) return;
                         
-                        // Duplicate the list
-                        const newListId = await storage.duplicateSpellList(this.actor, this.spellcastingEntryId, listId, name, description);
+                        // Duplicate the loadout
+                        const newLoadoutId = await storage.duplicateSpellLoadout(this.actor, this.spellcastingEntryId, loadoutId, name, description);
                         
-                         // Switch to the new list tab
-                        this.activeTab = newListId;
+                         // Switch to the new loadout tab
+                        this.activeTab = newLoadoutId;
 
                         // Refresh the app
                         this.render(true);
                         
                         // Show success notification
-                        popup(game.i18n.localize('PREPPER.spellList.saveSuccess'));
+                        popup(game.i18n.localize('PREPPER.loadout.saveSuccess'));
                     }
                 },
                 {
@@ -372,19 +372,19 @@ export default class PrepperApp extends HandlebarsApplicationMixin(ApplicationV2
     }
     
     /**
-    * Handle loading a spell list
+    * Handle loading a spell loadout
     * @param {Event} event - The triggering event
     * @private
     */
-    static async _onLoadList(event, target) {
+    static async _onLoad(event, target) {
         event.preventDefault();
         
-        const listId = target.dataset.listId;
-        if (!listId) return;
+        const loadoutId = target.dataset.loadoutId;
+        if (!loadoutId) return;
         
         // Confirm before loading
         const confirm = await DialogV2.confirm({
-            window: { title: game.i18n.localize('PREPPER.spellListButton.load') },
+            window: { title: game.i18n.localize('PREPPER.loadoutButton.load') },
             content: game.i18n.localize('PREPPER.popup.loadConfirm'),
             defaultYes: false,
             rejectClose: false
@@ -392,12 +392,12 @@ export default class PrepperApp extends HandlebarsApplicationMixin(ApplicationV2
         
         if (!confirm) return;
         
-        // Load the selected list
+        // Load the selected loadout
         const storage = API.PrepperStorage;
-        const success = await storage.loadSpellList(this.actor, this.spellcastingEntryId, listId);
+        const success = await storage.loadSpellLoadout(this.actor, this.spellcastingEntryId, loadoutId);
         
         if (success) {
-            popup(game.i18n.localize('PREPPER.spellList.loadSuccess'));
+            popup(game.i18n.localize('PREPPER.loadout.loadSuccess'));
         }
     }
     
@@ -412,7 +412,7 @@ export default class PrepperApp extends HandlebarsApplicationMixin(ApplicationV2
     }
 
     /**
-    * Handle clearing all saved spell lists for this actor
+    * Handle clearing all saved spell loadouts for this actor
     * @param {Event} event - The triggering event
     * @private
     */
@@ -420,7 +420,7 @@ export default class PrepperApp extends HandlebarsApplicationMixin(ApplicationV2
         event.preventDefault();
 
         const confirm = await DialogV2.confirm({
-            window: { title: game.i18n.localize('PREPPER.spellListButton.clearAll') },
+            window: { title: game.i18n.localize('PREPPER.loadoutButton.clearAll') },
             content: game.i18n.localize('PREPPER.clearAllFlags.confirm'),
             defaultYes: false,
             rejectClose: false
@@ -429,7 +429,7 @@ export default class PrepperApp extends HandlebarsApplicationMixin(ApplicationV2
         if (!confirm) return;
 
         const storage = API.PrepperStorage;
-        const success = await storage.clearAllSpellLists(this.actor);
+        const success = await storage.clearAllSpellLoadouts(this.actor);
 
         if (success) {
             this.activeTab = 'current';
@@ -440,15 +440,15 @@ export default class PrepperApp extends HandlebarsApplicationMixin(ApplicationV2
     }
 
     /**
-     * Handle updating a spell list
+     * Handle updating a spell loadout
      * @param {Event} event - The triggering event
      * @private
      */
-    static async _onResetList(event, target) {
+    static async _onReset(event, target) {
         event.preventDefault();
 
-        const listId = target.dataset.listId;
-        if (!listId) return;
+        const loadoutId = target.dataset.loadoutId;
+        if (!loadoutId) return;
 
         // Confirm before updating
         const confirm = await DialogV2.confirm({
@@ -460,32 +460,32 @@ export default class PrepperApp extends HandlebarsApplicationMixin(ApplicationV2
 
         if (!confirm) return;
 
-        // Update the selected list
+        // Update the selected loadout
         const storage = API.PrepperStorage;
         const currentSpells = this._getCurrentSpellsDisplay(this.spellcastingEntryId);
-        const newListId = await storage.resetSpellList(this.actor, this.spellcastingEntryId, currentSpells, listId);
+        const newLoadoutId = await storage.resetLoadout(this.actor, this.spellcastingEntryId, currentSpells, loadoutId);
 
-        if (newListId) {
-            this.activeTab = newListId;
-            popup(game.i18n.localize('PREPPER.spellList.updateSuccess'));
+        if (newLoadoutId) {
+            this.activeTab = newLoadoutId;
+            popup(game.i18n.localize('PREPPER.loadout.updateSuccess'));
             this.render(false);
         }
     }
     
     /**
-    * Handle deleting a spell list
+    * Handle deleting a spell loadout
     * @param {Event} event - The triggering event
     * @private
     */
-    static async _onDeleteList(event, target) {
+    static async _onDelete(event, target) {
         event.preventDefault();
         
-        const listId = target.dataset.listId;
-        if (!listId) return;
+        const loadoutId = target.dataset.loadoutId;
+        if (!loadoutId) return;
         
         // Confirm before deleting
         const confirm = await DialogV2.confirm({
-            window: { title: game.i18n.localize('PREPPER.spellListButton.delete') },
+            window: { title: game.i18n.localize('PREPPER.loadoutButton.delete') },
             content: game.i18n.localize('PREPPER.popup.deleteConfirm'),
             defaultYes: false,
             rejectClose: false
@@ -493,41 +493,41 @@ export default class PrepperApp extends HandlebarsApplicationMixin(ApplicationV2
         
         if (!confirm) return;
         
-        // Delete the selected list
+        // Delete the selected loadout
         const storage = API.PrepperStorage;
-        const success = await storage.deleteSpellList(this.actor, this.spellcastingEntryId, listId);
+        const success = await storage.deleteLoadout(this.actor, this.spellcastingEntryId, loadoutId);
         
         if (success) {
-            debug(game.i18n.localize('PREPPER.spellList.deleteSuccess'));
+            debug(game.i18n.localize('PREPPER.loadout.deleteSuccess'));
             this.activeTab = 'current';
             this.render(true);
         }
     }
     
     /**
-    * Handle renaming a spell list
+    * Handle renaming a spell loadout
     * @param {Event} event - The triggering event
     * @private
     */
-    static async _onRenameList(event, target) {
+    static async _onRename(event, target) {
         event.preventDefault();
         
-        const listId = target.dataset.listId;
-        if (!listId) return;
+        const loadoutId = target.dataset.loadoutId;
+        if (!loadoutId) return;
         
-        // Get the current list
+        // Get the current loadout
         const storage = API.PrepperStorage;
-        const list = storage.getSpellList(this.actor, this.spellcastingEntryId, listId);
+        const loadout = storage.getLoadout(this.actor, this.spellcastingEntryId, loadoutId);
         
-        if (!list) return;
+        if (!loadout) return;
         
         // Prompt for new name and description
-        const content = await PrepperApp._renderSpellListDialogContent({
-            name: list.name,
-            description: list.description || ""
+        const content = await PrepperApp._renderLoadoutDialogContent({
+            name: loadout.name,
+            description: loadout.description || ""
         });
         await DialogV2.wait({
-            window: { title: game.i18n.localize('PREPPER.spellListButton.rename') },
+            window: { title: game.i18n.localize('PREPPER.loadoutButton.rename') },
             content,
             buttons: [{
                 action: "save",
@@ -541,8 +541,8 @@ export default class PrepperApp extends HandlebarsApplicationMixin(ApplicationV2
                         
                         if (!name) return;
                         
-                        // Rename the list
-                        await storage.renameSpellList(this.actor, this.spellcastingEntryId, listId, name, description);
+                        // Rename the loadout
+                        await storage.renameSpellLoadout(this.actor, this.spellcastingEntryId, loadoutId, name, description);
                         
                         // Refresh the app
                         this.render(true);

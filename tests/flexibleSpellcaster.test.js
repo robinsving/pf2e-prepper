@@ -5,7 +5,7 @@ import flexibleActor from "./data/flexible-actor.json";
 
 describe("_getCurrentSpellsDisplay on multi-spell-actor", () => {
 
-    it("should save and load a spell list without crashing", async () => {
+    it("should save and load a spell loadout without crashing", async () => {
         // Setup: Deep clone the actor to avoid mutation
         const actor = JSON.parse(JSON.stringify(flexibleActor));
 
@@ -72,10 +72,10 @@ describe("_getCurrentSpellsDisplay on multi-spell-actor", () => {
         ]);
 
         // 2. Save as new list
-        const listId = await PrepperStorage.saveCurrentAsNewList(actor, spellcastingEntryId, currentSpells, "Test List", "Round-trip test");
+        const listId = await PrepperStorage.saveCurrentAsNewLoadout(actor, spellcastingEntryId, currentSpells, "Test List", "Round-trip test");
         expect(listId).toBeDefined();
 
-        // 3. Save an empty spell list  
+        // 3. Save an empty spell loadout  
         const emptySpells = {
             ...currentSpells,
             levels: Array.from({ length: 10 }, (_, i) => ({
@@ -83,11 +83,11 @@ describe("_getCurrentSpellsDisplay on multi-spell-actor", () => {
                 spells: []
             }))
         };
-        const emptyListId = await PrepperStorage.saveCurrentAsNewList(actor, spellcastingEntryId, emptySpells, "Empty List", "Cleared spells");
+        const emptyListId = await PrepperStorage.saveCurrentAsNewLoadout(actor, spellcastingEntryId, emptySpells, "Empty List", "Cleared spells");
         expect(emptyListId).toBeDefined();
 
         // 4. Load the empty list
-        const emptyLoadResult = await PrepperStorage.loadSpellList(actor, spellcastingEntryId, emptyListId);
+        const emptyLoadResult = await PrepperStorage.loadSpellLoadout(actor, spellcastingEntryId, emptyListId);
         expect(emptyLoadResult).toBe(true);
         
         // Verify that flexible signature spells (the way to determine prepared spells for this actor) are cleared
@@ -95,7 +95,7 @@ describe("_getCurrentSpellsDisplay on multi-spell-actor", () => {
         expect(clearedSpells.levels).toEqual([]);
 
         // 5. Load the original list back
-        const restoreResult = await PrepperStorage.loadSpellList(actor, spellcastingEntryId, listId);
+        const restoreResult = await PrepperStorage.loadSpellLoadout(actor, spellcastingEntryId, listId);
         expect(restoreResult).toBe(true);
 
         // Verify that system.slots is restored with the original spell objects

@@ -32,18 +32,18 @@ From the current tab you can:
 ### 3. Manage saved spells
 Select a Loadout and use:
 - **Load to Actor**
-- **Set to Current** (replace saved list content with current prep)
+- **Set to Current** (replace saved loadout content with current prep)
 - **Duplicate**
 - **Rename**
 - **Delete**
 
-Use **Clear All Lists** at the bottom of the left tab rail to remove all saved lists for the actor.
+Use **Clear All** at the bottom of the left tab rail to remove all saved loadouts for the actor.
 
 ![Spell List View](assets/spellentryview.webp)
 
 ## Notes
-- Lists are stored in actor flags under this module.
-- Loading a list replaces current prepared slots/signatures for that spellcasting entry.
+- Loadouts are stored in actor flags under this module.
+- Loading a loadout replaces current prepared slots/signatures for that spellcasting entry.
 - If a saved spell no longer exists (or cannot be applied), the module shows a warning popup with spell names and reasons.
 
 ## Troubleshooting

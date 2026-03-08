@@ -15,7 +15,7 @@ describe("_getCurrentSpellsDisplay on multi-spell-actor", () => {
         };
     });
 
-    it("should save and load a spell list without crashing", async () => {
+    it("should save and load a spell loadout without crashing", async () => {
         // Setup: Deep clone the actor to avoid mutation
         const actor = JSON.parse(JSON.stringify(preparedActor));
 
@@ -91,10 +91,10 @@ describe("_getCurrentSpellsDisplay on multi-spell-actor", () => {
         ]);
 
         // 2. Save as new list
-        const listId = await PrepperStorage.saveCurrentAsNewList(actor, spellcastingEntryId, currentSpells, "Test List", "Round-trip test");
+        const listId = await PrepperStorage.saveCurrentAsNewLoadout(actor, spellcastingEntryId, currentSpells, "Test List", "Round-trip test");
         expect(listId).toBeDefined();
 
-        // 3. Save an empty spell list  
+        // 3. Save an empty spell loadout  
         const emptySpells = {
             ...currentSpells,
             levels: Array.from({ length: 10 }, (_, i) => ({
@@ -102,11 +102,11 @@ describe("_getCurrentSpellsDisplay on multi-spell-actor", () => {
                 spells: []
             }))
         };
-        const emptyListId = await PrepperStorage.saveCurrentAsNewList(actor, spellcastingEntryId, emptySpells, "Empty List", "Cleared spells");
+        const emptyListId = await PrepperStorage.saveCurrentAsNewLoadout(actor, spellcastingEntryId, emptySpells, "Empty List", "Cleared spells");
         expect(emptyListId).toBeDefined();
 
         // 4. Load the empty list
-        const emptyLoadResult = await PrepperStorage.loadSpellList(actor, spellcastingEntryId, emptyListId);
+        const emptyLoadResult = await PrepperStorage.loadSpellLoadout(actor, spellcastingEntryId, emptyListId);
         expect(emptyLoadResult).toBe(true);
         
         // Verify that system.slots is empty after loading the empty list
@@ -114,7 +114,7 @@ describe("_getCurrentSpellsDisplay on multi-spell-actor", () => {
         expect(emptySlots.levels).toStrictEqual([]);
 
         // 5. Load the original list back
-        const restoreResult = await PrepperStorage.loadSpellList(actor, spellcastingEntryId, listId);
+        const restoreResult = await PrepperStorage.loadSpellLoadout(actor, spellcastingEntryId, listId);
         expect(restoreResult).toBe(true);
 
         // Verify that system.slots is restored with the original spell objects
@@ -178,7 +178,7 @@ describe("_getCurrentSpellsDisplay on multi-spell-actor", () => {
         const spellcastingEntryId = actor.itemTypes.spellcastingEntry[0].id;
         const prepperApp = new PrepperApp(actor, { spellcastingEntryId });
         const currentSpells = prepperApp._getCurrentSpellsDisplay(spellcastingEntryId);
-        const listId = await PrepperStorage.saveCurrentAsNewList(actor, spellcastingEntryId, currentSpells, "Missing spell test", "");
+        const listId = await PrepperStorage.saveCurrentAsNewLoadout(actor, spellcastingEntryId, currentSpells, "Missing spell test", "");
 
         const missingSpellId = currentSpells.levels[0].spells[0].id;
         actor.items.get = (id) => {
@@ -186,11 +186,11 @@ describe("_getCurrentSpellsDisplay on multi-spell-actor", () => {
             return preparedActor.items.find(i => i.id === id);
         };
 
-        const result = await PrepperStorage.loadSpellList(actor, spellcastingEntryId, listId);
+        const result = await PrepperStorage.loadSpellLoadout(actor, spellcastingEntryId, listId);
 
         expect(result).toBe(true);
         expect(global.ui.notifications.warn).toHaveBeenCalledTimes(1);
         expect(global.ui.notifications.warn.mock.calls[0][0]).toContain("Animate Rope");
-        expect(global.ui.notifications.warn.mock.calls[0][0]).toContain("PREPPER.spellList.loadWarning.reasonNotOnActor");
+        expect(global.ui.notifications.warn.mock.calls[0][0]).toContain("PREPPER.loadout.loadWarning.reasonNotOnActor");
     });
 });

@@ -6,10 +6,10 @@ describe("PrepperStorage", () => {
 
     beforeEach(() => {
         mockActor = {
-            flags: { "pf2e-prepper": { spellLists: {} } },
+            flags: { "pf2e-prepper": { loadouts: {} } },
             getFlag: vi.fn((module, key) => {
-                if (module === "pf2e-prepper" && key === "spellLists") {
-                    return mockActor.flags["pf2e-prepper"].spellLists || {};
+                if (module === "pf2e-prepper" && key === "loadouts") {
+                    return mockActor.flags["pf2e-prepper"].loadouts || {};
                 }
                 return null;
             }),
@@ -31,7 +31,7 @@ describe("PrepperStorage", () => {
         };
     });
 
-    it("should save a new spell list using saveCurrentAsNewList", async () => {
+    it("should save a new spell loadout using saveCurrentAsNewLoadout", async () => {
         const entryId = "QWWZSn4R4BCnDIQM";
         const currentSpells = {
             id: entryId,
@@ -39,7 +39,7 @@ describe("PrepperStorage", () => {
             levels: [{ level: 1, spells: [{ id: "tIonH8VxLUBgK5O2", name: "Alarm" }] }]
         };
 
-        const newListId = await PrepperStorage.saveCurrentAsNewList(
+        const newListId = await PrepperStorage.saveCurrentAsNewLoadout(
             mockActor,
             entryId,
             currentSpells,
@@ -50,7 +50,7 @@ describe("PrepperStorage", () => {
         expect(newListId).toBeDefined();
         expect(mockActor.setFlag).toHaveBeenCalledWith(
             "pf2e-prepper",
-            "spellLists",
+            "loadouts",
             expect.objectContaining({
                 [entryId]: expect.objectContaining({
                     [newListId]: expect.objectContaining({
@@ -62,7 +62,7 @@ describe("PrepperStorage", () => {
         );
     });
 
-    it("should store spells correctly in the saved spell list", async () => {
+    it("should store spells correctly in the saved spell loadout", async () => {
         const entryId = "QWWZSn4R4BCnDIQM";
         const currentSpells = {
             id: entryId,
@@ -82,7 +82,7 @@ describe("PrepperStorage", () => {
             ]
         };
 
-        const newListId = await PrepperStorage.saveCurrentAsNewList(
+        const newListId = await PrepperStorage.saveCurrentAsNewLoadout(
             mockActor,
             entryId,
             currentSpells,
@@ -90,7 +90,7 @@ describe("PrepperStorage", () => {
             "Testing spell storage"
         );
 
-        const savedLists = mockActor.flags["pf2e-prepper"].spellLists[entryId];
+        const savedLists = mockActor.flags["pf2e-prepper"].loadouts[entryId];
         const savedList = savedLists[newListId];
 
         expect(savedList).toBeDefined();
@@ -108,7 +108,7 @@ describe("PrepperStorage", () => {
         ]);
     });
 
-    it("should retrieve all spell lists using getSpellLists", () => {
+    it("should retrieve all spell loadouts using getSpellLoadouts", () => {
         mockActor.getFlag.mockReturnValueOnce({
             entryA: {
                 list1: { id: "list1", name: "List 1" },
@@ -116,25 +116,25 @@ describe("PrepperStorage", () => {
             }
         });
 
-        const spellLists = PrepperStorage.getSpellLists(mockActor, "entryA");
-        expect(spellLists).toEqual({
+        const loadouts = PrepperStorage.getSpellLoadouts(mockActor, "entryA");
+        expect(loadouts).toEqual({
             list1: { id: "list1", name: "List 1" },
             list2: { id: "list2", name: "List 2" },
         });
     });
 
-    it("should retrieve a specific spell list using getSpellList", () => {
+    it("should retrieve a specific spell loadout using getLoadout", () => {
         mockActor.getFlag.mockReturnValueOnce({
             entryA: {
                 list1: { id: "list1", name: "List 1" },
             }
         });
 
-        const spellList = PrepperStorage.getSpellList(mockActor, "entryA", "list1");
+        const spellList = PrepperStorage.getLoadout(mockActor, "entryA", "list1");
         expect(spellList).toEqual({ id: "list1", name: "List 1" });
     });
 
-    it("should delete a spell list successfully", async () => {
+    it("should delete a spell loadout successfully", async () => {
         // Setup: Create lists with known data
         const lists = {
             entryA: {
@@ -142,23 +142,23 @@ describe("PrepperStorage", () => {
                 list2: { id: "list2", name: "List 2" },
             }
         };
-        mockActor.flags["pf2e-prepper"].spellLists = lists;
+        mockActor.flags["pf2e-prepper"].loadouts = lists;
 
         // Delete list1
-        const success = await PrepperStorage.deleteSpellList(mockActor, "entryA", "list1");
+        const success = await PrepperStorage.deleteLoadout(mockActor, "entryA", "list1");
 
         // Verify deletion was successful
         expect(success).toBe(true);
 
         // Verify the list was removed from flags
-        const savedLists = mockActor.flags["pf2e-prepper"].spellLists.entryA;
+        const savedLists = mockActor.flags["pf2e-prepper"].loadouts.entryA;
         expect(savedLists).not.toHaveProperty("list1");
         expect(savedLists).toHaveProperty("list2");
 
         // Verify setFlag was called with updated lists
         expect(mockActor.setFlag).toHaveBeenCalledWith(
             "pf2e-prepper",
-            "spellLists",
+            "loadouts",
             expect.objectContaining({
                 entryA: expect.objectContaining({
                     list2: { id: "list2", name: "List 2" },
@@ -174,10 +174,10 @@ describe("PrepperStorage", () => {
                 list1: { id: "list1", name: "List 1" },
             }
         };
-        mockActor.flags["pf2e-prepper"].spellLists = lists;
+        mockActor.flags["pf2e-prepper"].loadouts = lists;
 
         // Try to delete a non-existent list
-        const success = await PrepperStorage.deleteSpellList(mockActor, "entryA", "nonexistent");
+        const success = await PrepperStorage.deleteLoadout(mockActor, "entryA", "nonexistent");
 
         // Verify it returned false
         expect(success).toBe(false);
@@ -186,19 +186,19 @@ describe("PrepperStorage", () => {
         expect(mockActor.setFlag).not.toHaveBeenCalled();
 
         // Verify lists remain unchanged
-        expect(mockActor.flags["pf2e-prepper"].spellLists).toEqual(lists);
+        expect(mockActor.flags["pf2e-prepper"].loadouts).toEqual(lists);
     });
 
-    it("should clear all spell lists for an actor", async () => {
-        mockActor.flags["pf2e-prepper"].spellLists = {
+    it("should clear all spell loadouts for an actor", async () => {
+        mockActor.flags["pf2e-prepper"].loadouts = {
             entryA: { list1: { id: "list1", name: "List 1" } },
             entryB: { list2: { id: "list2", name: "List 2" } },
         };
 
-        const success = await PrepperStorage.clearAllSpellLists(mockActor);
+        const success = await PrepperStorage.clearAllSpellLoadouts(mockActor);
 
         expect(success).toBe(true);
-        expect(mockActor.unsetFlag).toHaveBeenCalledWith("pf2e-prepper", "spellLists");
-        expect(mockActor.flags["pf2e-prepper"].spellLists).toBeUndefined;
+        expect(mockActor.unsetFlag).toHaveBeenCalledWith("pf2e-prepper", "loadouts");
+        expect(mockActor.flags["pf2e-prepper"].loadouts).toBeUndefined;
     });
 });

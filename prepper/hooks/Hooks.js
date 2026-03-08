@@ -5,7 +5,7 @@ import { info, error, popup } from "../utilities/Utilities.js";
 
 // Initialize the module when Foundry is ready
 Hooks.once('init', () => {
-    info('Initializing PF2e Multiple Spell Lists module');
+    info('Initializing PF2e Spell Loadouts module');
     
     // Register module settings
     game.settings.register(MODULE_ID, 'debugMode', {
@@ -34,7 +34,7 @@ Hooks.once('ready', () => {
     // Register the API
     game.modules.get(MODULE_ID).api = API;
     
-    info('PF2e Multiple Spell Lists module initialized');
+    info('PF2e Spell Loadouts module initialized');
 });
 
 // Add button to character sheet
@@ -57,7 +57,7 @@ Hooks.on('renderActorSheet', (app, html, _) => {
             }
 
             // Remove stale buttons before re-inserting
-            spellcastingTab.find('.pf2e-prepper-spell-lists-manager').remove();
+            spellcastingTab.find('.pf2e-prepper-spell-loadouts-manager').remove();
 
             const preparedEntries = spellcastingEntries.filter(entry => entry.system.prepared?.value === 'prepared');
             for (const entry of preparedEntries) {
@@ -73,14 +73,14 @@ Hooks.on('renderActorSheet', (app, html, _) => {
                 }
 
                 const buttonHtml = `
-                    <a class="pf2e-prepper-spell-lists-manager" data-entry-id="${entry.id}" data-tooltip="${game.i18n.localize('PREPPER.ManageSpellLists')}">
+                    <a class="pf2e-prepper-spell-loadouts-manager" data-entry-id="${entry.id}" data-tooltip="${game.i18n.localize('PREPPER.ManageSpellLoadouts')}">
                         <i class="fas fa-scroll"></i>
                     </a>
                 `;
                 controls.prepend(buttonHtml);
             }
 
-            spellcastingTab.find('.pf2e-prepper-spell-lists-manager').off('click').on('click', ev => {
+            spellcastingTab.find('.pf2e-prepper-spell-loadouts-manager').off('click').on('click', ev => {
                 ev.preventDefault();
                 const entryId = ev.currentTarget?.dataset?.entryId;
                 if (!entryId) return;
