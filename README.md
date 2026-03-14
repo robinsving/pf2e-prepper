@@ -12,6 +12,8 @@ Save, load, and manage multiple prepared spell loadouts per in Pathfinder 2e.
 ## Installation
 1. In Foundry, open **Add-on Modules**.
 2. Click **Install Module**.
+3. Search for PF2e Prepper
+    or
 3. Paste this manifest URL:
    - `https://github.com/robinsving/pf2e-prepper/releases/latest/download/module.json`
 4. Install and enable the module in your world.
