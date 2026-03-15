@@ -100,7 +100,7 @@ export default class PrepperApp extends HandlebarsApplicationMixin(ApplicationV2
         );
         if (!entry) return null;
 
-        info(`Processing spellcasting entry\nName: ${entry.name}\nID: ${entry.id}`);
+        debug(`Processing spellcasting entry\nName: ${entry.name}\nID: ${entry.id}`);
         const entryData = {
             id: entry.id,
             flexible: entry.system.prepared.flexible,
