@@ -134,6 +134,40 @@ describe("PrepperStorage", () => {
         expect(spellList).toEqual({ id: "list1", name: "List 1" });
     });
 
+    it("should return prepared spellcasting entries using getPreparedSpellcastingEntries", () => {
+        mockActor.flags["pf2e-prepper"].loadouts = {
+            entryB: {
+                loadout1: { id: "loadout1", name: "Loadout 1" }
+            }
+        };
+
+        mockActor.itemTypes = {
+            spellcastingEntry: [
+                {
+                    id: "entryA",
+                    name: "Prepared Entry",
+                    system: { prepared: { value: "prepared", flexible: false } }
+                },
+                {
+                    id: "entryB",
+                    name: "Flexible Entry",
+                    system: { prepared: { value: "prepared", flexible: true } }
+                },
+                {
+                    id: "entryC",
+                    name: "Spontaneous Entry",
+                    system: { prepared: { value: "spontaneous", flexible: false } }
+                }
+            ]
+        };
+
+        const entries = PrepperStorage.getPreparedSpellcastingEntries(mockActor);
+        expect(entries).toEqual([
+            { id: "entryA", name: "Prepared Entry", flexible: false, hasLoadouts: false },
+            { id: "entryB", name: "Flexible Entry", flexible: true, hasLoadouts: true },
+        ]);
+    });
+
     it("should delete a spell loadout successfully", async () => {
         // Setup: Create lists with known data
         const lists = {

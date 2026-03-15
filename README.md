@@ -12,9 +12,9 @@ Save, load, and manage multiple prepared spell loadouts per in Pathfinder 2e.
 ## Installation
 1. In Foundry, open **Add-on Modules**.
 2. Click **Install Module**.
-3. Search for PF2e Prepper
-    or
-3. Paste this manifest URL:
+3. Search for PF2e Prepper  
+    or  
+Paste this manifest URL:
    - `https://github.com/robinsving/pf2e-prepper/releases/latest/download/module.json`
 4. Install and enable the module in your world.
 
@@ -56,6 +56,28 @@ Use **Clear All** at the bottom of the left tab rail to remove all saved loadout
 - Test suite: `npm test`
 - Main storage logic: `prepper/PrepperStorage.js`
 - Main app/UI logic: `prepper/PrepperApp.js`
+
+## Integration with the Prepper API
+For module developers looking to integrate. All API calls require an `Actor` instance (not an ID).
+
+Fetch all prepared spellcasting entries on an actor:
+```js
+const prepper = game.modules.get("pf2e-prepper")?.api;
+const entries = prepper.getPreparedSpellcastingEntries(actor);
+// [{ id, name, flexible, hasLoadouts }]
+```
+
+Fetch loadouts for a specific spellcasting entry:
+```js
+const loadoutsById = prepper.getSpellLoadouts(actor, spellcastingEntryId);
+// { [loadoutId]: loadout }
+```
+
+Load a selected loadout onto the actor:
+```js
+const success = await prepper.loadSpellLoadout(actor, spellcastingEntryId, loadoutId);
+```
+
 
 ## Support
 - Issues: https://github.com/robinsving/pf2e-prepper/issues
