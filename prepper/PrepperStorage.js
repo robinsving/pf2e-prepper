@@ -46,6 +46,24 @@ export default class PrepperStorage {
   }
 
   /**
+   * Get all prepared spellcasting entries for an actor.
+   * @param {Actor} actor - The actor to get prepared spellcasting entries for
+   * @returns {Array<{id: string, name: string, flexible: boolean, hasLoadouts: boolean}>}
+   */
+  static getPreparedSpellcastingEntries(actor) {
+    const entries = actor?.itemTypes?.spellcastingEntry || [];
+    const allLoadouts = this._getAllLoadouts(actor);
+    return entries
+      .filter(entry => entry?.system?.prepared?.value === "prepared")
+      .map(entry => ({
+        id: entry.id,
+        name: entry.name,
+        flexible: entry.system.prepared?.flexible === true,
+        hasLoadouts: Object.keys(allLoadouts?.[entry.id] || {}).length > 0
+      }));
+  }
+
+  /**
    * Get all entry-grouped spell loadouts for an actor.
    * @param {Actor} actor
    * @returns {Object}
