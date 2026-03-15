@@ -1,21 +1,15 @@
 import { API } from '../prepper.js';
 import { id as MODULE_ID } from '../../module.json';
 import PrepperApp from "../PrepperApp.js";
-import { info, error, popup } from "../utilities/Utilities.js";
+import { info, error, popup, settings, registerSettings } from "../utilities/Utilities.js";
+import { registerDailiesIntegration } from "./DailiesIntegration.js";
 
 // Initialize the module when Foundry is ready
 Hooks.once('init', () => {
     info('Initializing PF2e Spell Loadouts module');
     
     // Register module settings
-    game.settings.register(MODULE_ID, 'debugMode', {
-        name: 'Debug Mode',
-        hint: 'Enable debug logging for this module',
-        scope: 'client',
-        config: true,
-        type: Boolean,
-        default: false
-    });
+    registerSettings(settings.debug);
     
     // Register Handlebars helper for date formatting
     Handlebars.registerHelper('formatDate', function(timestamp) {
@@ -34,6 +28,9 @@ Hooks.once('ready', () => {
     // Register the API
     game.modules.get(MODULE_ID).api = API;
     
+    // Register PF2e Dailies integration (custom daily)
+    registerDailiesIntegration();
+
     info('PF2e Spell Loadouts module initialized');
 });
 

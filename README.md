@@ -78,6 +78,20 @@ Load a selected loadout onto the actor:
 const success = await prepper.loadSpellLoadout(actor, spellcastingEntryId, loadoutId);
 ```
 
+## Integration with other modules
+
+### PF2e Dailies
+PF2e Prepper can register a custom daily to load spell loadouts from the Dailies form.
+
+Setup:
+1. Install and enable the PF2e Dailies module.
+2. In **Module Settings**, enable `Enable PF2e Dailies Integration`.
+3. Reload Foundry
+
+Behavior:
+- One row per prepared spellcasting entry with _at least_ one saved loadout.
+- **Keep current** is always the default (the row is not saved between days).
+- Selecting a loadout applies it when the daily runs.
 
 ## Support
 - Issues: https://github.com/robinsving/pf2e-prepper/issues

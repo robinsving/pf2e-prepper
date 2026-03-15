@@ -18,6 +18,7 @@
         "prepper/entry-control.js"
     ],
     "styles": [
+        "styles/dailies.css",
         "styles/prepper.css"
     ],
     "languages": [

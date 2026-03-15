@@ -1,8 +1,15 @@
 import { MODULE_ID, MODULE_TITLE } from "../prepper";
-export { debug, error, info, popup, settings, getSettings };
+export { debug, error, info, popup, settings, getSettings, registerSettings };
 
 const settings = {
     debug: { id: "debugMode", name: "Enable Debugging", hint: "Print debug to console log" },
+    dailiesIntegration: {
+        id: "enableDailiesIntegration",
+        name: "Enable PF2e Dailies Integration",
+        hint: "Register this module as a custom daily in PF2e Dailies.",
+        scope: "world",
+        requiresReload: true
+    },
 
     flagNames: {
         loadouts: 'loadouts',
@@ -11,6 +18,18 @@ const settings = {
 
 function getSettings(setting) {
     return game.settings.get(MODULE_ID, setting);
+}
+
+function registerSettings(setting) {
+    game.settings.register(MODULE_ID, setting.id, {
+        name: setting.name,
+        hint: setting.hint,
+        scope: setting.scope || "client",
+        config: setting.config || true,
+        type: setting.type || Boolean,
+        default: setting.type || false,
+        requiresReload: setting.requiresReload || false,
+    });
 }
 
 function popup(message, type = "info") {
