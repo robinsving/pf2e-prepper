@@ -71,8 +71,13 @@ function updateChangelog(version, fromTag) {
   }
 
   const lines = existing.split("\n");
-  if (lines[0] === "# Changelog") {
-    const rest = lines.slice(1).join("\n").replace(/^\n+/, "");
+  const stripBom = (line) => line.replace(/^\uFEFF/, "");
+  const firstNonEmptyIndex = lines.findIndex(
+    (line) => stripBom(line).trim().length > 0,
+  );
+  const firstLine = firstNonEmptyIndex === -1 ? "" : stripBom(lines[firstNonEmptyIndex]);
+  if (/^#\s*Changelog\b/i.test(firstLine)) {
+    const rest = lines.slice(firstNonEmptyIndex + 1).join("\n").replace(/^\n+/, "");
     writeFileSync(
       "CHANGELOG.md",
       `# Changelog\n\n${releaseSection}${rest}`.trimEnd() + "\n",
