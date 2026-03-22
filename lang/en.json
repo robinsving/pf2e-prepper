@@ -1,6 +1,7 @@
 {
   "PREPPER": {
     "ManageSpellLoadouts": "Manage Prepared Spell Loadouts with PF2e Prepper",
+    "QuickLoad": "Quick load a Loadout from PF2e Prepper",
     "popup": {
       "save": "Save",
       "load": "Load to Actor",
@@ -25,6 +26,8 @@
       "createdDate": "Created",
       "unknownSpell": "Unknown Spell",
       "loadWarning": {
+        "noLoadouts": "No saved loadouts for {name}.",
+        "entryNotFound": "Spellcasting entry not found for selected Actor.",
         "missingSpellsHeading": "Some spells were not added:",
         "reasonBadSpell": "spell error in saved loadout. Please remove the spell.",
         "reasonNotOnActor": "spell no longer exists on this actor.",

@@ -185,7 +185,7 @@
 }
 
 /* Character Sheet Anchor */
-.pf2e-prepper-spell-loadouts-manager i {
+.pf2e-prepper-spell-loadouts-manager i,.pf2e-prepper-quick-load i {
   color: var(--color-pf-tertiary-dark);
   margin-right: 1px;
 }

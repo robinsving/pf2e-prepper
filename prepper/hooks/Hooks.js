@@ -1,8 +1,8 @@
 import { API } from '../prepper.js';
 import { id as MODULE_ID } from '../../module.json';
-import PrepperApp from "../PrepperApp.js";
-import { info, error, popup, settings, registerSettings } from "../utilities/Utilities.js";
+import { info, error, popup, settings, registerSettings, getSettings } from "../utilities/Utilities.js";
 import { registerDailiesIntegration } from "./DailiesIntegration.js";
+import { bindActorSheetHandlers } from "./Handlers.js";
 
 // Initialize the module when Foundry is ready
 Hooks.once('init', () => {
@@ -10,6 +10,7 @@ Hooks.once('init', () => {
     
     // Register module settings
     registerSettings(settings.debug);
+    registerSettings(settings.quickLoadVisible);
     
     // Register Handlebars helper for date formatting
     Handlebars.registerHelper('formatDate', function(timestamp) {
@@ -55,6 +56,7 @@ Hooks.on('renderActorSheet', (app, html, _) => {
 
             // Remove stale buttons before re-inserting
             spellcastingTab.find('.pf2e-prepper-spell-loadouts-manager').remove();
+            spellcastingTab.find('.pf2e-prepper-quick-load').remove();
 
             const preparedEntries = spellcastingEntries.filter(entry => entry.system.prepared?.value === 'prepared');
             for (const entry of preparedEntries) {
@@ -69,7 +71,17 @@ Hooks.on('renderActorSheet', (app, html, _) => {
                     controls = row;
                 }
 
+                const showQuickLoad = getSettings(settings.quickLoadVisible);
+                const quickLoadHtml = showQuickLoad
+                    ? `
+                        <a class="pf2e-prepper-quick-load" data-entry-id="${entry.id}" data-entry-name="${entry.name}" data-tooltip="${game.i18n.localize('PREPPER.QuickLoad')}">
+                            <i class="fas fa-bolt"></i>
+                        </a>
+                    `
+                    : "";
+
                 const buttonHtml = `
+                    ${quickLoadHtml}
                     <a class="pf2e-prepper-spell-loadouts-manager" data-entry-id="${entry.id}" data-tooltip="${game.i18n.localize('PREPPER.ManageSpellLoadouts')}">
                         <i class="fas fa-scroll"></i>
                     </a>
@@ -77,12 +89,7 @@ Hooks.on('renderActorSheet', (app, html, _) => {
                 controls.prepend(buttonHtml);
             }
 
-            spellcastingTab.find('.pf2e-prepper-spell-loadouts-manager').off('click').on('click', ev => {
-                ev.preventDefault();
-                const entryId = ev.currentTarget?.dataset?.entryId;
-                if (!entryId) return;
-                new PrepperApp(app.actor, { spellcastingEntryId: entryId }).render(true);
-            });
+            bindActorSheetHandlers(spellcastingTab, app.actor);
         } catch (e) {
             error('Error adding button to character sheet', e);
         }

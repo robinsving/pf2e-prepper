@@ -3,6 +3,7 @@ export { debug, error, info, popup, settings, getSettings, registerSettings };
 
 const settings = {
     debug: { id: "debugMode", name: "Enable Debugging", hint: "Print debug to console log" },
+
     dailiesIntegration: {
         id: "enableDailiesIntegration",
         name: "Enable PF2e Dailies Integration",
@@ -11,13 +12,20 @@ const settings = {
         requiresReload: true
     },
 
+    quickLoadVisible: {
+        id: "showQuickLoadButton",
+        name: "Show Quick Load Button",
+        hint: "Show the lightning-bolt quick-load button on prepared spellcasting entries.",
+        scope: "client"
+    },
+
     flagNames: {
         loadouts: 'loadouts',
     }
 }
 
 function getSettings(setting) {
-    return game.settings.get(MODULE_ID, setting);
+    return game.settings.get(MODULE_ID, setting.id);
 }
 
 function registerSettings(setting) {
@@ -54,7 +62,7 @@ function popup(message, type = "info") {
 }
 
 function debug(message) {
-    if (getSettings(settings.debug.id))
+    if (getSettings(settings.debug))
         console.debug(`${MODULE_TITLE}: ${message}`);
 }
 

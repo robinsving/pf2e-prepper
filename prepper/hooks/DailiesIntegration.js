@@ -1,5 +1,4 @@
 import { API } from "../prepper.js";
-import { MODULE_ID } from "../prepper.js";
 import { getSettings, settings, registerSettings } from "../utilities/Utilities.js";
 
 export function registerDailiesIntegration() {
@@ -10,7 +9,7 @@ export function registerDailiesIntegration() {
     registerSettings(settings.dailiesIntegration);
 
     // Check if we want to register to dailies
-    if (!getSettings(settings.dailiesIntegration.id)) return;
+    if (!getSettings(settings.dailiesIntegration)) return;
 
     const noChange = "__none__";
 
