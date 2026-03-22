@@ -43,6 +43,11 @@ Use **Clear All** at the bottom of the left tab rail to remove all saved loadout
 
 ![Spell List View](assets/spellentryview.webp)
 
+### Load a Loadout
+There are three ways to load a Loadout. The first one being the above "Load to Actor".  
+Besides that there is a setting to add a bilt-icon (⚡) to the spellcasting entry, in order to quick load.  
+Finally, you can add a macro by following the instructions [here](docs/quick-load-macro.md)
+
 ## Notes
 - Loadouts are stored in actor flags under this module.
 - Loading a loadout replaces current prepared slots/signatures for that spellcasting entry.
