@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.2.0 (2026-03-22)
+
+- docs: add quick load macro information (d4e5006)
+- feat: adding quick load icon and api reference (c2e243c)
+- fix: allow text selection in application (60b1722)
+
 ## v1.1.0 (2026-03-15)
 
 - fix: move spammy info messages to debug (35ef752)
