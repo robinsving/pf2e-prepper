@@ -1,6 +1,8 @@
+import { vi } from 'vitest'
+import '@testing-library/jest-dom/vitest'
 
 // Mock the global game object
-global.game = {
+const game = globalThis.game = {
     settings: {
         get: vi.fn((_, setting) => {
             if (setting === "showStatusIcons") return true; // Enable status icons
@@ -18,13 +20,13 @@ global.game = {
 };
 
 // Mock the Hooks object
-global.Hooks = {
+const Hooks = globalThis.Hooks = {
     on: vi.fn(),
     once: vi.fn(),
 };
 
 // Mock the foundry object
-global.foundry = {
+const foundry = globalThis.foundry = {
     utils: {
         randomID: vi.fn(() => `id_${Math.random().toString(36).substring(2, 9)}`), // Generate a random ID
     },
@@ -57,3 +59,5 @@ global.foundry = {
         }
     }
 };
+
+export { game, Hooks, foundry }
