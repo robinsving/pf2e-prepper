@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.2.1 (2026-07-08)
+
+- chore: vite version bumps (69165f5)
+- fix: verified version 14 (7caea71)
+
 ## v1.2.0 (2026-03-22)
 
 - docs: add quick load macro information (d4e5006)
