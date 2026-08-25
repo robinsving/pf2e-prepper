@@ -1,5 +1,9 @@
 # Changelog
 
+## v2.0.0 (2026-08-25)
+
+- feat!: add support for cantrips in spell loadouts (da09ab8)
+
 ## v1.2.1 (2026-07-08)
 
 - chore: vite version bumps (69165f5)
