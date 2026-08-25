@@ -82,6 +82,22 @@
   color: var(--color-pf-alternate);
 }
 
+.pf2e-prepper .prepper-outdated-loadout-badge {
+  display: inline-block;
+  margin-top: 4px;
+  padding: 0;
+  border: none;
+  background: none;
+  font: inherit;
+  font-weight: bold;
+  color: #b45309;
+  cursor: pointer;
+}
+
+.pf2e-prepper .prepper-outdated-loadout-badge:hover {
+  text-decoration: underline;
+}
+
 .pf2e-prepper .prepper-loadout-description {
   padding-top: 10px;
   border-bottom: 1px solid var(--color-pf-primary);

@@ -1,8 +1,9 @@
 import { API } from '../prepper.js';
 import { id as MODULE_ID } from '../../module.json';
-import { info, error, popup, settings, registerSettings, getSettings } from "../utilities/Utilities.js";
+import { info, error, popup, settings, registerSettings, registerSettingsMenu, getSettings } from "../utilities/Utilities.js";
 import { registerDailiesIntegration } from "./DailiesIntegration.js";
 import { bindActorSheetHandlers } from "./Handlers.js";
+import LoadoutFormatInfoDialog from "../LoadoutFormatInfoApp.js";
 
 // Initialize the module when Foundry is ready
 Hooks.once('init', () => {
@@ -11,6 +12,7 @@ Hooks.once('init', () => {
     // Register module settings
     registerSettings(settings.debug);
     registerSettings(settings.quickLoadVisible);
+    registerSettingsMenu(settings.loadoutFormatInfo, LoadoutFormatInfoDialog);
     
     // Register Handlebars helper for date formatting
     Handlebars.registerHelper('formatDate', function(timestamp) {

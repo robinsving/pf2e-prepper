@@ -12,7 +12,8 @@
       "descriptionPrompt": "Enter a description (optional):",
       "deleteConfirm": "Are you sure you want to delete this Loadout?",
       "loadConfirm": "Loading this loadout will replace your currently prepared spells. Continue?",
-      "resetConfirm": "Resetting will replace your loadout with the current actor's prepared spells. Continue?"
+      "resetConfirm": "Resetting will replace your loadout with the current actor's prepared spells. Continue?",
+      "outdatedLoadoutWarning": "This loadout was saved with an older version of PF2e Prepper and may work differently from when it was created. Re-saving after loading will update it to the current format."
     },
     "loadout": {
       "saveSuccess": "Loadout saved successfully.",
@@ -23,8 +24,10 @@
       "currentPreparation": "Current Preparation",
       "availableLoadouts": "Available loadouts",
       "spellRank": "Spell Rank",
+      "cantrips": "Cantrips",
       "createdDate": "Created",
       "unknownSpell": "Unknown Spell",
+      "outdatedLoadoutBadge": "Outdated format",
       "loadWarning": {
         "noLoadouts": "No saved loadouts for {name}.",
         "entryNotFound": "Spellcasting entry not found for selected Actor.",
@@ -47,6 +50,23 @@
       "reset": "Set to Current",
       "reload": "Refresh",
       "clearAll": "Clear All"
+    },
+    "formatInfo": {
+      "title": "Loadout Format Changes",
+      "close": "Close",
+      "1": {
+        "heading": "Loadout format v1",
+        "bullets": [
+          "Initial format"
+        ]
+      },
+      "2": {
+        "heading": "Loadout format v2",
+        "bullets": [
+          "Added cantrip handling",
+          "Loading from this format will replace the actor's current cantrips with blank cantrips"
+        ]
+      }
     }
   }
 }

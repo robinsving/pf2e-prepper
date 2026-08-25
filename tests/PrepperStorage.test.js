@@ -235,4 +235,24 @@ describe("PrepperStorage", () => {
         expect(mockActor.unsetFlag).toHaveBeenCalledWith("pf2e-prepper", "loadouts");
         expect(mockActor.flags["pf2e-prepper"].loadouts).toBeUndefined;
     });
+
+    describe("isLoadoutOutdated", () => {
+        it("returns true for a loadout with no formatVersion at all", () => {
+            expect(PrepperStorage.isLoadoutOutdated({ id: "x", name: "Legacy" })).toBe(true);
+        });
+
+        it("returns true for a loadout saved under an older format version", () => {
+            expect(PrepperStorage.isLoadoutOutdated({ formatVersion: 1 })).toBe(true);
+        });
+
+        it("returns false for a loadout saved under the current format version", async () => {
+            const entryId = "some-entry";
+            const loadoutId = await PrepperStorage.saveCurrentAsNewLoadout(
+                mockActor, entryId, { levels: [] }, "Current loadout"
+            );
+            const loadout = PrepperStorage.getLoadout(mockActor, entryId, loadoutId);
+
+            expect(PrepperStorage.isLoadoutOutdated(loadout)).toBe(false);
+        });
+    });
 });

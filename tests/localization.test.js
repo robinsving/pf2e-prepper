@@ -135,6 +135,9 @@ describe('Localization key coverage', () => {
             for (const key of allKeys) {
                 // Consider referenced if found by localize helper, JS i18n usage, or generic substring search
                 if (templateKeys.has(key) || jsI18nKeys.has(key) || fileContainsKey(key)) continue
+                // PREPPER.formatInfo.<version> entries are discovered dynamically at runtime,
+                // so they can never show up via the checks above.
+                if (/^PREPPER\.formatInfo\.\d+\./.test(key)) continue
                 unused.push(key)
             }
             if (unused.length) {

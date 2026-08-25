@@ -1,5 +1,6 @@
 import { MODULE_ID, MODULE_TITLE, API } from "./prepper";
 import { debug, info, popup } from "./utilities/Utilities";
+import LoadoutFormatInfoDialog from "./LoadoutFormatInfoApp.js";
 
 const { ApplicationV2, HandlebarsApplicationMixin, DialogV2 } = foundry.applications.api
 const { renderTemplate } = foundry.applications.handlebars;
@@ -27,6 +28,9 @@ export default class PrepperApp extends HandlebarsApplicationMixin(ApplicationV2
             reset: PrepperApp._onReset,
 
             clearAll: PrepperApp._onClearAllFlags,
+
+            // Show loadout format changelog
+            showFormatInfo: PrepperApp._onShowFormatInfo,
         },
 
         position: {
@@ -78,6 +82,7 @@ export default class PrepperApp extends HandlebarsApplicationMixin(ApplicationV2
         // Process each loadout to add displayEntries for the template
         for (const loadout of sortedLoadouts) {
             loadout.displayEntry = this._getLoadoutDisplay(loadout);
+            loadout.isOutdated = storage.isLoadoutOutdated(loadout);
         }
 
         return {
@@ -123,7 +128,8 @@ export default class PrepperApp extends HandlebarsApplicationMixin(ApplicationV2
         debug(`Slots for entry ${entry.name}:`, slots);
         
         // For each spell level, get the prepared spells
-        for (let level = 1; level <= 10; level++) {
+        // PF2e stores prepared cantrips in slot0.
+        for (let level = 0; level <= 10; level++) {
             const slotKey = `slot${level}`;
             if (!slots[slotKey]) {
                 debug(`No slot data for level ${level} in entry ${entry.name}.`);
@@ -171,17 +177,36 @@ export default class PrepperApp extends HandlebarsApplicationMixin(ApplicationV2
     }
     
     _getCurrentSpellsDisplayFlexible(entryData, entry) {
+        // Flexible Spellcaster does not use signatures for cantrips: they remain
+        // prepared in slot0 like those of a standard prepared caster.
+        const spellsByLevel = {};
+        const cantripSlots = entry.system.slots?.slot0?.prepared || [];
+        for (const preparedCantrip of cantripSlots) {
+            if (!preparedCantrip.id) continue;
+
+            const cantrip = this.actor.items.find(spell => spell.id === preparedCantrip.id);
+            if (!cantrip) continue;
+
+            spellsByLevel[0] = spellsByLevel[0] || [];
+            spellsByLevel[0].push({
+                id: cantrip.id,
+                name: cantrip.name,
+            });
+        }
+
         // Get all spells associated with this entry via "location"
         const spells = this.actor.items.filter(spell => 
-            spell.type === 'spell' && spell.system.location?.value === entry.id && spell.system.location?.signature === true
+            spell.type === 'spell'
+            && spell.system.level?.value !== 0
+            && spell.system.location?.value === entry.id
+            && spell.system.location?.signature === true
         );
         
         debug(`Found ${spells.length} spells for entry ${entry.name}.`);
         
         // Group spells by level
-        const spellsByLevel = {};
         for (const spell of spells) {
-            const level = spell.system.level.value || 0;
+            const level = spell.system.level.value;
             if (!spellsByLevel[level]) {
                 spellsByLevel[level] = [];
             }
@@ -381,26 +406,44 @@ export default class PrepperApp extends HandlebarsApplicationMixin(ApplicationV2
         
         const loadoutId = target.dataset.loadoutId;
         if (!loadoutId) return;
-        
+
+        const storage = API.PrepperStorage;
+        const loadout = storage.getLoadout(this.actor, this.spellcastingEntryId, loadoutId);
+
+        // Warn if this loadout was saved under an older data format as loading it may not fully restore what was prepared
+        let content = game.i18n.localize('PREPPER.popup.loadConfirm');
+        if (storage.isLoadoutOutdated(loadout)) {
+            content += `<p><strong>${game.i18n.localize('PREPPER.popup.outdatedLoadoutWarning')}</strong></p>`;
+        }
+
         // Confirm before loading
         const confirm = await DialogV2.confirm({
             window: { title: game.i18n.localize('PREPPER.loadoutButton.load') },
-            content: game.i18n.localize('PREPPER.popup.loadConfirm'),
+            content,
             defaultYes: false,
             rejectClose: false
         });
-        
+
         if (!confirm) return;
-        
+
         // Load the selected loadout
-        const storage = API.PrepperStorage;
         const success = await storage.loadSpellLoadout(this.actor, this.spellcastingEntryId, loadoutId);
         
         if (success) {
             popup(game.i18n.localize('PREPPER.loadout.loadSuccess'));
         }
     }
-    
+
+    /**
+    * Show the loadout-format changelog
+    * @param {Event} event - The triggering event
+    * @private
+    */
+    static _onShowFormatInfo(event) {
+        event.preventDefault();
+        new LoadoutFormatInfoDialog().render();
+    }
+
     /**
     * Handle reloading the current preparation display
     * @param {Event} event - The triggering event

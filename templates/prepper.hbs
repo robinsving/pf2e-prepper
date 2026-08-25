@@ -34,7 +34,13 @@
             <h4>{{spellcastingEntry.name}}</h4>
             {{#each spellcastingEntry.levels as |level|}}
               <div class="prepper-spell-level">
-                <h5>{{localize "PREPPER.loadout.spellRank"}} {{level.level}}</h5>
+                <h5>
+                  {{#if (eq level.level 0)}}
+                    {{localize "PREPPER.loadout.cantrips"}}
+                  {{else}}
+                    {{localize "PREPPER.loadout.spellRank"}} {{level.level}}
+                  {{/if}}
+                </h5>
                 <ul class="prepper-loadout">
                   {{#each level.spells as |spell|}}
                     <li class="prepper-spell-item">
@@ -63,6 +69,12 @@
                   {{localize "PREPPER.loadout.createdDate"}}: {{formatDate loadout.created}}
                 {{/if}}
               </span>
+              {{#if loadout.isOutdated}}
+                <br>
+                <button type="button" class="prepper-outdated-loadout-badge" data-action="showFormatInfo" title="{{localize 'PREPPER.popup.outdatedLoadoutWarning'}}">
+                  <i class="fas fa-triangle-exclamation"></i> {{localize "PREPPER.loadout.outdatedLoadoutBadge"}}
+                </button>
+              {{/if}}
             </div>
           </div>
 
@@ -78,7 +90,13 @@
                 <h4>{{loadout.displayEntry.name}}</h4>
                 {{#each loadout.displayEntry.levels as |level|}}
                   <div class="prepper-spell-level">
-                    <h5>{{localize "PREPPER.loadout.spellRank"}} {{level.level}}</h5>
+                    <h5>
+                      {{#if (eq level.level 0)}}
+                        {{localize "PREPPER.loadout.cantrips"}}
+                      {{else}}
+                        {{localize "PREPPER.loadout.spellRank"}} {{level.level}}
+                      {{/if}}
+                    </h5>
                     <ul class="prepper-loadout">
                       {{#each level.spells as |spell|}}
                         <li class="prepper-spell-item">

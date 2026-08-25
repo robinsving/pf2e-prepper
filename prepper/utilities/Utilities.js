@@ -1,5 +1,5 @@
 import { MODULE_ID, MODULE_TITLE } from "../prepper";
-export { debug, error, info, popup, settings, getSettings, registerSettings };
+export { debug, error, info, popup, settings, getSettings, registerSettings, registerSettingsMenu };
 
 const settings = {
     debug: { id: "debugMode", name: "Enable Debugging", hint: "Print debug to console log" },
@@ -17,6 +17,14 @@ const settings = {
         name: "Show Quick Load Button",
         hint: "Show the lightning-bolt quick-load button on prepared spellcasting entries.",
         scope: "client"
+    },
+
+    loadoutFormatInfo: {
+        id: "loadoutFormatInfo",
+        name: "Loadout Format Changes",
+        label: "View Format Changes",
+        hint: "View changes to the saved spell-loadout format and how to update older loadouts.",
+        icon: "fa-solid fa-circle-info"
     },
 
     flagNames: {
@@ -37,6 +45,17 @@ function registerSettings(setting) {
         type: setting.type || Boolean,
         default: setting.type || false,
         requiresReload: setting.requiresReload || false,
+    });
+}
+
+function registerSettingsMenu(setting, type = setting.type) {
+    game.settings.registerMenu(MODULE_ID, setting.id, {
+        name: setting.name,
+        label: setting.label || setting.name,
+        hint: setting.hint,
+        icon: setting.icon || "fa-solid fa-cog",
+        type,
+        restricted: setting.restricted || false,
     });
 }
 
